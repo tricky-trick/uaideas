@@ -1,0 +1,200 @@
+*:focus {
+    outline: none;
+}
+
+#login-form, #reg-form{
+    position: absolute;
+    height: 55%;
+    z-index: 1;
+    background: #ffffff;
+    border-radius: 5px;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -ms-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    padding: 2px;
+}
+
+#login-form:hover{
+    opacity: 1;
+}
+
+#login-form{
+    width: 40%;
+    top: 25%;
+    left: 30%;
+    opacity: 0.8;
+}
+
+#reg-form{
+    width: 20%;
+    top: 25%;
+    left: 50%;
+    opacity: 0;
+}
+
+.login-block{
+    display: inline-block;
+    height: auto;
+    width: 49.5%;
+    margin-bottom: 0%;
+    align-content: stretch;
+    margin-top: 20px;
+}
+
+#login-block-left{
+    float: left;
+}
+#login-block-right{
+    float: right;
+}
+
+.login-text-header{
+    display:inline-block;
+    align-self: center;
+    width: 100%;
+    text-align: center;
+    color: darkslategray;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+.login-label-input, .login-label-link-pwd, .login-label-error{
+    color: darkslategray;
+    font-size: inherit;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: lighter;
+}
+
+.login-label-link-pwd{
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+#login-form-email,
+#login-form-password,
+#login-form-submit,
+#login-form-reg,
+#reg-form-email,
+#reg-form-name,
+#reg-form-password,
+#reg-form-repeat-password,
+#reg-form-submit,
+#reg-form-cancel,
+#login-facebook,
+#login-google,
+#login-vkontakte{
+    width: 70%;
+    height:30px;
+    font: 16px Verdana,Helvetica;
+    border-radius: 5px;
+    text-align: center;
+}
+
+#reg-form-email,
+#reg-form-name,
+#reg-form-password,
+#reg-form-repeat-password{
+    margin-left: 5%;
+    width: 90%;
+}
+
+
+#login-form-submit, #login-form-reg, #reg-form-submit, #reg-form-cancel{
+    background: darkslategray;
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    padding: 2px;
+    width: 72%;
+    height:40px;
+}
+
+#login-form-submit:hover, #login-form-reg:hover, #reg-form-submit:hover, #reg-form-cancel:hover{
+    cursor: pointer;
+}
+
+#login-form-reg{
+   background: steelblue;
+}
+
+#login-form-submit:active{
+    background: darkcyan;
+}
+
+#login-form-reg:active{
+    background: cadetblue;
+}
+
+#reg-form-submit{
+    margin-left: 5%;
+    float: left;
+    width: 40%;
+    background: seagreen;
+}
+
+#reg-form-submit:active{
+    background: mediumspringgreen;
+}
+
+#reg-form-cancel{
+    width: 40%;
+    float: right;
+    margin-right: 4%;
+    background: lightcoral;
+}
+
+#reg-form-cancel:active{
+    background: coral;
+}
+
+.login-label-error{
+    width: 100%;
+    display: none;
+    color: red;
+    text-align: center;
+    align-self: center;
+}
+
+#login-facebook, #login-google, #login-vkontakte{
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    padding: 2px;
+    width: 72%;
+    height:40px;
+    margin-left: 5%;
+ }
+
+
+#login-facebook:hover, #login-google:hover, #login-vkontakte:hover{
+    cursor: pointer;
+}
+
+#login-facebook{
+    background-color: rgb(58,87,153);
+}
+
+#login-facebook:active{
+    background-color: rgb(58,107,153);
+}
+
+#login-google{
+    background-color: rgb(224,76,64);
+}
+
+#login-google:active{
+    background-color: rgb(224,106,64);
+}
+
+#login-vkontakte{
+    background-color: rgb(76,117,163);
+}
+
+#login-vkontakte:active{
+    background-color: rgb(76,137,163);
+}
+
+
+
+
+
