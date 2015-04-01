@@ -12,10 +12,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" type="text/css" href="css/background.css" />
     <link rel="stylesheet" type="text/css" href="css/loginpage.css" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
     <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />-->
     <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />-->
     <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
     <script type="text/javascript" src="js/loginpage.js"></script>
     <script type="text/javascript" src="js/loginpageajax.js"></script>
     <script type="text/javascript" src="js/facebook.js"></script>
@@ -130,6 +132,9 @@
     </div>
     <div id="footer">
 
+    </div>
+    <div id="dialog">
+        <p></p>
     </div>
 </body>
 </html>

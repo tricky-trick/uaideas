@@ -1,5 +1,20 @@
 <?php
 //Loop through each file
+
+function compress($source, $destination, $quality) {
+
+    $info = getimagesize($source);
+
+    if ($info['mime'] == 'image/jpeg' || $info['mime'] == 'image/jpg')
+        $image = imagecreatefromjpeg($source);
+
+    elseif ($info['mime'] == 'image/png')
+        $image = imagecreatefrompng($source);
+
+    return imagejpeg($image, $destination, $quality);
+}
+
+
 $uploaded_files;
 //var_dump($_FILES['file']['name']);
 for($i=0; $i<count($_FILES['file']['name']); $i++) {
@@ -15,7 +30,7 @@ for($i=0; $i<count($_FILES['file']['name']); $i++) {
             //var_dump($newFilePath);
 
             //Upload the file into the temp dir
-            if (move_uploaded_file($tmpFilePath, $newFilePath)) {
+            if (compress($tmpFilePath, $newFilePath, 50)) {
                 $uploaded_files .= $fileName . " ";
             }
         }

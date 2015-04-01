@@ -12,7 +12,6 @@ if (!isset($_COOKIE['USER_IN'])) {
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/mainbackground.css" />
     <link rel="stylesheet" type="text/css" href="css/main.css" />
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
     <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
@@ -127,9 +126,11 @@ if (!isset($_COOKIE['USER_IN'])) {
             <div id="ideas-description-layer" contenteditable="false">
                 <textarea maxlength="5000" readonly></textarea>
             </div>
+            <div id="idea-photo-area">
+            </div>
             <br>
             <br>
-            <div id="idea-show-map" coord="">Показати на карті</div>
+            <div id="idea-show-map" coord="">Показати на мапі</div>
             <div id="map-idea" style="width: 100%; height: 0px;">
                 <div id="map-canvas-idea" style="width: 100%; height: 100%;">
                 </div>
@@ -179,11 +180,11 @@ if (!isset($_COOKIE['USER_IN'])) {
             <div id="new-idea-subject-layer">Нова ідея</div>
             <br>
             <br>
-            <div id="editable-subject-area"><input type="text" maxlength="100" value="Назва ідеї..."></div>
+            <div id="editable-subject-area"><input type="text" maxlength="100" value="Назва ідеї... (мінімум 20 символів)"></div>
             <br>
             <br>
             <div id="editable-body-area">
-                <textarea maxlength="5000">Введіть опис ідеї...</textarea>
+                <textarea maxlength="5000">Введіть опис ідеї... (мінімум 50 символів)</textarea>
             </div>
             <br>
             <br>
@@ -218,8 +219,47 @@ if (!isset($_COOKIE['USER_IN'])) {
             </div>
             <br>
             <span id="add-new-idea">Додати ідею</span>
-            <img src="img/done-icon.png" id="done-icon"/>
+            <img id="spinner-icon" src="img/spinner.gif" style="display: none;"/>
+            <img id="done-icon" src="img/done-icon.png"/>
             <span id="cancel-new-idea">Скасувати</span>
+        </div>
+    </div>
+    <div id="layer-wrapper-edit-profile">
+        <span class="close-layer">Закрити</span>
+        <br>
+        <br>
+        <div style="overflow-y: auto; overflow-x: hidden; height: 100%; width: 100%">
+            <br>
+            <br>
+            <br>
+            <span class="edit-profile-label">Ім'я користувача</span>
+            <br>
+            <input class="edit-profile-input" id="user-name" value="" maxlength="50"/>
+            <br>
+            <br>
+            <br>
+            <span class="edit-profile-label">Поточний пароль</span>
+            <br>
+            <input class="edit-profile-input" id="user-password" type="password" value="" maxlength="20"/>
+            <br>
+            <br>
+            <br>
+            <span class="edit-profile-label">Новий пароль</span>
+            <br>
+            <input class="edit-profile-input" id="user-new-password" type="password" value="" maxlength="20"/>
+            <br>
+            <br>
+            <br>
+            <span class="edit-profile-label">Новий пароль ще раз</span>
+            <br>
+            <input class="edit-profile-input" id="user-new-password-repeat" type="password" value="" maxlength="20"/>
+            <br>
+            <br>
+            <br>
+            <span id="submit-change-profile">Підтвердити</span>
+            <br>
+            <br>
+            <span id="edit-profile-error"></span>
         </div>
     </div>
     <div id="add-new-idea-button">+</div>
@@ -231,7 +271,7 @@ if (!isset($_COOKIE['USER_IN'])) {
         <span id="edit-profile">Редагувати профіль</span>
     </div>
     <div id="dialog">
-        <p>Ви справді бажаєте видалити цю ідею?</p>
+        <p></p>
     </div>
 </body>
 </html>

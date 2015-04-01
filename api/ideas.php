@@ -114,6 +114,7 @@ if(isset($_COOKIE['USER_IN'])) {
             $rating = $row['rating'];
             $date = $row['date'];
             $is_implemented = $row['is_implemented'];
+            $files = $row['files'];
 
             $date_array = date_parse($date);
 
@@ -128,6 +129,7 @@ if(isset($_COOKIE['USER_IN'])) {
                 'is_implemented' => $is_implemented,
                 'date' => $date_array['day'] . ' ' . $month_array[$date_array['month']] . ' ' . $date_array['year'],
                 'subject' => $subject,
+                'files' => $files,
                 'description' => $description,
                 'responsible' => $responsible
             );

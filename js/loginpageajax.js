@@ -266,4 +266,61 @@ $(document).ready(function() {
             }
         });
     });
+
+    $(".login-label-link-pwd").click(function(){
+        $("#dialog>p").text("Якщо Ви натиснете ОК, то Ваш старий пароль буде видалено " +
+        "і новий пароль буде відправлено Вам на пошту. Виконати?");
+        $( "#dialog" ).dialog({
+            dialogClass: "no-close",
+            buttons: [
+                {
+                    text: "OK",
+                    click: function () {
+                        var mail = $("#login-form-email").val();
+                        if (mail.trim() == ""){
+                            $("#dialog>p").text("Введіть Вашу електронну адресу в поле \"Поштова скринька\" та натисніть ОК");
+                        }
+                        else{
+                            var password = "";
+                            var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                            for( var i=0; i < 8; i++ )
+                                password += possible.charAt(Math.floor(Math.random() * possible.length));
+
+                            var updateData = "mail=" + mail.trim() + "&liked_ideas=no" + "&password=" + password;
+
+                            var updatePassword = $.ajax({
+                                type: "PUT",
+                                url: "api/users.php",
+                                data: updateData,
+                                async:false,
+                                dataType: 'json',
+                                status: 200,
+                                statusText: "OK",
+                                cache: false
+                            });
+
+                            updatePassword.done(function(datas){
+                                var is_updated = datas['is_updated'];
+                                if(is_updated == "true"){
+                                    $( "#dialog" ).dialog( "close" );
+                                    $("#login-label-error").css("display", "inline");
+                                    $("#login-label-error").css("color", "green");
+                                    $("#login-label-error").text("Новий пароль відправлено на вказану поштову скриньку");
+                                }
+                            });
+                        }
+                    }
+                },
+                {
+                    text: "Скасувати",
+                    click: function () {
+                        $("#dialog>p").text("");
+                        $( this ).dialog( "close" );
+                    }
+                }
+            ]
+        });
+
+    });
 });

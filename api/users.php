@@ -84,6 +84,7 @@ if(isset($_COOKIE['USER_IN']) || isset($_COOKIE['USER_OFF'])) {
         $responsible_ideas = $_PUT['responsible_ideas'];
         $liked_ideas = $_PUT['liked_ideas'];
         $confirm = $_PUT['confirm'];
+        $password = $_PUT['password'];
 
         $condition = "";
 
@@ -97,6 +98,8 @@ if(isset($_COOKIE['USER_IN']) || isset($_COOKIE['USER_OFF'])) {
             $condition .= " liked_ideas='" . $liked_ideas . "'";
         if ($confirm != 0)
             $condition .= " is_confirmed=" . $confirm;
+        if ($password != "")
+            $condition .= " password='" . hash("sha256", $password) . "'";
 
         if($email != "")
         {
@@ -121,9 +124,15 @@ if(isset($_COOKIE['USER_IN']) || isset($_COOKIE['USER_OFF'])) {
             "is_updated" => $is_updated
         );
 
+        if($password != ""){
+
+            $subject = "Відновлення паролю";
+        }
+
         $json = json_encode($data);
 
         echo $json;
 
     }
+
 }

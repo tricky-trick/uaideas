@@ -251,7 +251,7 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     overflow-y: scroll;
 }
 
-#layer-wrapper, #layer-wrapper-new-idea{
+#layer-wrapper, #layer-wrapper-new-idea, #layer-wrapper-edit-profile{
     position: fixed;
     z-index: 500;
     background: #ffffff;
@@ -429,7 +429,7 @@ textarea{
 }
 
 
-#add-comments, #add-new-idea{
+#add-comments, #add-new-idea, #submit-change-profile{
     width: auto;
     height: auto;
     background: cornflowerblue;
@@ -438,6 +438,10 @@ textarea{
     padding: 5px 15px;
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     margin-bottom: 10px;
+}
+
+#submit-change-profile{
+    margin-left: 15%;
 }
 
 #done-icon{
@@ -451,7 +455,7 @@ textarea{
     margin-left: 20px;
 }
 
-#add-comments:hover, #add-new-idea:hover{
+#add-comments:hover, #add-new-idea:hover, #submit-change-profile:hover{
     background: steelblue;
     cursor: pointer;
 }
@@ -572,4 +576,46 @@ textarea{
 #my-ideas:hover, #edit-profile:hover{
     cursor: pointer;
     text-decoration: underline;
+}
+
+#idea-photo-area{
+    width: 100%;
+    height: auto;
+    user-select: none;
+    overflow-x: scroll;
+}
+
+
+#idea-photo-area img{
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    opacity: 0.5;
+    margin:-10px;
+
+}
+#idea-photo-area img:hover{
+    cursor: pointer;
+    opacity: 1;
+    margin: 10px;
+}
+
+.edit-profile-input{
+    width: 70%;
+    margin-left: 15%;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 3px;
+    border: solid 1px lightgray;
+}
+
+.edit-profile-label, #edit-profile-error{
+    font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
+    width: 70%;
+    margin-left: 15%;
+}
+
+#edit-profile-error{
+    color: red;
 }

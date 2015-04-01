@@ -224,11 +224,13 @@ $(document).ready(function() {
     var layerBg = $("#layer-bg");
     var layerWrapper = $("#layer-wrapper");
     var layerWrapperNewIdea = $("#layer-wrapper-new-idea");
+    var layerWrapperEditProfile = $("#layer-wrapper-edit-profile");
     var ideasSubject = $("#ideas-subject-layer");
     var ideasDescription = $("#ideas-description-layer>textarea");
     var ideasDate = $("#date-layer");
     var ideasLike = $("#like-layer");
     var ideasAuthor = $("#author-layer");
+    var ideasPhotos = $("#idea-photo-area");
     var likeIcon = $("#like-icon-layer");
     var editIcon = $("#edit-icon-layer");
     var removeIcon = $("#remove-icon-layer");
@@ -259,6 +261,15 @@ $(document).ready(function() {
             ideasDescription.val(idea['description'].replace(/\(AND\)/g,"&"));
             ideasDate.text("від " + idea['date']);
             ideasLike.text("Підтримало  " + idea['rating'] + " людей");
+            var photos = idea['files'];
+            ideasPhotos.empty();
+            if (photos.length > 0) {
+                {
+                    for (var i = 0; i < photos.split(' ').length; i++) {
+                        ideasPhotos.append("<img height=100 src='uploaded_images/" + photos.split(' ')[i] + "'>");
+                    }
+                }
+            }
             coordGet = idea['coord'];
 
 
@@ -354,14 +365,22 @@ $(document).ready(function() {
     }
 
     showMapIdea.click(function(){
-        $("#map-idea").css("height", "400px");
-        initialize(coordGet, 15, 'map-canvas-idea');
-        var myLatlng = new google.maps.LatLng(parseFloat(coordGet.split(',')[0]), parseFloat(coordGet.split(',')[1]));
-        marker = new google.maps.Marker({
-            position: myLatlng,
-            map: map,
-            animation: google.maps.Animation.DROP});
-        marker.setMap(map);
+        if(showMapIdea.text() == "Показати на мапі") {
+            $("#map-idea").css("height", "400px");
+            showMapIdea.text("Сховати мапу");
+            initialize(coordGet, 15, 'map-canvas-idea');
+            var myLatlng = new google.maps.LatLng(parseFloat(coordGet.split(',')[0]), parseFloat(coordGet.split(',')[1]));
+            marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                animation: google.maps.Animation.DROP
+            });
+            marker.setMap(map);
+        }
+        else{
+            $("#map-idea").css("height", "0px");
+            showMapIdea.text("Показати на мапі");
+        }
     });
 
     function getLastComment(ideaIndex){
@@ -409,6 +428,7 @@ $(document).ready(function() {
 
     $(document).on("click","#list-ideas-content li", function () {
         index = $(this).attr('index');
+        $("body").css("overflow-y", "hidden");
         layerBg.css("display", "block");
         layerWrapper.css("display", "block");
         profilePopup.css("display", "none");
@@ -424,6 +444,31 @@ $(document).ready(function() {
 
     });
 
+    $(document).on("click","#idea-photo-area img", function () {
+        $("#idea-photo-area img").each(function(){
+            $(this).css( {
+                width:"auto",
+                height: "100",
+                opacity: 0.5
+            });
+        });
+
+        $(this).css( {
+            width:"100%",
+            height: "auto",
+            opacity: 1
+        });
+    });
+
+    $(document).on("dblclick","#idea-photo-area img", function () {
+        $("#idea-photo-area img").each(function () {
+            $(this).css({
+                width: "auto",
+                height: "100",
+                opacity: 0.5
+            });
+        });
+    });
 
     /*
     Close layer window
@@ -433,8 +478,10 @@ $(document).ready(function() {
         layerBg.css("display", "none");
         layerWrapper.css("display", "none");
         layerWrapperNewIdea.css("display", "none");
+        layerWrapperEditProfile.css("display", "none");
         $("#map").css("height", "0px");
         $("#map-idea").css("height", "0px");
+        $("body").css("overflow-y", "auto");
 
     }
 
@@ -669,6 +716,7 @@ $(document).ready(function() {
         if (is_confirmed && !is_banned) {
             layerBg.css("display", "block");
             layerWrapperNewIdea.css("display", "block");
+            $("body").css("overflow-y", "hidden");
         }
         else{
             if(!is_confirmed){
@@ -683,6 +731,8 @@ $(document).ready(function() {
 
     });
 
+
+
     var newIdeaSubject = $("#editable-subject-area>input");
     var newIdeaBody = $("#editable-body-area>textarea");
     var newIdeaRegion = $("#new-idea-region-select");
@@ -695,14 +745,14 @@ $(document).ready(function() {
     var coord = "";
 
     newIdeaSubject.click(function(){
-        if(newIdeaSubject.val() == "Назва ідеї...") {
+        if(newIdeaSubject.val() == "Назва ідеї... (мінімум 20 символів)") {
             newIdeaSubject.val("");
             newIdeaSubject.css("color", "black");
         }
     });
 
     newIdeaBody.click(function(){
-        if(newIdeaBody.val() == "Введіть опис ідеї...") {
+        if(newIdeaBody.val() == "Введіть опис ідеї... (мінімум 50 символів)") {
             newIdeaBody.val("");
             newIdeaBody.css("min-height", "100px");
             newIdeaBody.css("color", "black");
@@ -732,9 +782,8 @@ $(document).ready(function() {
     });
 
     newIdeaCancel.click(function(){;
-        newIdeaSubject.val("Назва ідеї...");
-        newIdeaBody.val("Введіть опис ідеї...");
-        newIdeaUploadFile.val("Завантажити фото");
+        newIdeaSubject.val("Назва ідеї... (мінімум 20 символів)");
+        newIdeaBody.val("Введіть опис ідеї... (мінімум 50 символів)");
         newIdeaBody.css("min-height", "90px");
         newIdeaBody.css("color", "grey");
         newIdeaSubject.css("color", "grey");
@@ -742,13 +791,14 @@ $(document).ready(function() {
     });
 
     newIdeaAddButton.click(function(){
+        $("#spinner-icon").css("display", "inline-block");
         var regionId = newIdeaRegion.find(":selected").index();
         var categoryId = newIdeaCategory.find(":selected").index();
         var cityName = newIdeaCity.val();
         var dataGetCityId = "region_id=" + regionId + "&city_name=" + cityName;
 
         if (is_confirmed && !is_banned) {
-            if (newIdeaSubject.val().trim() == "" || newIdeaSubject.val().trim() == "Назва ідеї..." || newIdeaBody.val().trim() == "" || newIdeaBody.val().trim() == "Введіть опис ідеї...") {
+            if (newIdeaSubject.val().trim() == "" || newIdeaSubject.val().trim() == "Назва ідеї... (мінімум 20 символів)" || newIdeaBody.val().trim() == "" || newIdeaBody.val().trim() == "Введіть опис ідеї... (мінімум 50 символів)") {
                 showPopUp("Введіть назву та опис ідеї.", $(this));
                 dismissPopUp();
             }
@@ -776,8 +826,8 @@ $(document).ready(function() {
 
                         var newIdeaUploadFile = document.getElementById('new-idea-image-upload');
 
-                        if(newIdeaUploadFile.files.length > 5){
-                            showPopUp("Ви можете додати не більше 5 зображень", newIdeaAddButton);
+                        if(newIdeaUploadFile.files.length > 10){
+                            showPopUp("Ви можете додати не більше 10 зображень", newIdeaAddButton);
                             dismissPopUp();
                         }
                         else {
@@ -837,12 +887,13 @@ $(document).ready(function() {
                                         postIdea.done(function (datas) {
                                             var isCreated = datas['is_created'];
                                             if (isCreated == "true") {
-                                                newIdeaSubject.val("Назва ідеї...");
-                                                newIdeaBody.val("Введіть опис ідеї...");
+                                                newIdeaSubject.val("Назва ідеї... (мінімум 20 символів)");
+                                                newIdeaBody.val("Введіть опис ідеї... (мінімум 50 символів)");
                                                 $("new-idea-image-upload").val("Завантажити фото");
                                                 newIdeaBody.css("min-height", "60px");
                                                 newIdeaBody.css("color", "grey");
                                                 newIdeaSubject.css("color", "grey");
+                                                $("#spinner-icon").css("display", "none");
                                                 $("#done-icon").css("opacity", "1");
                                                 setTimeout(function () {
                                                     $("#done-icon").css("opacity", "0");
@@ -874,12 +925,13 @@ $(document).ready(function() {
                                             postIdea.done(function (datas) {
                                                 var isCreated = datas['is_created'];
                                                 if (isCreated == "true") {
-                                                    newIdeaSubject.val("Назва ідеї...");
-                                                    newIdeaBody.val("Введіть опис ідеї...");
+                                                    newIdeaSubject.val("Назва ідеї... (мінімум 20 символів)");
+                                                    newIdeaBody.val("Введіть опис ідеї... (мінімум 50 символів)");
                                                     $("new-idea-image-upload").val("Завантажити фото");
                                                     newIdeaBody.css("min-height", "60px");
                                                     newIdeaBody.css("color", "grey");
                                                     newIdeaSubject.css("color", "grey");
+                                                    $("#spinner-icon").css("display", "none");
                                                     $("#done-icon").css("opacity", "1");
                                                     setTimeout(function () {
                                                         $("#done-icon").css("opacity", "0");
@@ -935,6 +987,15 @@ $(document).ready(function() {
         limitIndex.attr("index", "0");
         getUser("", mail);
         searchIdeas(0, user_id, "user_id=" + user_id + "&sort_by=0&limit=" + limitIndex.attr("index") + "," + limitCount);
+        setTimeout(function(){
+            profilePopup.css("display", "none");
+        },200);
+    });
+
+    $("#edit-profile").click(function(){
+        layerBg.css("display", "block");
+        layerWrapperEditProfile.css("display", "block");
+        $("body").css("overflow-y", "hidden");
         setTimeout(function(){
             profilePopup.css("display", "none");
         },200);
@@ -1068,7 +1129,7 @@ $(document).ready(function() {
             }
 
             if (isCreated == true) {
-
+                $("#dialog>p").text("Ви справді бажаєте видалити цю ідею?");
                 $( "#dialog" ).dialog({
                     dialogClass: "no-close",
                     buttons: [
@@ -1094,11 +1155,37 @@ $(document).ready(function() {
                                     }
                                 });
                                 $( this ).dialog( "close" );
+                                $("#dialog>p").text("");
                             }
                         }
                     ]
                 });
             }
         });
+    });
+
+    var editProfileUserName = $("#user-name");
+    var editProfileUserPassword = $("#user-password");
+    var editProfileUserNewPassword = $("#user-new-password");
+    var editProfileUserRepeatPassword = $("#user-new-password-repeat");
+    var editProfileError = $("#edit-profile-error");
+
+    $("#submit-change-profile").click(function(){
+        if (editProfileUserName.val().trim() == "" && editProfileUserPassword.val().trim() == "" && editProfileUserNewPassword.val().trim() == "" && editProfileUserRepeatPassword.val().trim() == ""){
+            editProfileError.css("display", "block");
+            editProfileError.text("Усі поля є пусті");
+        }
+        else{
+            editProfileError.css("display", "none");
+            if (editProfileUserPassword.val().trim() == ""){
+                editProfileError.css("display", "block");
+                editProfileError.text("Введіть поточний пароль для будь-яких змін");
+            }
+            else{
+                editProfileError.css("display", "none");
+            }
+        }
+
+
     });
 });

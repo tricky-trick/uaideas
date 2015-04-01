@@ -6,3 +6,5 @@ api/config.php
 ua_cities.sql
 
 *.iml
+
+uploaded_images/*
