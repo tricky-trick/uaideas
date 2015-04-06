@@ -58,7 +58,7 @@ function loginCallback(result){
             resget.done(function (datas) {
                 var count = datas['count'];
                 if(count == "0"){
-                    data = "email=" + mail + "&name=" +name + "&password=temp";
+                    data = "email=" + mail + "&name=" +name + "&password=temp&mail=no";
                     var respost = $.ajax({
                         type: "POST",
                         url: "api/users.php",

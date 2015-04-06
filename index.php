@@ -10,28 +10,53 @@
     <meta charset="UTF-8">
     <title>Збудуй майбутнє сам!</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <link rel="stylesheet" type="text/css" href="css/background.css" />
-    <link rel="stylesheet" type="text/css" href="css/loginpage.css" />
+<!--    <link rel="stylesheet" type="text/css" href="css/background.css" />-->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+    <script src="js/modernizr.js"></script> <!-- Modernizr -->
+    <script>
+        var height = window.innerHeight;
+        var width = window.innerWidth;
+        if(width < height){
+            link=document.createElement('link');
+            link.href='css/mloginpage.css';
+            link.rel='stylesheet';
+        }
+        else{
+            link=document.createElement('link');
+            link.href='css/loginpage.css';
+            link.rel='stylesheet';
+        }
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+
     <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />-->
     <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />-->
-    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
+<!--    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
     <script type="text/javascript" src="js/loginpage.js"></script>
     <script type="text/javascript" src="js/loginpageajax.js"></script>
     <script type="text/javascript" src="js/facebook.js"></script>
     <script type="text/javascript" src="js/googleplus.js"></script>
-    <script type="text/javascript" src="//vk.com/js/api/openapi.js"></script>
-    <script type="text/javascript">
-        VK.init({
-            apiId: 4827044
-        });
-    </script>
+<!--    <script type="text/javascript" src="//vk.com/js/api/openapi.js"></script>-->
+<!--    <script type="text/javascript">-->
+<!--        VK.init({-->
+<!--            apiId: 4827044-->
+<!--        });-->
+<!--    </script>-->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>-->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>-->
 </head>
-<body>
+<body style="overflow: hidden;">
+<div class="cd-background-wrapper">
+    <figure class="cd-floating-background">
+        <img src="img/sunflower_field.jpg" alt="image-1">
+        <img src="img/sunflowers.png" alt="image-2">
+        <img src="img/sunflower_2.png" alt="image-3">
+    </figure>
+</div>
 <div id="fb-root"></div>
     <div id="header">
 
@@ -81,7 +106,7 @@
                 <input id="login-google" type="button" value="G+   Увійти з Google">
                 <br>
                 <br>
-                <input id="login-vkontakte" type="button" value="vk   Увійти з Vkontakte">
+<!--                <input id="login-vkontakte" type="button" value="vk   Увійти з Vkontakte">-->
             </div>
             <div id="login-block-right" class="login-block">
                 <span class="login-label-input">Поштова скринька</span>
@@ -104,37 +129,18 @@
                 <br>
                 <br>
                 <input id="login-form-rules-checkbox" type="checkbox">
-                <span id="reg-rules" class="login-label-input" style="text-decoration: underline; cursor: pointer;">Згідний з правилами</span>
+                <a id="reg-rules" class="login-label-input" style="text-decoration: underline; cursor: pointer;" href="terms.php" target="_blank">Згідний з правилами</a>
             </div>
         </div>
 
-        <ul class="cb-slideshow">
-            <li>
-                <span>Image 01</span>
-                <!--<div><h3>Свідомість</h3></div>-->
-            </li>
-            <li>
-                <span>Image 02</span>
-            </li>
-            <li>
-                <span>Image 03</span>
-            </li>
-            <li>
-                <span>Image 04</span>
-            </li>
-            <li>
-                <span>Image 05</span>
-            </li>
-            <li>
-                <span>Image 06</span>
-            </li>
-        </ul>
     </div>
     <div id="footer">
+        <img src="img/logo.png" id="logo">
 
     </div>
     <div id="dialog">
         <p></p>
     </div>
+<script src="js/main.js"></script> <!-- Resource jQuery -->
 </body>
 </html>

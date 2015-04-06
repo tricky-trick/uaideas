@@ -84,7 +84,19 @@ $(document).ready(function() {
     $("#region-select").change(function(){
         var cityName = $("#search-city");
         cityName.val("");
-        });
+    });
+
+    $("#top-panel-menu td img").click(function(){
+        getUser("", mail);
+        if(!is_confirmed){
+            showPopUp("Ви не активували свій аккаунт. Будь ласка, перейдіть на свою електронну скирньку та клікніть на відповідне посилання у листі про реєстрацію", $(this));
+            dismissPopUp();
+        }
+        else if(is_banned){
+            showPopUp("Даний користувач є заблокований через зволікання правилами ланого ресурсу", $(this));
+            dismissPopUp();
+        }
+    });
 
     /*
     Logout
@@ -152,7 +164,7 @@ $(document).ready(function() {
                 if (datas['count'] == 0) {
                     $("#load-another-content").attr("disabled", "true");
                     $("#no-ideas-text").remove();
-                    $("#ideas-content").append("<br><br><div id='no-ideas-text' style='width: 90%; margin-left: 5%; text-align: center; font-family:  tahoma, arial, verdana, sans-serif, \"Lucida Sans\";'>Більше не знайдено жодної ідеї чи проблеми.<div>");
+                    $("#ideas-content").append("<br><div id='no-ideas-text' style='width: 90%; margin-left: 5%; margin-top: 20px; text-align: center; font-family:  tahoma, arial, verdana, sans-serif, \"Lucida Sans\";'>Більше не знайдено жодної ідеї чи проблеми.<div>");
                 }
                 else {
                     $("#load-another-content").removeAttr("disabled");
@@ -161,18 +173,23 @@ $(document).ready(function() {
                         content.append(
                             "<li index=\"" + ideas[i]['id'] +"\">" +
                                 "<div class=\"left-side-block\">" +
-                                "<div class=\"image-ideas-item\">" +
+                                "<div class=\"image-ideas-item-" + ideas[i]['category'] + " image-ideas-item\">" +
                                 "</div>" +
-                                "<span class=\"info-ideas-item\"><img src=\"img/like1.png\" class=\"like-icon\"> <span class=\"info-ideas-item-like\">" + ideas[i]['rating'] + "</span><br><br> <span style=\"color: darkgrey; font-size: 12px\">від " + ideas[i]['date'] + "</span></span>" +
+                                "<br>" +
+                                "<span class=\"info-ideas-item\">" +
+                                    "<img src=\"img/like1.png\" class=\"like-icon\"> " +
+                                    "<span class=\"info-ideas-item-like\">" + ideas[i]['rating'] + "</span>" +
+                                    "<br><br><span style=\"color: darkgrey; font-size: 12px\">від " + ideas[i]['date'] + "</span>" +
+                                "</span>" +
                                 "<span class=\"id-ideas-item\"></span>" +
                                 "</div>" +
                                 "<div class=\"right-side-block\">" +
                                 "<span class=\"subject-ideas-item\"><br>" +
-                                ideas[i]['subject'].substring(0,30) +
+                                ideas[i]['subject'] +
                                 "</span>" +
                                 "<br> <br>" +
                                 "<span class=\"description-ideas-item\">" +
-                                ideas[i]['description'].replace(/\(AND\)/g,"&").substring(0,40) +
+                                ideas[i]['description'].replace(/\(AND\)/g,"&").substring(0,100) +
                                 "...</span> </div> " +
                             "</li>");
                     }
@@ -266,7 +283,7 @@ $(document).ready(function() {
             if (photos.length > 0) {
                 {
                     for (var i = 0; i < photos.split(' ').length; i++) {
-                        ideasPhotos.append("<img height=100 src='uploaded_images/" + photos.split(' ')[i] + "'>");
+                        ideasPhotos.append("<div style= \"background-image: url('uploaded_images/" + photos.split(' ')[i] + "')\"></div>");
                     }
                 }
             }
@@ -442,32 +459,17 @@ $(document).ready(function() {
 
         ideasDescription.attr('rows',breaks + 3);
 
+        //var styleBigPhoto = $("#idea-big-photo-area").attr("style");
+        //if(styleBigPhoto == undefined)
+        //    $("#idea-big-photo-area").css("height", "0px");
+
     });
 
-    $(document).on("click","#idea-photo-area img", function () {
-        $("#idea-photo-area img").each(function(){
-            $(this).css( {
-                width:"auto",
-                height: "100",
-                opacity: 0.5
-            });
-        });
-
-        $(this).css( {
-            width:"100%",
-            height: "auto",
-            opacity: 1
-        });
-    });
-
-    $(document).on("dblclick","#idea-photo-area img", function () {
-        $("#idea-photo-area img").each(function () {
-            $(this).css({
-                width: "auto",
-                height: "100",
-                opacity: 0.5
-            });
-        });
+    $(document).on("click","#idea-photo-area div", function () {
+        var srcImg = $(this).css("background-image");
+        srcImg = srcImg.replace("url(", "").replace(")", "");
+        $("#idea-big-photo-area").empty();
+        $("#idea-big-photo-area").append("<img src=" + srcImg + " style='width: 100%; height auto' />");
     });
 
     /*
@@ -482,7 +484,8 @@ $(document).ready(function() {
         $("#map").css("height", "0px");
         $("#map-idea").css("height", "0px");
         $("body").css("overflow-y", "auto");
-
+        $("#idea-big-photo-area").empty();
+        showMapIdea.text("Показати на мапі");
     }
 
     $(".close-layer").click(function(){
@@ -573,7 +576,7 @@ $(document).ready(function() {
     function dismissPopUp(){
         setTimeout(function(){
             $("#popup").fadeOut(300);
-        }, 2000);
+        }, 3000);
     }
 
 
@@ -791,7 +794,6 @@ $(document).ready(function() {
     });
 
     newIdeaAddButton.click(function(){
-        $("#spinner-icon").css("display", "inline-block");
         var regionId = newIdeaRegion.find(":selected").index();
         var categoryId = newIdeaCategory.find(":selected").index();
         var cityName = newIdeaCity.val();
@@ -823,7 +825,7 @@ $(document).ready(function() {
                         if (cityId == null) {
                             cityId = 0;
                         }
-
+                        $("#spinner-icon").css("display", "inline-block");
                         var newIdeaUploadFile = document.getElementById('new-idea-image-upload');
 
                         if(newIdeaUploadFile.files.length > 10){
@@ -1171,18 +1173,84 @@ $(document).ready(function() {
     var editProfileError = $("#edit-profile-error");
 
     $("#submit-change-profile").click(function(){
-        if (editProfileUserName.val().trim() == "" && editProfileUserPassword.val().trim() == "" && editProfileUserNewPassword.val().trim() == "" && editProfileUserRepeatPassword.val().trim() == ""){
-            editProfileError.css("display", "block");
+        editProfileError.css("color", "red");
+        if (editProfileUserName.val().trim() == ""
+            && editProfileUserPassword.val().trim() == ""
+            && editProfileUserNewPassword.val().trim() == ""
+            && editProfileUserRepeatPassword.val().trim() == ""){
             editProfileError.text("Усі поля є пусті");
+            editProfileError.css("display", "block");
         }
         else{
             editProfileError.css("display", "none");
             if (editProfileUserPassword.val().trim() == ""){
-                editProfileError.css("display", "block");
                 editProfileError.text("Введіть поточний пароль для будь-яких змін");
+                editProfileError.css("display", "block");
             }
             else{
                 editProfileError.css("display", "none");
+                if (editProfileUserNewPassword.val().trim() != editProfileUserRepeatPassword.val().trim()) {
+                    editProfileError.text("Паролі не співпадають");
+                    editProfileError.css("display", "block");
+                }
+                else {
+                    editProfileError.css("display", "none");
+                    if(editProfileUserNewPassword.val().trim() != ""
+                        && editProfileUserRepeatPassword.val().trim() != ""
+                        && editProfileUserNewPassword.val().length < 6){
+                        editProfileError.text("Довжина паролю не повинна бути меншою 6-ти симвлоів");
+                        editProfileError.css("display", "block");
+                    }
+                    else {
+                        var data = "email=" + mail + "&password=" + editProfileUserPassword.val().trim();
+                        var respost = $.ajax({
+                            type: "POST",
+                            url: "api/login.php",
+                            data: data,
+                            dataType: 'json',
+                            status: 200,
+                            statusText: "OK",
+                            cache: false
+                        });
+                        respost.done(function (datas) {
+                            var isLoggedin = datas['is_logged_in'];
+                            if (isLoggedin == "true"){
+                                var updateData = "mail=" + mail + "&name=" + editProfileUserName.val().trim() + "&liked_ideas=no" + "&password=" + editProfileUserNewPassword.val().trim();
+
+                                var updateData = $.ajax({
+                                    type: "PUT",
+                                    url: "api/users.php",
+                                    data: updateData,
+                                    async:false,
+                                    dataType: 'json',
+                                    status: 200,
+                                    statusText: "OK",
+                                    cache: false
+                                });
+
+                                updateData.done(function(datas){
+                                    var is_updated = datas['is_updated'];
+                                    if(is_updated == "true") {
+                                        editProfileError.css("color", "green");
+                                        editProfileError.text("Дані успішно змінені");
+                                        editProfileError.css("display", "block");
+                                        editProfileUserName.val("");
+                                        editProfileUserPassword.val("");
+                                        editProfileUserNewPassword.val("");
+                                        editProfileUserRepeatPassword.val("");
+                                        setTimeout(function(){
+                                            closeLayerWindow();
+                                        }, 1000);
+                                    }
+                                });
+                            }
+                            else{
+                                editProfileError.text("Поточний пароль є невірним");
+                                editProfileError.css("display", "block");
+                            }
+                        });
+                    }
+                }
             }
         }
 

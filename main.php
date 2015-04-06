@@ -11,12 +11,28 @@ if (!isset($_COOKIE['USER_IN'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/mainbackground.css" />
-    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <script>
+        var height = window.innerHeight;
+        var width = window.innerWidth;
+        if(width < height){
+            link=document.createElement('link');
+            link.href='css/mmain.css';
+            link.rel='stylesheet';
+        }
+        else{
+            link=document.createElement('link');
+            link.href='css/main.css';
+            link.rel='stylesheet';
+        }
+        document.getElementsByTagName('head')[0].appendChild(link);
+    </script>
+    <link rel="stylesheet" type="text/css" href="css/categories.css" />
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
     <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>
     <script type="text/javascript" src="js/mainpageactions.js"></script>
     <script type="text/javascript" src="js/mainpageloaddata.js"></script>
+    <script type="text/javascript" src="js/facebook.js"></script>
     <script type="application/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMP96Hq8T2oMbVZV2PYOvPxE9FZEyyU7k"></script>
 
     <script type="text/javascript">
@@ -33,11 +49,17 @@ if (!isset($_COOKIE['USER_IN'])) {
                 mapOptions);
         }
     </script>
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
+    <script type="text/javascript">
+        VK.init({apiId: 4827044, onlyWidgets: true});
+    </script>
 </head>
 <body>
+<div id="fb-root"></div>
     <div id="main-content">
 
         <div id="top-side-panel">
+            <img src="img/logo.png" style="margin-left: 10%; width: auto; height: 100%; border-radius: 5px; border: 1px solid black">
             <table id="top-panel-menu">
                 <tbody>
                 <tr>
@@ -46,6 +68,9 @@ if (!isset($_COOKIE['USER_IN'])) {
                     </td>
                     <td>
                         <span id="profile-link" class="top-panel-menu-items">Мій профіль</span>
+                    </td>
+                    <td>
+                        <a id="help-link" class="top-panel-menu-items" href="terms.php" target="_blank" style="text-decoration: none">Допомога</a>
                     </td>
                     <td>
                         <span id="logout-link" class="top-panel-menu-items">Вийти</span>
@@ -65,7 +90,7 @@ if (!isset($_COOKIE['USER_IN'])) {
                         </select>
                     </td>
                     <td width="22%">
-                        <input type="text" id="search-city" value="" autocomplete="on" onkeypress="validateName(event, 'search-city', 'region-select')" placeholder="Введіть назву міста" style="height: 22px;">
+                        <input type="text" id="search-city" value="" autocomplete="on" onkeypress="validateName(event, 'search-city', 'region-select')" placeholder="Введіть назву міста" style="height: 20px;">
                     </td>
                     <td width="22%">
                         <select id="category-select">
@@ -128,8 +153,9 @@ if (!isset($_COOKIE['USER_IN'])) {
             </div>
             <div id="idea-photo-area">
             </div>
-            <br>
-            <br>
+            <div id="idea-big-photo-area">
+            </div>
+
             <div id="idea-show-map" coord="">Показати на мапі</div>
             <div id="map-idea" style="width: 100%; height: 0px;">
                 <div id="map-canvas-idea" style="width: 100%; height: 100%;">
@@ -238,7 +264,7 @@ if (!isset($_COOKIE['USER_IN'])) {
             <br>
             <br>
             <br>
-            <span class="edit-profile-label">Поточний пароль</span>
+            <span class="edit-profile-label">Поточний пароль *</span>
             <br>
             <input class="edit-profile-input" id="user-password" type="password" value="" maxlength="20"/>
             <br>
@@ -262,7 +288,7 @@ if (!isset($_COOKIE['USER_IN'])) {
             <span id="edit-profile-error"></span>
         </div>
     </div>
-    <div id="add-new-idea-button">+</div>
+    <div id="add-new-idea-button"></div>
     <div id="popup"></div>
     <div id="my-profile">
         <span id="my-ideas">Мої ідеї</span>
@@ -273,5 +299,26 @@ if (!isset($_COOKIE['USER_IN'])) {
     <div id="dialog">
         <p></p>
     </div>
+    <div id="social-block">
+        <div class="fb-like" data-href="http://test31415.seeua.com/main.php" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>
+        <br>
+        <br>
+        <div id="vk_like"></div>
+        <script type="text/javascript">
+            VK.Widgets.Like("vk_like", {type: "button"});
+        </script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <g:plusone></g:plusone>
+        <br>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-via="DenysZaiats">Tweet</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+<!--    <div id="weather-block">-->
+<!--        <a href="http://www.accuweather.com/uk/ua/kyiv/324505/weather-forecast/324505" class="aw-widget-legal">-->
+<!--            <!---->
+<!--            By accessing and/or using this code snippet, you agree to AccuWeather’s terms and conditions (in English) which can be found at http://www.accuweather.com/en/free-weather-widgets/terms and AccuWeather’s Privacy Statement (in English) which can be found at http://www.accuweather.com/en/privacy.-->
+<!--            -->-->
+<!--        </a><div id="awcc1428339351369" class="aw-widget-current"  data-locationkey="324505" data-unit="c" data-language="uk" data-useip="false" data-uid="awcc1428339351369"></div><script type="text/javascript" src="http://oap.accuweather.com/launch.js"></script>-->
+<!--    </div>-->
 </body>
 </html>

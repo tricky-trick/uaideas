@@ -68,10 +68,10 @@ body{
 
 #s-top-side-panel {
     z-index: 2;
-    width: 70%;
-    left: 15%;
+    width: 100%;
     height: 50px;
     top: 50px;
+    left: 0%;
     background: rgb(183, 223, 45); /* Old browsers */
     background: -moz-linear-gradient(top, rgba(183, 223, 45, 1) 0%, rgba(227, 245, 171, 1) 67%, rgba(248, 255, 232, 1) 100%); /* FF3.6+ */
     background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(183, 223, 45, 1)), color-stop(67%, rgba(227, 245, 171, 1)), color-stop(100%, rgba(248, 255, 232, 1))); /* Chrome,Safari4+ */
@@ -87,18 +87,18 @@ body{
 }
 
 
+
 #ideas-content {
     position: absolute;
     z-index: 1;
     top: 90px;
-    width: 66%;
+    width: 100%;
     height: auto;
-    left: 17%;
+    left: 0%;
     color: black;
     border-right: 2px;
     padding-bottom: 10%;
 }
-
 
 .top-panel-menu-items{
     color: #ffffff;
@@ -147,17 +147,16 @@ body{
 
 
 #region-select, #category-select, #search-city, #sort-select, #search-submit {
-    width: 90%;
+    width: 95%;
     border: 1px solid white;
     border-radius: 5px;
     background: skyblue;
     color: white;
     height: 25px;
     font-family: tahoma, arial, verdana, sans-serif, 'Lucida Sans';
-    font-size: inherit;
+    font-size: 14px;
     font-weight: bold;
 }
-
 
 #search-submit:active{
     background: #e7e9ec;
@@ -176,15 +175,12 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     height: auto;
 }
 
-
 #list-ideas-content li {
     list-style-type: none;
     float: left;
-    left: 0;
-    margin-left: 1%;
-    width: 44%;
-    height: 230px;
-    max-height: 250px;
+    margin-left: 8%;
+    width: 80%;
+    height: auto;
     margin-top: 1%;
     padding: 5px;
     -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
@@ -201,7 +197,6 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     font-family: tahoma, arial, verdana, sans-serif, 'Lucida Sans';
 }
 
-
 #list-ideas-content li:hover{
     -webkit-box-shadow: 0px 3px 4px 0px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 3px 4px 0px rgba(0,0,0,0.75);
@@ -215,16 +210,15 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
 
 .left-side-block {
     float: left;
-    width: 35%;
+    width: 20%;
     height: 100%;
 }
 
 .right-side-block {
     float: left;
-    width: 65%;
+    width: 80%;
     height: 100%;
 }
-
 
 .info-ideas-item{
     margin-top: 20px;
@@ -279,15 +273,15 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     overflow-y: scroll;
 }
 
-
 #layer-wrapper, #layer-wrapper-new-idea, #layer-wrapper-edit-profile {
     position: fixed;
     z-index: 500;
     background: #ffffff;
     display: none;
-    width: 50%;
-    left: 21%;
-    height: 75%;
+    width: 90%;
+    left: 0%;
+    height: 90%;
+    top: 0%;
     min-height: 100px;
     padding: 10px 50px 50px;
     -moz-user-select: text;
@@ -502,27 +496,26 @@ textarea{
 
 #add-new-idea-button {
     position: fixed;
-    width: 70px;
-    height: 70px;
+    width: 150px;
+    height: 150px;
     background: green url("../img/add-icon.png") no-repeat center center;
     -webkit-background-size: cover; /* For WebKit*/
     -moz-background-size: cover; /* Mozilla*/
     -o-background-size: cover; /* Opera*/
     background-size: cover z-index : 5;
-    margin-top: 40%;
+    margin-top: 90%;
     margin-left: 80%;
     color: #ffffff;
     font-weight: bold;
     text-align: center;
     font-size: 60px;
-    border-radius: 50px;
+    border-radius: 100px;
     box-shadow: black inset 2px 5px;
     -webkit-box-shadow: 0px 4px 3px 2px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 4px 3px 2px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 4px 3px 2px rgba(0, 0, 0, 0.75);
     z-index: 6;
 }
-
 
 #add-new-idea-button:hover{
     -webkit-box-shadow: 0px 5px 5px 2px rgba(0,0,0,0.75);
@@ -680,11 +673,10 @@ textarea{
     color: red;
 }
 
-
 #social-block {
     position: fixed;
     top: 200px;
-    width: auto;
+    width: 80px;
     height: auto;
     min-height: 50px;
     padding: 5px;

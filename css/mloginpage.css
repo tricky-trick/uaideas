@@ -1,3 +1,16 @@
+
+body{
+    background: url("../img/mbg.jpg") no-repeat;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;
+}
+
+.cd-background-wrapper{
+    display: none;
+}
+
 *:focus {
     outline: none;
 }
@@ -19,19 +32,26 @@
     opacity: 1;
 }
 
-#login-form{
-    width: 40%;
-    top: 25%;
-    left: 30%;
-    opacity: 0.8;
+#login-form {
+    width: 70%;
+    top: 20%;
+    left: 0%;
+    opacity: 1;
+    -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
 }
 
-#reg-form{
-    width: 20%;
-    top: 25%;
-    left: 50%;
+#reg-form {
+    width: 30%;
+    top: 20%;
+    left: 40%;
     opacity: 0;
+    -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
 }
+
 
 .login-block{
     display: inline-block;
@@ -196,26 +216,15 @@
     background-color: rgb(76,137,163);
 }
 
-#logo{
-    opacity:0.5;
+#logo {
+    opacity: 0.5;
     position: fixed;
     z-index: 5;
     left: 48%;
-    top:90%;
+    top: 90%;
     width: 4%;
     height: auto;
     border-radius: 50px;
-    -webkit-transition: all 0.5s ease-out;
-    -moz-transition: all 0.5s ease-out;
-    -ms-transition: all 0.5s ease-out;
-    -o-transition: all 0.5s ease-out;
-}
-
-#logo:hover{
-    -webkit-box-shadow: 0px 0px 90px 24px rgba(255,255,255,1);
-    -moz-box-shadow: 0px 0px 90px 24px rgba(255,255,255,1);
-    box-shadow: 0px 0px 90px 24px rgba(255,255,255,1);
-    opacity:0.9;
 }
 
 

@@ -8,3 +8,5 @@ ua_cities.sql
 *.iml
 
 uploaded_images/*
+
+stage_conf/*
