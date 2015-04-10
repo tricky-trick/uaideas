@@ -76,14 +76,14 @@ body{
     text-align: center;
     color: darkslategray;
     font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     font-weight: bold;
 }
 
 .login-label-input, .login-label-link-pwd, .login-label-error{
     color: darkslategray;
     font-size: inherit;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     font-weight: lighter;
     text-align: center;
     height: auto;
@@ -106,7 +106,8 @@ body{
 #reg-form-cancel,
 #login-facebook,
 #login-google,
-#login-vkontakte{
+#login-vkontakte,
+#about-us-link{
     width: 70%;
     height:30px;
     font: 16px Verdana,Helvetica;
@@ -128,7 +129,7 @@ body{
     border: 2px solid #ffffff;
     color: #ffffff;
     padding: 2px;
-    width: 72%;
+    width: 80%;
     height:40px;
 }
 
@@ -178,7 +179,7 @@ body{
     align-self: center;
 }
 
-#login-facebook, #login-google, #login-vkontakte{
+#login-facebook, #login-google, #login-vkontakte, #about-us-link{
     border: 2px solid #ffffff;
     color: #ffffff;
     padding: 2px;
@@ -188,7 +189,7 @@ body{
  }
 
 
-#login-facebook:hover, #login-google:hover, #login-vkontakte:hover{
+#login-facebook:hover, #login-google:hover, #login-vkontakte:hover, #about-us-link:hover{
     cursor: pointer;
 }
 
@@ -217,14 +218,23 @@ body{
 }
 
 #logo {
-    opacity: 0.5;
+    opacity: 0.7;
     position: fixed;
     z-index: 5;
     left: 48%;
     top: 90%;
     width: 4%;
     height: auto;
-    border-radius: 50px;
+    border-radius: 5px;
+}
+
+#about-us-link{
+    background: rgb(0, 169, 213) url("../img/logo_see.png") no-repeat;
+    -webkit-background-size: contain; /* For WebKit*/
+    -moz-background-size: contain;    /* Mozilla*/
+    -o-background-size: contain;      /* Opera*/
+    background-size: contain;
+    color: lightyellow;
 }
 
 

@@ -107,5 +107,26 @@ function validateName(evt, id, regionIdSelector) {
             $(".ui-menu-item").remove();
         }
     });
+}
 
+function validateAmount(selector, maxLength, minLength){
+    var valLength = $(selector).val().length;
+     if (maxLength == 100){
+        $("#ideas-subject-counter").text(valLength + " з 100");
+         if(valLength < minLength){
+             $("#ideas-subject-counter").css("color", "red");
+         }
+         else{
+             $("#ideas-subject-counter").css("color", "green");
+         }
+     }
+     else if(maxLength == 5000){
+         $("#ideas-body-counter").text(valLength + " з 5000");
+         if(valLength < minLength){
+             $("#ideas-body-counter").css("color", "red");
+         }
+         else{
+             $("#ideas-body-counter").css("color", "green");
+         }
+     }
 }

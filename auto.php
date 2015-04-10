@@ -3,7 +3,7 @@
 if ( !isset($_REQUEST['term']) )
     exit;
 
-include("api/config.php");
+include("config/sys/config.php");
 header ("Content-Type: text/html; charset=utf-8");
 mysql_set_charset('utf8',$con);
 

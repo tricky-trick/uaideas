@@ -1,12 +1,15 @@
 <html>
 <head>
     <title>Правила користування ресурсом "Пізнай Україну"</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="keywords" content="Україна,замки,фортеці,подорожі,відпочинок,туризм,подорожувати,провести час,ресторани,кафе,актиний відпочинок">
+    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
     <link rel="stylesheet" type="text/css" href="css/main.css" />
 </head>
-<body style="padding-left: 20px; padding-right: 20px">
+<body style="padding-left: 20px; padding-right: 20px;font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';">
     <div id="top-side-panel" style="padding: 10px">
-        <img src="img/logo.png" style="margin-left: 10%; width: auto; height: 100%; border-radius: 5px; border: 1px solid black">
-        <h2 style="display:  inline-block; color: #FFFFFF; margin-left: 10%">Правила користування ресурсом "Пізнай Україну"</h2>
+        <img src="img/logo_see.png" style="margin-left: 10%; width: auto; height: 100%; border-radius: 5px">
+        <h2 style="display:  inline-block; color: #FFFFFF; margin-left: 10%;">Правила користування ресурсом "Пізнай Україну"</h2>
     </div>
     <br>
     <br>
@@ -37,6 +40,9 @@
         </li>
         <li>  
             Нецензурні вислови, висловлення порнографічного, еротичного чи сексуального характеру.
+        </li>
+        <li>
+            Викладення фото/матеріалів будь-якого насильницького, порнографічного, еротичного чи сексуального характеру.
         </li>
         <li>  
             Будь-яка образлива поведінка стосовно авторів статей і всіх учасників ресурсу.
@@ -90,5 +96,9 @@
             З усіх питань, пов'язаним з роботою Сайту і розміщенням інформації на Сайті, зв'язуйтеся з редакцією <a href="mailto:admin@seeua.com">admin@seeua.com</a>.
         </li>
     </ol>
+    <br>
+     <div style="width:10%; text-align: center; margin-left: 45%; font-size: 12px">
+         SeeUA © 2015
+     </div>
 </body>
 </html>

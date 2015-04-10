@@ -1,18 +1,25 @@
+body{
+    background: #e7e9ec;
+}
+
 *:focus {
     outline: none;
 }
 
 #login-form, #reg-form{
     position: absolute;
-    height: 400px;
+    height: 450px;
     z-index: 1;
     background: #ffffff;
-    border-radius: 5px;
+    border-radius: 1px;
     -webkit-transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
     -ms-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;
     padding: 2px;
+    -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
 }
 
 #login-form:hover{
@@ -20,15 +27,15 @@
 }
 
 #login-form{
-    width: 40%;
-    top: 25%;
-    left: 30%;
-    opacity: 0.8;
+    width: 50%;
+    top: 100px;
+    left: 20%;
+    opacity: 0.9;
 }
 
 #reg-form{
     width: 20%;
-    top: 25%;
+    top: 100px;
     left: 50%;
     opacity: 0;
 }
@@ -56,15 +63,14 @@
     text-align: center;
     color: darkslategray;
     font-size: 18px;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     font-weight: bold;
 }
 
 .login-label-input, .login-label-link-pwd, .login-label-error{
     color: darkslategray;
     font-size: inherit;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: lighter;
+    font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';    font-weight: lighter;
     text-align: center;
     height: auto;
 }
@@ -86,12 +92,14 @@
 #reg-form-cancel,
 #login-facebook,
 #login-google,
-#login-vkontakte{
+#login-vkontakte,
+#about-us-link{
     width: 70%;
     height:30px;
     font: 16px Verdana,Helvetica;
     border-radius: 5px;
     text-align: center;
+    border: 1px inset lightgray;
 }
 
 #reg-form-email,
@@ -158,17 +166,17 @@
     align-self: center;
 }
 
-#login-facebook, #login-google, #login-vkontakte{
+#login-facebook, #login-google, #login-vkontakte, #about-us-link{
     border: 2px solid #ffffff;
     color: #ffffff;
     padding: 2px;
-    width: 72%;
+    width: 80%;
     height:40px;
     margin-left: 5%;
  }
 
 
-#login-facebook:hover, #login-google:hover, #login-vkontakte:hover{
+#login-facebook:hover, #login-google:hover, #login-vkontakte:hover, #about-us-link:hover{
     cursor: pointer;
 }
 
@@ -197,14 +205,14 @@
 }
 
 #logo{
-    opacity:0.5;
+    opacity:0.7;
     position: fixed;
     z-index: 5;
     left: 48%;
     top:90%;
     width: 4%;
     height: auto;
-    border-radius: 50px;
+    border-radius: 5px;
     -webkit-transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
     -ms-transition: all 0.5s ease-out;
@@ -212,10 +220,16 @@
 }
 
 #logo:hover{
-    -webkit-box-shadow: 0px 0px 90px 24px rgba(255,255,255,1);
-    -moz-box-shadow: 0px 0px 90px 24px rgba(255,255,255,1);
-    box-shadow: 0px 0px 90px 24px rgba(255,255,255,1);
     opacity:0.9;
+}
+
+#about-us-link{
+    background: rgb(0, 169, 213) url("../img/logo_see.png") no-repeat;
+    -webkit-background-size: contain; /* For WebKit*/
+    -moz-background-size: contain;    /* Mozilla*/
+    -o-background-size: contain;      /* Opera*/
+    background-size: contain;
+    color: lightyellow;
 }
 
 

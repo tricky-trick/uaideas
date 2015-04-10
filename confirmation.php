@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: text/html; charset=utf-8');
-include("api/config.php");
-include("api/def.php");
+include("config/sys/config.php");
+include("config/sys/def.php");
 if($_SERVER["REQUEST_METHOD"] == "GET")
 {
     $code=$_GET["code"];

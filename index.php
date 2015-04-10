@@ -8,13 +8,15 @@
 <!DOCTYPE html>
 <head lang="ua">
     <meta charset="UTF-8">
-    <title>Збудуй майбутнє сам!</title>
+    <title>Пізнай Україну</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<!--    <link rel="stylesheet" type="text/css" href="css/background.css" />-->
+    <meta name="keywords" content="Україна,замки,фортеці,подорожі,відпочинок,туризм,подорожувати,провести час,ресторани,кафе,актиний відпочинок">
+    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
+    <link rel="stylesheet" type="text/css" href="css/background.css" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
-    <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
-    <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
-    <script src="js/modernizr.js"></script> <!-- Modernizr -->
+<!--    <link rel="stylesheet" href="css/reset.css">-->
+<!--    <link rel="stylesheet" href="css/style.css">-->
+<!--    <script src="js/modernizr.js"></script>-->
     <script>
         var height = window.innerHeight;
         var width = window.innerWidth;
@@ -49,17 +51,25 @@
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.js"></script>-->
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>-->
 </head>
-<body style="overflow: hidden;">
-<div class="cd-background-wrapper">
-    <figure class="cd-floating-background">
-        <img src="img/sunflower_field.jpg" alt="image-1">
-        <img src="img/sunflowers.png" alt="image-2">
-        <img src="img/sunflower_2.png" alt="image-3">
-    </figure>
-</div>
-<div id="fb-root"></div>
+<body style="overflow-y: auto; overflow-x: hidden; font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';">
+<!--<div class="cd-background-wrapper">-->
+<!--    <figure class="cd-floating-background">-->
+<!--        <img src="img/sunflower_field.jpg" alt="image-1">-->
+<!--        <img src="img/sunflowers.png" alt="image-2">-->
+<!--        <img src="img/sunflower_2.png" alt="image-3">-->
+<!--    </figure>-->
+<!--</div>-->
+    <div id="bg-0"></div>
+    <div id="bg-1"></div>
+    <div id="bg-2"></div>
+    <div id="bg-3"></div>
+    <div id="bg-4"></div>
+    <div id="bg-5"></div>
+    <div id="bg-6"></div>
+    <div id="bg-7"></div>
+    <div id="bg-8"></div>
+    <div id="fb-root"></div>
     <div id="header">
-
     </div>
 
     <div id="content">
@@ -106,6 +116,7 @@
                 <input id="login-google" type="button" value="G+   Увійти з Google">
                 <br>
                 <br>
+                <input id="about-us-link" type="button" value="Про проект">
 <!--                <input id="login-vkontakte" type="button" value="vk   Увійти з Vkontakte">-->
             </div>
             <div id="login-block-right" class="login-block">
@@ -132,10 +143,13 @@
                 <a id="reg-rules" class="login-label-input" style="text-decoration: underline; cursor: pointer;" href="terms.php" target="_blank">Згідний з правилами</a>
             </div>
         </div>
+        <div style="color: white; width:10%; text-align: center; margin-left: 45%; font-size: 12px;top:95%; position: absolute;">
+            SeeUA © 2015
+        </div>
 
     </div>
     <div id="footer">
-        <img src="img/logo.png" id="logo">
+<!--        <img src="img/logo_see.png" id="logo">-->
 
     </div>
     <div id="dialog">

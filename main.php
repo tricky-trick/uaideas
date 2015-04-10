@@ -7,8 +7,10 @@ if (!isset($_COOKIE['USER_IN'])) {
 <html>
 <head lang="ua">
     <meta charset="UTF-8">
-    <title>Збудуй майбутнє сам!</title>
+    <title>Пізнай Україну</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="keywords" content="Україна,замки,фортеці,подорожі,відпочинок,туризм,подорожувати,провести час,ресторани,кафе,актиний відпочинок">
+    <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/mainbackground.css" />
     <script>
@@ -59,7 +61,12 @@ if (!isset($_COOKIE['USER_IN'])) {
     <div id="main-content">
 
         <div id="top-side-panel">
-            <img src="img/logo.png" style="margin-left: 10%; width: auto; height: 100%; border-radius: 5px; border: 1px solid black">
+            <img src="img/logo_see.png" style="
+            margin-left: 10%; width: auto; height: 100%;
+            border-radius: 5px;
+            -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+           -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+            box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);">
             <table id="top-panel-menu">
                 <tbody>
                 <tr>
@@ -90,7 +97,7 @@ if (!isset($_COOKIE['USER_IN'])) {
                         </select>
                     </td>
                     <td width="22%">
-                        <input type="text" id="search-city" value="" autocomplete="on" onkeypress="validateName(event, 'search-city', 'region-select')" placeholder="Введіть назву міста" style="height: 20px;">
+                        <input type="text" id="search-city" value="" autocomplete="on" onkeypress="validateName(event, 'search-city', 'region-select')" placeholder="Введіть назву міста" style="height: 22px;">
                     </td>
                     <td width="22%">
                         <select id="category-select">
@@ -112,27 +119,6 @@ if (!isset($_COOKIE['USER_IN'])) {
         </div>
         <div id="ideas-content">
             <ul id="list-ideas-content">
-<!--                <li>-->
-<!--                    <div class="left-side-block">-->
-<!--                        <div class="image-ideas-item">-->
-<!---->
-<!--                        </div>-->
-<!--                        <span class="info-ideas-item">Рейтинг: 100 <br><br> Від 12 січня 2015 року</span>-->
-<!--                        <span class="id-ideas-item"></span>-->
-<!---->
-<!--                    </div>-->
-<!--                    <div class="right-side-block">-->
-<!--                        <span class="subject-ideas-item">-->
-<!--                            Ремонт дороги на вулиці Липинського-->
-<!--                        </span>-->
-<!--                        <br>-->
-<!--                        <br>-->
-<!--                        <span class="description-ideas-item">-->
-<!--                            Ремонт дороги на вулиці Липинського необхідно провести ремонту вулиці, котрає в жахливому стані.-->
-<!--                            Для цього прооную зробити шось корисне. І т.д....-->
-<!--                        </span>-->
-<!--                    </div>-->
-<!--                </li>-->
             </ul>
             <input type="button" id="load-another-content" index="0" singleuser="false" value="Завантажити ще" style="display: none;">
         </div>
@@ -157,7 +143,10 @@ if (!isset($_COOKIE['USER_IN'])) {
             </div>
 
             <div id="idea-show-map" coord="">Показати на мапі</div>
-            <div id="map-idea" style="width: 100%; height: 0px;">
+            <div id="map-idea" style="width: 100%; height: 0px;
+            -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+            box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);">
                 <div id="map-canvas-idea" style="width: 100%; height: 100%;">
                 </div>
             </div>
@@ -180,11 +169,6 @@ if (!isset($_COOKIE['USER_IN'])) {
             <br>
             <div id="comments-layer">Коментарі</div>
             <ul id="ideas-comments-layer">
-    <!--            <li>-->
-    <!--                <span class="ideas-comments-author">Микола Головай</span>-->
-    <!--                <span class="ideas-comments-date">додано 28 Лютого 2015</span>-->
-    <!--                <div class="ideas-comments-text">Підтримую ідею! Готовий братися до виконання. Пишіть в приват для контакту.</div>-->
-    <!--            </li>-->
             </ul>
             <br>
             <br>
@@ -206,12 +190,14 @@ if (!isset($_COOKIE['USER_IN'])) {
             <div id="new-idea-subject-layer">Нова ідея</div>
             <br>
             <br>
-            <div id="editable-subject-area"><input type="text" maxlength="100" value="Назва ідеї... (мінімум 20 символів)"></div>
+            <div id="editable-subject-area"><input type="text" maxlength="100" value="Назва..." onkeyup="validateAmount('#editable-subject-area>input', 100, 20)"></div>
+            <span id="ideas-subject-counter"></span>
             <br>
             <br>
             <div id="editable-body-area">
-                <textarea maxlength="5000">Введіть опис ідеї... (мінімум 50 символів)</textarea>
+                <textarea maxlength="5000" onkeyup="validateAmount('#editable-body-area>textarea', 5000, 50)">Опис...</textarea>
             </div>
+            <span id="ideas-body-counter"></span>
             <br>
             <br>
             <table id="dropdown-new-idea">
@@ -223,12 +209,16 @@ if (!isset($_COOKIE['USER_IN'])) {
                         </select>
                     </td>
                     <td width="33%">
-                        <input type="text" id="new-idea-search-city" value="" autocomplete="on" onkeypress="validateName(event, 'new-idea-search-city', 'new-idea-region-select')" placeholder="Введіть назву міста" style="height: 22px;">
+                        <input type="text" id="new-idea-search-city" value="" autocomplete="on" onkeypress="validateName(event, 'new-idea-search-city', 'new-idea-region-select')" placeholder="Введіть назву міста" style="height: 26px;">
                     </td>
+
                     <td width="34%">
                         <select id="new-idea-category-select">
                             <option>Оберіть категорію</option>
                         </select>
+                    </td>
+                    <td>
+
                     </td>
                 </tr>
                 </tbody>
@@ -239,7 +229,10 @@ if (!isset($_COOKIE['USER_IN'])) {
                 <input type="file" name="file[]" id="new-idea-image-upload" value="Завантажити фото" multiple />
             </form>
             <div id="new-idea-show-map">Додати координати на карті</div>
-            <div id="map" style="width: 100%; height: 0px;">
+            <div id="map" style="width: 100%; height: 0px;
+            -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+            -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+            box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);">
                 <div id="map-canvas" style="width: 100%; height: 100%;">
                 </div>
             </div>
@@ -305,12 +298,13 @@ if (!isset($_COOKIE['USER_IN'])) {
         <br>
         <div id="vk_like"></div>
         <script type="text/javascript">
-            VK.Widgets.Like("vk_like", {type: "button"});
+            VK.Widgets.Like("vk_like", {type: "vertical", height: 24});
         </script>
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-        <g:plusone></g:plusone>
         <br>
-        <a href="https://twitter.com/share" class="twitter-share-button" data-via="DenysZaiats">Tweet</a>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <g:plusone size="tall" annotation="bubble"></g:plusone>
+        <br>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-via="DenysZaiats" data-count="vertical">Tweet</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
     </div>
 <!--    <div id="weather-block">-->

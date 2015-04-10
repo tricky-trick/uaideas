@@ -1,5 +1,6 @@
 <?php
-include("config.php");
+include("../config/sys/config.php");
+include("../config/sys/def.php");
 header ("Content-Type: text/html; charset=utf-8");
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -9,6 +10,10 @@ if(isset($_COOKIE['USER_IN'])) {
         $ideas_id = $_POST['id'];
         $text = addslashes($_POST['text']);
         $author = $_POST['user_id'];
+
+        foreach ($bad_words_array as &$word) {
+            $text = preg_replace("/$word/", "*",  $text);
+        }
 
         $sql = "INSERT INTO ideas_comments (ideas_id, text, author) VALUES ($ideas_id, '$text', $author)";
 
@@ -87,6 +92,10 @@ if(isset($_COOKIE['USER_IN'])) {
         $text = addslashes($_PUT['text']);
 
         $condition = str_replace(" ", ",", trim($condition));
+
+        foreach ($bad_words_array as &$word) {
+            $text = preg_replace("/$word/", "*",  $text);
+        }
 
         $sql = "UPDATE ideas_comments SET text='" . $text . "', date=Now() WHERE ideas_id=" . $ideas_id;
 

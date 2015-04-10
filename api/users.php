@@ -1,6 +1,6 @@
 <?php
-include("config.php");
-include("def.php");
+include("../config/sys/config.php");
+include("../config/sys/def.php");
 header ("Content-Type: text/html; charset=utf-8");
 
 $method = $_SERVER['REQUEST_METHOD'];

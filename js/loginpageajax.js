@@ -323,4 +323,9 @@ $(document).ready(function() {
         });
 
     });
+
+    $("#about-us-link").click(function(){
+        var win = window.open("about.php", '_blank');
+        win.focus();
+    });
 });

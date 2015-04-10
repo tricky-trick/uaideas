@@ -219,7 +219,7 @@ $(document).ready(function() {
     /*
     Load content on scroll
      */
-
+    var lastScrollTop = 200;
     $(window).scroll(function() {
         if($(window).scrollTop() + $(window).height() == $(document).height()) {
             if(limitIndex.attr("singleuser") == "false") {
@@ -230,6 +230,13 @@ $(document).ready(function() {
                 searchIdeas($("#load-another-content").attr("index"), user_id);
             }
         }
+        var st = $(this).scrollTop();
+        if (st > lastScrollTop){
+            $("#s-top-side-panel").css("top", "0px");
+        } else {
+            $("#s-top-side-panel").css("top", "50px");
+        }
+        //lastScrollTop = st;
     });
 
 
@@ -453,11 +460,13 @@ $(document).ready(function() {
         getIdea(index);
 
         var description = ideasDescription.val(),
-            matches = description.match(/\n/g),
+            matches = description.match(/\n|\r/g),
             breaks = matches ? matches.length : 2;
 
+        var val = ideasDescription.val().length / (ideasDescription.width()/10);
 
-        ideasDescription.attr('rows',breaks + 3);
+
+        ideasDescription.attr('rows',val);
 
         //var styleBigPhoto = $("#idea-big-photo-area").attr("style");
         //if(styleBigPhoto == undefined)
@@ -748,14 +757,14 @@ $(document).ready(function() {
     var coord = "";
 
     newIdeaSubject.click(function(){
-        if(newIdeaSubject.val() == "Назва ідеї... (мінімум 20 символів)") {
+        if(newIdeaSubject.val() == "Назва...") {
             newIdeaSubject.val("");
             newIdeaSubject.css("color", "black");
         }
     });
 
     newIdeaBody.click(function(){
-        if(newIdeaBody.val() == "Введіть опис ідеї... (мінімум 50 символів)") {
+        if(newIdeaBody.val() == "Опис...") {
             newIdeaBody.val("");
             newIdeaBody.css("min-height", "100px");
             newIdeaBody.css("color", "black");
@@ -785,13 +794,25 @@ $(document).ready(function() {
     });
 
     newIdeaCancel.click(function(){;
-        newIdeaSubject.val("Назва ідеї... (мінімум 20 символів)");
-        newIdeaBody.val("Введіть опис ідеї... (мінімум 50 символів)");
+        newIdeaSubject.val("Назва...");
+        newIdeaBody.val("Опис...");
         newIdeaBody.css("min-height", "90px");
         newIdeaBody.css("color", "grey");
         newIdeaSubject.css("color", "grey");
+        $("#ideas-subject-counter").text("");
+        $("#ideas-body-counter").text("");
         $("#map").css("height", "0px");
     });
+
+    function guid() {
+        function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+                .toString(16)
+                .substring(1);
+        }
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
+    }
 
     newIdeaAddButton.click(function(){
         var regionId = newIdeaRegion.find(":selected").index();
@@ -800,7 +821,7 @@ $(document).ready(function() {
         var dataGetCityId = "region_id=" + regionId + "&city_name=" + cityName;
 
         if (is_confirmed && !is_banned) {
-            if (newIdeaSubject.val().trim() == "" || newIdeaSubject.val().trim() == "Назва ідеї... (мінімум 20 символів)" || newIdeaBody.val().trim() == "" || newIdeaBody.val().trim() == "Введіть опис ідеї... (мінімум 50 символів)") {
+            if (newIdeaSubject.val().trim() == "" || newIdeaSubject.val().trim() == "Назва..." || newIdeaBody.val().trim() == "" || newIdeaBody.val().trim() == "Опис...") {
                 showPopUp("Введіть назву та опис ідеї.", $(this));
                 dismissPopUp();
             }
@@ -851,12 +872,15 @@ $(document).ready(function() {
                                 var form = document.getElementById('uploadimage');
                                 var formData = new FormData(form);
                                 var files = "";
+                                var uiid = guid();
 
                                 for (var j = 0; j < newIdeaUploadFile.files.length; j++) {
-                                    var name = "idea_" + Math.round(+new Date()/1000/60/60/24 - 100) + "_" + newIdeaUploadFile.files.item(j).name;
-                                    newIdeaUploadFile.files.item(j).name = name;
+                                    var name = uiid + "_" + newIdeaUploadFile.files.item(j).name.replace(/ /g, "_");
+                                    //newIdeaUploadFile.files.item(j).name = name.replace(/ /g, "_");
                                     files += name + " ";
                                 }
+
+                                formData.append("uiid", uiid);
 
                                 var uploadImages =  $.ajax({
                                     url: "upload_images.php",
@@ -889,14 +913,17 @@ $(document).ready(function() {
                                         postIdea.done(function (datas) {
                                             var isCreated = datas['is_created'];
                                             if (isCreated == "true") {
-                                                newIdeaSubject.val("Назва ідеї... (мінімум 20 символів)");
-                                                newIdeaBody.val("Введіть опис ідеї... (мінімум 50 символів)");
+                                                newIdeaSubject.val("Назва...");
+                                                newIdeaBody.val("Опис...");
+                                                $("#ideas-subject-counter").text("");
+                                                $("#ideas-body-counter").text("");
                                                 $("new-idea-image-upload").val("Завантажити фото");
                                                 newIdeaBody.css("min-height", "60px");
                                                 newIdeaBody.css("color", "grey");
                                                 newIdeaSubject.css("color", "grey");
                                                 $("#spinner-icon").css("display", "none");
                                                 $("#done-icon").css("opacity", "1");
+
                                                 setTimeout(function () {
                                                     $("#done-icon").css("opacity", "0");
                                                     closeLayerWindow();
@@ -927,8 +954,8 @@ $(document).ready(function() {
                                             postIdea.done(function (datas) {
                                                 var isCreated = datas['is_created'];
                                                 if (isCreated == "true") {
-                                                    newIdeaSubject.val("Назва ідеї... (мінімум 20 символів)");
-                                                    newIdeaBody.val("Введіть опис ідеї... (мінімум 50 символів)");
+                                                    newIdeaSubject.val("Назва...");
+                                                    newIdeaBody.val("Опис...");
                                                     $("new-idea-image-upload").val("Завантажити фото");
                                                     newIdeaBody.css("min-height", "60px");
                                                     newIdeaBody.css("color", "grey");

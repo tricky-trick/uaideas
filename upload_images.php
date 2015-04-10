@@ -1,6 +1,8 @@
 <?php
 //Loop through each file
 
+$uiid = $_POST['uiid'];
+
 function compress($source, $destination, $quality) {
 
     $info = getimagesize($source);
@@ -24,7 +26,8 @@ for($i=0; $i<count($_FILES['file']['name']); $i++) {
         //Make sure we have a filepath
         if ($tmpFilePath != "") {
             //Setup our new file path
-            $fileName = "idea_".(round(time()/60/60/24 - 100))."_".$_FILES['file']['name'][$i];
+            $fileName = $uiid."_".$_FILES['file']['name'][$i];
+            $fileName = preg_replace("/ /","_",$fileName);
             $newFilePath = "./uploaded_images/" . $fileName;
 
             //var_dump($newFilePath);

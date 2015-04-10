@@ -1,5 +1,5 @@
 <?php
-include("config.php");
+include("../config/sys/config.php");
 header ("Content-Type: text/html; charset=utf-8");
 
 $method = $_SERVER['REQUEST_METHOD'];

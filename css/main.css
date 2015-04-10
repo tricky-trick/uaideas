@@ -51,14 +51,14 @@ body{
     width: 100%;
     height: 40px;
     left: 0%;
-    background: rgb(30,87,153); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(30,87,153,1) 0%, rgba(125,185,232,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(30,87,153,1)), color-stop(100%,rgba(125,185,232,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgba(30,87,153,1) 0%,rgba(125,185,232,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgba(30,87,153,1) 0%,rgba(125,185,232,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgba(30,87,153,1) 0%,rgba(125,185,232,1) 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  rgba(30,87,153,1) 0%,rgba(125,185,232,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#7db9e8',GradientType=0 ); /* IE6-9 */
+    background: rgb(37,141,200); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(37,141,200,1) 0%, rgba(133,175,198,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(37,141,200,1)), color-stop(100%,rgba(133,175,198,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(37,141,200,1) 0%,rgba(133,175,198,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(37,141,200,1) 0%,rgba(133,175,198,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(37,141,200,1) 0%,rgba(133,175,198,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(37,141,200,1) 0%,rgba(133,175,198,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#258dc8', endColorstr='#85afc6',GradientType=0 ); /* IE6-9 */
 
     box-shadow: black inset 2px 5px;
     -webkit-box-shadow: 0px 4px 5px 4px rgba(0,0,0,0.75);
@@ -72,14 +72,14 @@ body{
     left: 15%;
     height: 50px;
     top: 50px;
-    background: rgb(183, 223, 45); /* Old browsers */
-    background: -moz-linear-gradient(top, rgba(183, 223, 45, 1) 0%, rgba(227, 245, 171, 1) 67%, rgba(248, 255, 232, 1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(183, 223, 45, 1)), color-stop(67%, rgba(227, 245, 171, 1)), color-stop(100%, rgba(248, 255, 232, 1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, rgba(183, 223, 45, 1) 0%, rgba(227, 245, 171, 1) 67%, rgba(248, 255, 232, 1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, rgba(183, 223, 45, 1) 0%, rgba(227, 245, 171, 1) 67%, rgba(248, 255, 232, 1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, rgba(183, 223, 45, 1) 0%, rgba(227, 245, 171, 1) 67%, rgba(248, 255, 232, 1) 100%); /* IE10+ */
-    background: linear-gradient(to bottom, rgba(183, 223, 45, 1) 0%, rgba(227, 245, 171, 1) 67%, rgba(248, 255, 232, 1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#b7df2d', endColorstr='#f8ffe8', GradientType=0); /* IE6-9 */
+    background: rgb(76,106,130); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgba(76,106,130,1) 0%, rgba(109,136,145,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(76,106,130,1)), color-stop(100%,rgba(109,136,145,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(76,106,130,1) 0%,rgba(109,136,145,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(76,106,130,1) 0%,rgba(109,136,145,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(76,106,130,1) 0%,rgba(109,136,145,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(76,106,130,1) 0%,rgba(109,136,145,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c6a82', endColorstr='#6d8891',GradientType=0 ); /* IE6-9 */
 
     -webkit-box-shadow: 0px 4px 5px 2px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 4px 5px 2px rgba(0, 0, 0, 0.75);
@@ -148,14 +148,17 @@ body{
 
 #region-select, #category-select, #search-city, #sort-select, #search-submit {
     width: 90%;
-    border: 1px solid white;
+    border: 0px solid white;
+    -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     border-radius: 5px;
-    background: skyblue;
+    background: darkcyan;
     color: white;
     height: 25px;
     font-family: tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     font-size: inherit;
-    font-weight: bold;
+    font-weight: lighter;
 }
 
 
@@ -329,7 +332,7 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     width: 99%;
     height: 100%;
     text-align: justify;
-    font-size: 18px;
+    font-size: 14px;
     padding-bottom: 20px;
     -webkit-transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
@@ -467,6 +470,7 @@ textarea{
     padding: 5px 15px;
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     margin-bottom: 10px;
+    font-weight: bold;
 }
 
 #submit-change-profile{
@@ -490,14 +494,21 @@ textarea{
 }
 
 #cancel-comments, #cancel-new-idea{
+    width: auto;
+    height: auto;
+    border-radius: 2px;
+    background: #e7e9ec;
+    padding: 5px 15px;
+    margin-bottom: 10px;
     color: steelblue;
     margin-left: 50px;
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
+    font-weight: bold;
 }
 
 #cancel-comments:hover, #cancel-new-idea:hover{
     cursor: pointer;
-    text-decoration: underline;
+    background: lightgray;
 }
 
 #add-new-idea-button {
@@ -508,7 +519,8 @@ textarea{
     -webkit-background-size: cover; /* For WebKit*/
     -moz-background-size: cover; /* Mozilla*/
     -o-background-size: cover; /* Opera*/
-    background-size: cover z-index : 5;
+    background-size: cover ;
+    z-index : 5;
     margin-top: 40%;
     margin-left: 80%;
     color: #ffffff;
@@ -567,13 +579,14 @@ textarea{
 }
 
 #new-idea-region-select, #new-idea-search-city, #new-idea-category-select{
-    width: 90%;
+    width: 95%;
     border-radius: 5px;
     background: #ffffff;
     color: #000000;
     height: 30px;
     font-family: tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     font-size: inherit;
+    border: solid 1px lightgrey;
 }
 
 #new-idea-show-map, #idea-show-map{
@@ -625,7 +638,6 @@ textarea{
     width: auto;
     height: auto;
     user-select: none;
-    overflow-x: scroll;
     display: inline-block;
 }
 
@@ -641,10 +653,10 @@ textarea{
     height: 100px;
     display: inline-block;
     margin: 5px;
-    box-shadow: black inset 2px 5px;
-    -webkit-box-shadow: 0px 4px 3px 2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 4px 3px 2px rgba(0,0,0,0.75);
-    box-shadow: 0px 4px 3px 2px rgba(0,0,0,0.75);
+    border-radius: 1px;
+    -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
 }
 #idea-photo-area div:hover{
     cursor: pointer;
@@ -689,6 +701,7 @@ textarea{
     min-height: 50px;
     padding: 5px;
     background: white;
+    border-radius: 1px;
     z-index: 6;
     -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
@@ -708,4 +721,11 @@ textarea{
     -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+}
+
+#ideas-subject-counter, #ideas-body-counter{
+    font-size: 12px;
+    font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
+    color: green;
+    margin-left: 5px;
 }

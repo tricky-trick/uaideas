@@ -1,5 +1,6 @@
 <?php
-include("config.php");
+include("../config/sys/config.php");
+include("../config/sys/def.php");
 header ("Content-Type: text/html; charset=utf-8");
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -14,6 +15,11 @@ if(isset($_COOKIE['USER_IN'])) {
         $subject = addslashes($_POST['subject_text']);
         $description = addslashes($_POST['description_text']);
         $files = addslashes($_POST['files']);
+
+        foreach ($bad_words_array as &$word) {
+            $description = preg_replace("/$word/", "*",  $description);
+            $subject = preg_replace("/$word/", '*',  $subject);
+        }
 
         $sql = "INSERT INTO ideas (region, city, coord, category, author, subject, description, files) VALUES ($region, $city, '$coord', $category, $author, '$subject', '$description', '$files')";
 
@@ -153,6 +159,10 @@ if(isset($_COOKIE['USER_IN'])) {
         $description = addslashes($_PUT['description_text']);
         $category = $_PUT['category_id'];
         $is_deleted = $_PUT['delete'];
+
+        foreach ($bad_words_array as &$word) {
+            $description = preg_replace("/$word/", "*",  $description);
+        }
 
         if ($rating != "")
             $condition .= ", rating=" . $rating;
