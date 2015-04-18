@@ -62,7 +62,37 @@ $(document).ready(function() {
             $(".ui-menu-item").remove();
         }
     });
+
+    /*
+    Search everything
+     */
+
+    //$("#search-input").autocomplete({source: 'autosearch.php', minLength: 2});
+    //
+    //$("#search-input").focusout(function () {
+    //    if ($(".ui-menu-item").size() == 1) {
+    //        var val = $(".ui-menu-item").text();
+    //        $(this).val(val);
+    //        $(".ui-menu-item").remove();
+    //    }
+    //});
 });
+
+//function search(id){
+//    $("#" + id).autocomplete({source: 'autosearch.php', minLength: 2, open: function(){
+//        setTimeout(function () {
+//            $('.ui-autocomplete').css('z-index', 99999999999999);
+//        }, 10);
+//    }});
+//
+//    $("#" + id).focusout(function () {
+//        if ($(".ui-menu-item").size() == 1) {
+//            var val = $(".ui-menu-item").text();
+//            $(this).val(val);
+//            $(".ui-menu-item").remove();
+//        }
+//    });
+//}
 
 function validateName(evt, id, regionIdSelector) {
     var theEvent = evt || window.event;

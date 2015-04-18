@@ -84,7 +84,7 @@
                 <br>
                 <span class="login-label-input" style="margin-left: 5%">* Ім'я (можна і прізвище)</span>
                 <br>
-                <input id="reg-form-name" maxlength="50">
+                <input id="reg-form-name" maxlength="50" onkeypress="escapeSpecialSymbols('reg-form-name', event)">
                 <br>
                 <br>
                 <span class="login-label-input" style="margin-left: 5%">* Пароль</span>

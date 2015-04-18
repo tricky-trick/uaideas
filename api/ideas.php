@@ -43,10 +43,15 @@ if(isset($_COOKIE['USER_IN'])) {
         $region = $_GET['region_id'];
         $city = $_GET['city_id'];
         $author = $_GET['user_id'];
+        $keyword = $_GET['keyword'];
         $is_implemented = $_GET['is_ready'];
         $category_id = $_GET['category_id'];
         $sort_by = $_GET['sort_by'];
         $limit = $_GET['limit'];
+        $show_all = $_GET['all'];
+        $deleted = $_GET['deleted'];
+
+        $is_deleted = "is_deleted=0";
 
         if ($sort_by == 0) {
             $sort_by = "date";
@@ -65,17 +70,24 @@ if(isset($_COOKIE['USER_IN'])) {
             $condition .= " and author=" . $author;
         if ($is_implemented != "")
             $condition .= " and is_implemented=" . $is_implemented;
+        if ($keyword != "")
+            $condition .= " and (subject like '%".$keyword."%' or description like '%".$keyword."%')";
         if ($category_id != 0)
             $condition .= " and category=" . $category_id;
+        if ($deleted != null)
+            $condition .= " and is_deleted=" . $deleted;
+        if($show_all != null){
+            $is_deleted = "1=1";
+        }
 
         if ($id != "") {
-            $sql = "SELECT * FROM ideas WHERE is_deleted=0" . $condition . " ORDER BY " . $sort_by;
+            $sql = "SELECT * FROM ideas WHERE $is_deleted" . $condition . " ORDER BY " . $sort_by;
         }
         elseif($limit == ""){
-            $sql = "SELECT * FROM ideas WHERE is_deleted=0" . $condition;
+            $sql = "SELECT * FROM ideas WHERE $is_deleted" . $condition;
         }
         else {
-            $sql = "SELECT * FROM ideas WHERE is_deleted=0" . $condition . " ORDER BY " . $sort_by . " DESC LIMIT " . $limit;
+            $sql = "SELECT * FROM ideas WHERE $is_deleted" . $condition . " ORDER BY " . $sort_by . " DESC LIMIT " . $limit;
         }
 
         //echo $sql;
@@ -120,6 +132,7 @@ if(isset($_COOKIE['USER_IN'])) {
             $rating = $row['rating'];
             $date = $row['date'];
             $is_implemented = $row['is_implemented'];
+            $is_deleted = $row['is_deleted'];
             $files = $row['files'];
 
             $date_array = date_parse($date);
@@ -137,7 +150,8 @@ if(isset($_COOKIE['USER_IN'])) {
                 'subject' => $subject,
                 'files' => $files,
                 'description' => $description,
-                'responsible' => $responsible
+                'responsible' => $responsible,
+                'is_deleted' => $is_deleted
             );
 
             array_push($array_ideas, $array);

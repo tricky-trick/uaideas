@@ -15,7 +15,7 @@ if(isset($_COOKIE['USER_IN'])) {
             $text = preg_replace("/$word/", "*",  $text);
         }
 
-        $sql = "INSERT INTO ideas_comments (ideas_id, text, author) VALUES ($ideas_id, '$text', $author)";
+        $sql = "INSERT INTO ideas_comments (ideas_id, text, author) VALUES ($ideas_id, '$text', '$author')";
 
         $is_added = "";
         if (mysql_query($sql, $con)) {

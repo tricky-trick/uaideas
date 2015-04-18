@@ -71,7 +71,7 @@ if (!isset($_COOKIE['USER_IN'])) {
                 <tbody>
                 <tr>
                     <td>
-<!--                        <input type="text" id="search-input" placeholder="Пошук" autocomplete="off" style="padding: 4px 40px 5px 21px;">-->
+                        <input type="text" id="search-input" placeholder="Пошук" autocomplete="off" style="padding: 4px 40px 5px 21px;">
                     </td>
                     <td>
                         <span id="profile-link" class="top-panel-menu-items">Мій профіль</span>
@@ -118,6 +118,7 @@ if (!isset($_COOKIE['USER_IN'])) {
             </table>
         </div>
         <div id="ideas-content">
+            <img id="spinner-ideas-load" src="img/spinner_big.gif" style="width: 20%; height: auto; margin-left: 40%; display: none" />
             <ul id="list-ideas-content">
             </ul>
             <input type="button" id="load-another-content" index="0" singleuser="false" value="Завантажити ще" style="display: none;">
@@ -137,6 +138,7 @@ if (!isset($_COOKIE['USER_IN'])) {
             <div id="ideas-description-layer" contenteditable="false">
                 <textarea maxlength="5000" readonly></textarea>
             </div>
+            <img id="spinner-idea-load" src="img/spinner_big.gif" style="width: 20%; height: auto; margin-left: 40%; display: none" />
             <div id="idea-photo-area">
             </div>
             <div id="idea-big-photo-area">
@@ -224,11 +226,14 @@ if (!isset($_COOKIE['USER_IN'])) {
                 </tbody>
             </table>
             <br>
-            <br>
             <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
-                <input type="file" name="file[]" id="new-idea-image-upload" value="Завантажити фото" multiple />
+<!--                <input type="file" name="file[]" id="new-idea-image-upload" multiple />-->
+                <div style="padding-left: 5px; width: 30%; font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans'; padding-left:5px; padding-right:5px; font-weight: bold; font-size: 12px; color: white;margin-top:10px;overflow: hidden; color: steelblue; border: 1px lightgray dotted; border-radius: 3px">
+                    Завантажити фото<input style="margin-left: -5px; color:#446655;display: block;" type="file" name="file[]" id="new-idea-image-upload" multiple  />
+                </div>
             </form>
-            <div id="new-idea-show-map">Додати координати на карті</div>
+            <div id="new-idea-show-map" style="margin-top: -34px;">Додати координати на карті</div>
+            <br>
             <div id="map" style="width: 100%; height: 0px;
             -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
             -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);

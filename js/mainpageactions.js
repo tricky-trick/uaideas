@@ -40,17 +40,17 @@ $(document).ready(function() {
 
         getUserStatus.done(function(datas) {
             var user = datas['0'];
-            if(user['is_confirmed'] == "1") {
+            if(user[0]['is_confirmed'] == "1") {
                 is_confirmed = true;
             }
             else {
                 is_confirmed = false;
             }
-            loggedUserName = user['name'];
-            user_id = user['id'];
-            liked_ideas = user['liked_ideas'];
-            created_ideas = user['created_ideas'];
-            var ban = user['is_banned'];
+            loggedUserName = user[0]['name'];
+            user_id = user[0]['id'];
+            liked_ideas = user[0]['liked_ideas'];
+            created_ideas = user[0]['created_ideas'];
+            var ban = user[0]['is_banned'];
 
             if(ban == 1){
                 is_banned = true;
@@ -117,6 +117,7 @@ $(document).ready(function() {
      */
 
     function searchIdeas(limit, userId, dataString){
+        $("#spinner-ideas-load").css("display", "block");
         var regionId = $("#region-select").find(":selected").index();
         var cityName = $("#search-city").val();
         var categoryId = $("#category-select").find(":selected").index();
@@ -192,6 +193,7 @@ $(document).ready(function() {
                                 ideas[i]['description'].replace(/\(AND\)/g,"&").substring(0,100) +
                                 "...</span> </div> " +
                             "</li>");
+
                     }
                 }
 
@@ -199,6 +201,7 @@ $(document).ready(function() {
 
 
         });
+        $("#spinner-ideas-load").css("display", "none");
     }
 
 
@@ -212,6 +215,17 @@ $(document).ready(function() {
         limitIndex.attr("singleuser", "false");
         limitIndex.attr("index", "0");
         searchIdeas(0, "");
+    });
+
+
+    /*
+    Search input
+     */
+
+    $("#search-input").keyup(function(){
+        content.empty();
+        limitIndex.attr("singleuser", "true");
+        searchIdeas(0, "", "keyword=" + $(this).val());
     });
 
 
@@ -280,11 +294,12 @@ $(document).ready(function() {
         });
 
         getIdea.done(function(datas){
+            $("#spinner-idea-load").css("display", "none");
             var idea = datas['0'][0];
             ideasSubject.text(idea['subject']);
             ideasDescription.val(idea['description'].replace(/\(AND\)/g,"&"));
             ideasDate.text("від " + idea['date']);
-            ideasLike.text("Підтримало  " + idea['rating'] + " людей");
+            ideasLike.text("Підтримало " + idea['rating'] + " людей");
             var photos = idea['files'];
             ideasPhotos.empty();
             if (photos.length > 0) {
@@ -358,28 +373,29 @@ $(document).ready(function() {
                     commentsList.empty();
                     var comments = datas['0'];
                     for(var i = 0; i < comments.length; i++) {
-                        var dataGetAuthor = "user_id=" + comments[i]['author'];
-
-                        var getAuthor = $.ajax({
-                            type: "GET",
-                            url: "api/users.php",
-                            async: false,
-                            data: dataGetAuthor,
-                            dataType: 'json',
-                            status: 200,
-                            statusText: "OK",
-                            cache: false
-                        });
-
-                        getAuthor.done(function(usersData){
-                            var author = usersData['0'];
-                            commentsList.append(
-                                '<li>' +
-                                '<span class="ideas-comments-author" index="' + author['id'] + "\" mail=\"" + author['email'] + "\">" + author['name'] + "</span>" +
-                                '<span class="ideas-comments-date" style="float: right; margin-right: 20px">додано ' + comments[i]['datetime'] +"</span>" +
-                                '<div class="ideas-comments-text">' + comments[i]['text'] + "</div>" +
-                                '</li>');
-                        });
+                        //var dataGetAuthor = "user_id=" + comments[i]['author'];
+                        //
+                        //var getAuthor = $.ajax({
+                        //    type: "GET",
+                        //    url: "api/users.php",
+                        //    async: false,
+                        //    data: dataGetAuthor,
+                        //    dataType: 'json',
+                        //    status: 200,
+                        //    statusText: "OK",
+                        //    cache: false
+                        //});
+                        //
+                        //getAuthor.done(function(usersData){
+                        //    var author = usersData['0'];
+                        //
+                        //});
+                        commentsList.append(
+                            '<li>' +
+                            '<span class="ideas-comments-author" index="' + comments[i]['author'].split(';')[0] + "\">" + comments[i]['author'].split(';')[1] + "</span>" +
+                            '<span class="ideas-comments-date" style="float: right; margin-right: 20px">додано ' + comments[i]['datetime'] +"</span>" +
+                            '<div class="ideas-comments-text">' + comments[i]['text'] + "</div>" +
+                            '</li>');
                     }
                 });
 
@@ -424,28 +440,29 @@ $(document).ready(function() {
         getComments.done(function(datas){
             var comments = datas['0'];
             for(var i = 0; i < comments.length; i++) {
-                var dataGetAuthor = "user_id=" + comments[i]['author'];
-
-                var getAuthor = $.ajax({
-                    type: "GET",
-                    url: "api/users.php",
-                    async: false,
-                    data: dataGetAuthor,
-                    dataType: 'json',
-                    status: 200,
-                    statusText: "OK",
-                    cache: false
-                });
-
-                getAuthor.done(function(usersData){
-                    var author = usersData['0'];
-                    commentsList.append(
-                        '<li>' +
-                        '<span class="ideas-comments-author" index="' + author['id'] + "\" mail=\"" + author['email'] + "\">" + author['name'] + "</span>" +
-                        '<span class="ideas-comments-date" style="float: right; margin-right: 20px">додано ' + comments[i]['datetime'] +"</span>" +
-                        '<div class="ideas-comments-text">' + comments[i]['text'] + "</div>" +
-                        '</li>');
-                });
+                //var dataGetAuthor = "user_id=" + comments[i]['author'];
+                //
+                //var getAuthor = $.ajax({
+                //    type: "GET",
+                //    url: "api/users.php",
+                //    async: false,
+                //    data: dataGetAuthor,
+                //    dataType: 'json',
+                //    status: 200,
+                //    statusText: "OK",
+                //    cache: false
+                //});
+                //
+                //getAuthor.done(function(usersData){
+                //    var author = usersData['0'];
+                //
+                //});
+                commentsList.append(
+                    '<li>' +
+                    '<span class="ideas-comments-author" index="' + comments[i]['author'].split(';')[0] + "\">" + comments[i]['author'].split(';')[1] + "</span>" +
+                    '<span class="ideas-comments-date" style="float: right; margin-right: 20px">додано ' + comments[i]['datetime'] +"</span>" +
+                    '<div class="ideas-comments-text">' + comments[i]['text'] + "</div>" +
+                    '</li>');
             }
         });
     }
@@ -453,6 +470,7 @@ $(document).ready(function() {
     $(document).on("click","#list-ideas-content li", function () {
         index = $(this).attr('index');
         $("body").css("overflow-y", "hidden");
+        $("#spinner-idea-load").css("display", "block");
         layerBg.css("display", "block");
         layerWrapper.css("display", "block");
         profilePopup.css("display", "none");
@@ -539,7 +557,7 @@ $(document).ready(function() {
         if(commentsArea.val() != "Коментувати..." && commentsArea.val().trim() != "") {
             getUser("", mail);
             if (is_confirmed && !is_banned) {
-                var postCommentData = "user_id=" + user_id + "&text=" + commentsArea.val().replace(/(?:\r\n|\r|\n)/g, '<br />') + "&id=" + index;
+                var postCommentData = "user_id=" + user_id + ";" + loggedUserName + "&text=" + commentsArea.val().replace(/(?:\r\n|\r|\n)/g, '<br />') + "&id=" + index;
 
                 var postNewComment = $.ajax({
                     type: "POST",
@@ -594,12 +612,17 @@ $(document).ready(function() {
      */
 
     likeIcon.click(function(){
+        var likeCount = parseInt(ideasLike.text().split(' ')[1]);
         getUser(user_id, "");
         var likedIdeas = liked_ideas.split(',');
         var likeIndex = likedIdeas.indexOf(String(index));
 
         // Reduce
         if(likeIndex >= 0){
+            likeCount --;
+            likeIcon.css("opacity", "0.3");
+            ideasLike.text("Підтримало " + likeCount + " людей");
+            $("li[index='" + index + "'] .info-ideas-item-like").html(likeCount);
             likedIdeas.splice(likeIndex, 1);
 
             var putLikedIdeas = $.ajax({
@@ -646,9 +669,9 @@ $(document).ready(function() {
                         putLikedIdeas.done(function(datas) {
                             var isUpdated = datas['is_updated'];
                             if (isUpdated == "true"){
-                                likeIcon.css("opacity", "0.3");
-                                ideasLike.text("Підтримало  " + newRating + " людей");
-                                $("li[index='" + index + "'] .info-ideas-item-like").html(newRating);
+                                //likeIcon.css("opacity", "0.3");
+                                //ideasLike.text("Підтримало  " + newRating + " людей");
+                                //$("li[index='" + index + "'] .info-ideas-item-like").html(newRating);
                             }
                         });
 
@@ -660,6 +683,10 @@ $(document).ready(function() {
 
         //Increase
         else{
+            likeCount ++;
+            likeIcon.css("opacity", "1");
+            ideasLike.text("Підтримало " + likeCount + " людей");
+            $("li[index='" + index + "'] .info-ideas-item-like").text(likeCount);
             likedIdeas.push(index);
             var newArrayLikedIdeas = likedIdeas.join();
             var putLikedIdeas = $.ajax({
@@ -705,9 +732,9 @@ $(document).ready(function() {
                         putLikedIdeas.done(function(datas) {
                             var isUpdated = datas['is_updated'];
                             if (isUpdated == "true"){
-                                likeIcon.css("opacity", "1");
-                                ideasLike.text("Підтримало  " + newRating + " людей");
-                                $("li[index='" + index + "'] .info-ideas-item-like").text(newRating);
+                                //likeIcon.css("opacity", "1");
+                                //ideasLike.text("Підтримало  " + newRating + " людей");
+                                //$("li[index='" + index + "'] .info-ideas-item-like").text(newRating);
                             }
                         });
 
@@ -1284,3 +1311,4 @@ $(document).ready(function() {
 
     });
 });
+

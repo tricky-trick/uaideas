@@ -1,10 +1,6 @@
 
 body{
-    background: url("../img/mbg.jpg") no-repeat;
-    -webkit-background-size: cover; /* For WebKit*/
-    -moz-background-size: cover;    /* Mozilla*/
-    -o-background-size: cover;      /* Opera*/
-    background-size: cover;
+    background: #e7e9ec;
 }
 
 .cd-background-wrapper{

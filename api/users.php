@@ -52,6 +52,7 @@ if(isset($_COOKIE['USER_IN']) || isset($_COOKIE['USER_OFF'])) {
     if ($method == "GET") {
         $id = $_GET['user_id'];
         $mail = $_GET['email'];
+        $name = $_GET['name'];
         $is_banned = $_GET['ban'];
         $is_confirmed = $_GET['confirm'];
 
@@ -59,6 +60,8 @@ if(isset($_COOKIE['USER_IN']) || isset($_COOKIE['USER_OFF'])) {
             $condition .= " and id=" . $id;
         if ($mail != "")
             $condition .= " and mail='" . $mail . "'";
+        if ($name != "")
+            $condition .= " and name='" . $name . "'";
         if ($is_banned != "")
             $condition .= " and is_banned=" . $is_banned;
         if ($is_confirmed != "")
@@ -67,7 +70,7 @@ if(isset($_COOKIE['USER_IN']) || isset($_COOKIE['USER_OFF'])) {
         $sql = "SELECT * FROM users WHERE 1 " . $condition;
 
         $result = mysql_query($sql, $con);
-
+        $array_users = array();
         $data = array(
             'count' => mysql_num_rows($result)
         );
@@ -85,8 +88,10 @@ if(isset($_COOKIE['USER_IN']) || isset($_COOKIE['USER_OFF'])) {
 
             );
 
-            array_push($data, $array);
+            array_push($array_users, $array);
         }
+
+        array_push($data, $array_users);
 
 
         $json = json_encode($data, JSON_UNESCAPED_UNICODE);
@@ -105,6 +110,7 @@ if(isset($_COOKIE['USER_IN']) || isset($_COOKIE['USER_OFF'])) {
         $liked_ideas = $_PUT['liked_ideas'];
         $confirm = $_PUT['confirm'];
         $password = $_PUT['password'];
+        $ban = $_PUT['ban'];
 
         $condition = "";
 
@@ -120,6 +126,8 @@ if(isset($_COOKIE['USER_IN']) || isset($_COOKIE['USER_OFF'])) {
             $condition .= ", is_confirmed=" . $confirm;
         if ($password != "")
             $condition .= ", password='" . hash("sha256", $password) . "'";
+        if ($ban != "")
+            $condition .= ", is_banned=" . $ban;
 
         if($email != "")
         {
