@@ -1,14 +1,10 @@
-body{
-    background: #e7e9ec;
-}
-
 *:focus {
     outline: none;
 }
 
 #login-form, #reg-form{
     position: absolute;
-    height: 450px;
+    height: 360px;
     z-index: 1;
     background: #ffffff;
     border-radius: 1px;
@@ -16,7 +12,6 @@ body{
     -moz-transition: all 0.5s ease-out;
     -ms-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;
-    padding: 2px;
     -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
@@ -40,20 +35,25 @@ body{
     opacity: 0;
 }
 
-.login-block{
-    display: inline-block;
-    height: auto;
-    width: 49.5%;
-    margin-bottom: 0%;
-    align-content: stretch;
+#login-form table{
     margin-top: 20px;
+    width: 100%;
+    height: 50%;
 }
 
-#login-block-left{
-    float: left;
+#reg-form table{
+    margin-top: 20px;
+    width: 100%;
+    height: 50%;
 }
-#login-block-right{
-    float: right;
+
+#login-form table td, #reg-form table td{
+    width: 50%;
+    height: 45px;
+}
+
+table td{
+    margin-top: 2px;
 }
 
 .login-text-header{
@@ -94,29 +94,29 @@ body{
 #login-google,
 #login-vkontakte,
 #about-us-link{
-    width: 70%;
-    height:30px;
+    width: 80%;
+    height:36px;
     font: 16px Verdana,Helvetica;
-    border-radius: 5px;
+    border-radius: 2px;
     text-align: center;
-    border: 1px inset lightgray;
+    border: 1px solid lightgray;
 }
 
 #reg-form-email,
 #reg-form-name,
 #reg-form-password,
 #reg-form-repeat-password{
-    margin-left: 5%;
     width: 90%;
+    height: 36px;
 }
 
 
 #login-form-submit, #login-form-reg, #reg-form-submit, #reg-form-cancel{
     background: darkslategray;
-    border: 2px solid #ffffff;
+    border: 0px solid #ffffff;
     color: #ffffff;
     padding: 2px;
-    width: 72%;
+    width: 81%;
     height:40px;
 }
 
@@ -160,14 +160,14 @@ body{
 
 .login-label-error{
     width: 100%;
-    display: none;
+    opacity: 0;
     color: red;
     text-align: center;
     align-self: center;
 }
 
 #login-facebook, #login-google, #login-vkontakte, #about-us-link{
-    border: 2px solid #ffffff;
+    border: 0px solid #ffffff;
     color: #ffffff;
     padding: 2px;
     width: 80%;
@@ -232,7 +232,15 @@ body{
     color: lightyellow;
 }
 
-
+#footer{
+    color: #333;
+    width:10%;
+    text-align: center;
+    margin-left: 45%;
+    font-size: 12px;
+    top:95%;
+    position: absolute;
+}
 
 
 

@@ -8,15 +8,14 @@ if (!isset($_COOKIE['USER_IN'])) {
 <head lang="ua">
     <meta charset="UTF-8">
     <title>Пізнай Україну</title>
+    <meta name=viewport content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="keywords" content="Україна,замки,фортеці,подорожі,відпочинок,туризм,подорожувати,провести час,ресторани,кафе,актиний відпочинок">
     <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="css/mainbackground.css" />
     <script>
-        var height = window.innerHeight;
-        var width = window.innerWidth;
-        if(width < height){
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
             link=document.createElement('link');
             link.href='css/mmain.css';
             link.rel='stylesheet';
@@ -36,7 +35,6 @@ if (!isset($_COOKIE['USER_IN'])) {
     <script type="text/javascript" src="js/mainpageloaddata.js"></script>
     <script type="text/javascript" src="js/facebook.js"></script>
     <script type="application/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMP96Hq8T2oMbVZV2PYOvPxE9FZEyyU7k"></script>
-
     <script type="text/javascript">
         var map;
         var marker;
@@ -61,12 +59,7 @@ if (!isset($_COOKIE['USER_IN'])) {
     <div id="main-content">
 
         <div id="top-side-panel">
-            <img src="img/logo_see.png" style="
-            margin-left: 10%; width: auto; height: 100%;
-            border-radius: 5px;
-            -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
-           -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
-            box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);">
+            <img id = "main-logo" src="img/logo_see.png">
             <table id="top-panel-menu">
                 <tbody>
                 <tr>
@@ -97,7 +90,7 @@ if (!isset($_COOKIE['USER_IN'])) {
                         </select>
                     </td>
                     <td width="22%">
-                        <input type="text" id="search-city" value="" autocomplete="on" onkeypress="validateName(event, 'search-city', 'region-select')" placeholder="Введіть назву міста" style="height: 22px;">
+                        <input type="text" id="search-city" value="" autocomplete="on" onkeypress="validateName(event, 'search-city', 'region-select')" placeholder="Введіть назву міста">
                     </td>
                     <td width="22%">
                         <select id="category-select">
@@ -145,10 +138,7 @@ if (!isset($_COOKIE['USER_IN'])) {
             </div>
 
             <div id="idea-show-map" coord="">Показати на мапі</div>
-            <div id="map-idea" style="width: 100%; height: 0px;
-            -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
-            -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
-            box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);">
+            <div id="map-idea">
                 <div id="map-canvas-idea" style="width: 100%; height: 100%;">
                 </div>
             </div>
@@ -201,7 +191,6 @@ if (!isset($_COOKIE['USER_IN'])) {
             </div>
             <span id="ideas-body-counter"></span>
             <br>
-            <br>
             <table id="dropdown-new-idea">
                 <tbody>
                 <tr>
@@ -211,33 +200,28 @@ if (!isset($_COOKIE['USER_IN'])) {
                         </select>
                     </td>
                     <td width="33%">
-                        <input type="text" id="new-idea-search-city" value="" autocomplete="on" onkeypress="validateName(event, 'new-idea-search-city', 'new-idea-region-select')" placeholder="Введіть назву міста" style="height: 26px;">
+                        <input type="text" id="new-idea-search-city" value="" autocomplete="on" onkeyup="validateName(event, 'new-idea-search-city', 'new-idea-region-select')" placeholder="Введіть назву міста">
                     </td>
 
-                    <td width="34%">
+                    <td width="33%">
                         <select id="new-idea-category-select">
                             <option>Оберіть категорію</option>
                         </select>
                     </td>
-                    <td>
-
-                    </td>
                 </tr>
                 </tbody>
             </table>
-            <br>
             <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
 <!--                <input type="file" name="file[]" id="new-idea-image-upload" multiple />-->
-                <div style="padding-left: 5px; width: 30%; font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans'; padding-left:5px; padding-right:5px; font-weight: bold; font-size: 12px; color: white;margin-top:10px;overflow: hidden; color: steelblue; border: 1px lightgray dotted; border-radius: 3px">
-                    Завантажити фото<input style="margin-left: -5px; color:#446655;display: block;" type="file" name="file[]" id="new-idea-image-upload" multiple  />
+                <div id="upimage-container">
+                    <span id="uploaded-imgs">Завантажити фото</span><input type="file" name="file[]" id="new-idea-image-upload" multiple  />
+                    <br>
                 </div>
             </form>
-            <div id="new-idea-show-map" style="margin-top: -34px;">Додати координати на карті</div>
             <br>
-            <div id="map" style="width: 100%; height: 0px;
-            -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
-            -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
-            box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);">
+            <div id="new-idea-show-map">Додати координати</div>
+            <br>
+            <div id="map">
                 <div id="map-canvas" style="width: 100%; height: 100%;">
                 </div>
             </div>

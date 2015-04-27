@@ -27,6 +27,18 @@ body{
     background: #e7e9ec;
 }
 
+#main-logo{
+    margin-left: 15%; width: auto; height: 100%;
+    border-radius: 5px;
+    -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+}
+
+select:hover{
+    cursor: pointer;
+}
+
 #s-top-side-panel, #top-side-panel{
     -webkit-transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
@@ -36,12 +48,6 @@ body{
     top: 0;
     display: table-cell;
     vertical-align: middle;
-    -webkit-border-bottom-right-radius: 5px;
-    -webkit-border-bottom-left-radius: 5px;
-    -moz-border-radius-bottomright: 5px;
-    -moz-border-radius-bottomleft: 5px;
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
 }
 
 #top-side-panel{
@@ -49,51 +55,40 @@ body{
     padding-bottom: 5px;
     z-index: 3;
     width: 100%;
-    height: 40px;
+    height: 35px;
     left: 0%;
-    background: rgb(37,141,200); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(37,141,200,1) 0%, rgba(133,175,198,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(37,141,200,1)), color-stop(100%,rgba(133,175,198,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgba(37,141,200,1) 0%,rgba(133,175,198,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgba(37,141,200,1) 0%,rgba(133,175,198,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgba(37,141,200,1) 0%,rgba(133,175,198,1) 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  rgba(37,141,200,1) 0%,rgba(133,175,198,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#258dc8', endColorstr='#85afc6',GradientType=0 ); /* IE6-9 */
+    background-color: #696969;
+    background-image: -webkit-linear-gradient(top, #696969 0%,#3f3f3f 100%);
+    background-image: -moz-linear-gradient(top, #696969 0%,#3f3f3f 100%);
+    background-image: -o-linear-gradient(top, #696969 0%,#3f3f3f 100%);
+    background-image: linear-gradient(top, #696969 0%,#3f3f3f 100%);
 
-    box-shadow: black inset 2px 5px;
-    -webkit-box-shadow: 0px 4px 5px 4px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 4px 5px 4px rgba(0,0,0,0.75);
-    box-shadow: 0px 4px 5px 4px rgba(0,0,0,0.75);
 }
 
 #s-top-side-panel {
     z-index: 2;
-    width: 70%;
-    left: 15%;
-    height: 50px;
-    top: 50px;
-    background: rgb(76,106,130); /* Old browsers */
-    background: -moz-linear-gradient(top,  rgba(76,106,130,1) 0%, rgba(109,136,145,1) 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(76,106,130,1)), color-stop(100%,rgba(109,136,145,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  rgba(76,106,130,1) 0%,rgba(109,136,145,1) 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top,  rgba(76,106,130,1) 0%,rgba(109,136,145,1) 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  rgba(76,106,130,1) 0%,rgba(109,136,145,1) 100%); /* IE10+ */
-    background: linear-gradient(to bottom,  rgba(76,106,130,1) 0%,rgba(109,136,145,1) 100%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4c6a82', endColorstr='#6d8891',GradientType=0 ); /* IE6-9 */
+    width: 100%;
+    left: 0%;
+    height: 30px;
+    top: 45px;
+    background: #333;
+    -webkit-border-bottom-right-radius: 2px;
+    -webkit-border-bottom-left-radius: 2px;
+    -moz-border-radius-bottomright: 2px;
+    -moz-border-radius-bottomleft: 2px;
+    border-bottom-right-radius: 2px;
+    border-bottom-left-radius: 2px;
 
-    -webkit-box-shadow: 0px 4px 5px 2px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 4px 5px 2px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 4px 5px 2px rgba(0, 0, 0, 0.75);
 }
 
 
 #ideas-content {
     position: absolute;
     z-index: 1;
-    top: 90px;
-    width: 66%;
+    top: 60px;
+    width: 79.5%;
     height: auto;
-    left: 17%;
+    left: 11.3%;
     color: black;
     border-right: 2px;
     padding-bottom: 10%;
@@ -101,7 +96,7 @@ body{
 
 
 .top-panel-menu-items{
-    color: #ffffff;
+    color: white;
     font-size: inherit;
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     font-weight: bold;
@@ -112,7 +107,7 @@ body{
 
 
 .top-panel-menu-items:hover{
-    color: yellow;
+    background: #696969;
     border-radius: 5px;
 }
 
@@ -120,6 +115,8 @@ body{
     height: 100%;
     width: 50%;
     float: right;
+    margin-right: 13.5%;
+    font-size: 14px;
 }
 
 #top-panel-menu td, #s-top-side-panel td{
@@ -141,7 +138,8 @@ body{
 }
 
 #s-top-panel-menu{
-    width: 100%;
+    width: 71.5%;
+    margin-left: 14%;
     height: 100%;
 }
 
@@ -152,18 +150,36 @@ body{
     -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
-    border-radius: 5px;
-    background: darkcyan;
+    border-radius: 2px;
+    -webkit-appearance: none;
+    background: #696969;
     color: white;
-    height: 25px;
+    height: 18px;
     font-family: tahoma, arial, verdana, sans-serif, 'Lucida Sans';
-    font-size: inherit;
+    font-size: 12px;
     font-weight: lighter;
+    text-indent: 5px;
+}
+
+#search-city{
+    height: 17px;
+}
+
+#region-select, #category-select, #sort-select{
+    background: #696969 url("../img/arrow.png") no-repeat right;
+    -webkit-background-size: contain; /* For WebKit*/
+    -moz-background-size: contain;    /* Mozilla*/
+    -o-background-size: contain;      /* Opera*/
+    background-size: contain;
 }
 
 
 #search-submit:active{
     background: #e7e9ec;
+}
+
+#search-submit:hover{
+    cursor: pointer;
 }
 
 .ui-menu {
@@ -235,8 +251,12 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     color: black;
     float: left;
     text-align: center;
-    color: steelblue;
+    color: #696969;
     font-size: 20px;
+}
+
+.info-ideas-item-like{
+
 }
 
 .id-ideas-item{
@@ -249,7 +269,7 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     display: inline-block;
     align-content: stretch;
     font-weight: bold;
-    color: steelblue;
+    color: rgb(0, 169, 213);
 }
 
 .description-ideas-item{
@@ -258,6 +278,7 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     text-align: justify;
     display: inline-block;
     align-content: stretch;
+    color: #333;
 }
 
 .like-icon{
@@ -307,7 +328,7 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     cursor: pointer;
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     font-size: 12px;
-    color: steelblue;
+    color: rgb(0, 169, 213);
 }
 
 .close-layer:hover{
@@ -315,10 +336,10 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
 }
 
 #ideas-subject-layer, #new-idea-subject-layer{
-    width: 99%;
+    width: 100%;
     height: auto;
     background: #F9F9F9;
-    color: steelblue;
+    color: rgb(0, 169, 213);
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     font-weight: bold;
     text-align: center;
@@ -348,16 +369,18 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
 }
 
 #like-layer{
-    color: steelblue;
+    color: rgb(0, 169, 213);
     font-size: 12px;
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     float: right;
+    margin-right: 10px;
 }
 
 #like-icon-layer{
-    width: 30px;
-    height: 30px;
+    width: 20px;
+    height: 20px;
     float: right;
+    margin-right: 10px;
     display: block;
 }
 
@@ -375,7 +398,7 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
 }
 
 #author-layer, .ideas-comments-author{
-    color: steelblue;
+    color: rgb(0, 169, 213);
     font-size: 14px;
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     float: left;
@@ -387,8 +410,8 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
 /*}*/
 
 #comments-layer{
-    color: gray;
-    font-size: 16px;
+    color: #696969;
+    font-size: 14px;
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     text-align: center;
     font-weight: bold;
@@ -464,7 +487,7 @@ textarea{
 #add-comments, #add-new-idea, #submit-change-profile{
     width: auto;
     height: auto;
-    background: cornflowerblue;
+    background: rgb(0, 169, 213);
     color: white;
     border-radius: 2px;
     padding: 5px 15px;
@@ -500,8 +523,8 @@ textarea{
     background: #e7e9ec;
     padding: 5px 15px;
     margin-bottom: 10px;
-    color: steelblue;
-    margin-left: 50px;
+    color: rgb(0, 169, 213);
+    margin-left: 32px;
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     font-weight: bold;
 }
@@ -515,38 +538,41 @@ textarea{
     position: fixed;
     width: 70px;
     height: 70px;
-    background: green url("../img/add-icon.png") no-repeat center center;
+    background: #333 url("../img/add-icon-new.png") no-repeat center center;
     -webkit-background-size: cover; /* For WebKit*/
     -moz-background-size: cover; /* Mozilla*/
     -o-background-size: cover; /* Opera*/
     background-size: cover ;
     z-index : 5;
-    margin-top: 40%;
-    margin-left: 80%;
-    color: #ffffff;
+    top: 70px;
+    margin-left: 90%;
+    color: rgb(253, 253, 126);
     font-weight: bold;
     text-align: center;
     font-size: 60px;
-    border-radius: 50px;
-    box-shadow: black inset 2px 5px;
-    -webkit-box-shadow: 0px 4px 3px 2px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 4px 3px 2px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 4px 3px 2px rgba(0, 0, 0, 0.75);
+    border-radius: 2px;
     z-index: 6;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -ms-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    -webkit-border-bottom-right-radius: 50px;
+    -webkit-border-bottom-left-radius: 50px;
+    -moz-border-radius-bottomright: 50px;
+    -moz-border-radius-bottomleft: 50px;
+    border-bottom-right-radius: 50px;
+    border-bottom-left-radius: 50px;
+    -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
 }
 
 
 #add-new-idea-button:hover{
-    -webkit-box-shadow: 0px 5px 5px 2px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 5px 5px 2px rgba(0,0,0,0.75);
-    box-shadow: 0px 5px 5px 5px rgba(0,0,0,0.75);
+    -webkit-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 2px 3px 0px rgba(0, 0, 0, 0.75);
     cursor: pointer;
-}
-
-#add-new-idea-button:active {
-    -webkit-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.75);
-    -moz-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.75);
-    box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.75);
 }
 
 
@@ -569,6 +595,7 @@ textarea{
 #dropdown-new-idea{
     width: 100%;
     height: 50px;
+    margin-left: -2px;
 }
 
 #dropdown-new-idea td{
@@ -579,24 +606,39 @@ textarea{
 }
 
 #new-idea-region-select, #new-idea-search-city, #new-idea-category-select{
-    width: 95%;
-    border-radius: 5px;
+    width: 100%;
+    height: 25px;
+    border-radius: 3px;
+    -webkit-appearance: none;
     background: #ffffff;
     color: #000000;
-    height: 30px;
     font-family: tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     font-size: inherit;
     border: solid 1px lightgrey;
+    text-indent: 5px;
+}
+#new-idea-region-select, #new-idea-category-select {
+    background: url("../img/arrow2.png") no-repeat right;
+    -webkit-background-size: contain; /* For WebKit*/
+    -moz-background-size: contain; /* Mozilla*/
+    -o-background-size: contain; /* Opera*/
+    background-size: contain;
+}
+
+#new-idea-search-city{
+    width: 98%;
+    height: 21px;
 }
 
 #new-idea-show-map, #idea-show-map{
     width: 30%;
     height: auto;
     margin-left: 35%;
-    background: #EAF0FC;
-    color: grey;
+    background: #e7e9ec;
+    color: rgb(0, 169, 213);
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     font-size: 12px;
+    font-weight: bold;
     text-align: center;
     padding-bottom: 10px;
     padding-top: 10px;
@@ -627,7 +669,7 @@ textarea{
 #my-ideas, #edit-profile{
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     font-size: 14px;
-    color: steelblue;
+    color: rgb(0, 169, 213);
 }
 #my-ideas:hover, #edit-profile:hover{
     cursor: pointer;
@@ -728,4 +770,57 @@ textarea{
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     color: green;
     margin-left: 5px;
+}
+
+#upimage-container{
+    background: url(../img/add_img.png) no-repeat center;
+    -webkit-background-size: 10% auto; /* For WebKit*/
+    -moz-background-size: 10% auto;    /* Mozilla*/
+    -o-background-size: 10% auto;    /* Opera*/
+    background-size: 10% auto;
+    padding-left: 5px;
+    width: 97%;
+    height: 80px;
+    font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
+     padding-left:5px;
+     padding-right:5px;
+     font-weight: bold;
+     font-size: 12px;
+     color: white;
+    margin-top:10px;
+    overflow: hidden;
+     color:  rgb(0, 169, 213);
+     border: 2px lightgray dashed;
+     border-radius: 3px;
+    text-align: center;
+    opacity: 1;
+    -webkit-transition: all 0.1s ease-out;
+    -moz-transition: all 0.1s ease-out;
+    -ms-transition: all 0.1s ease-out;
+    -o-transition: all 0.1s ease-out;
+}
+
+#new-idea-image-upload{
+    margin-left: -5px;
+    width: 100%;
+    height: 100%;
+    color:#446655;
+    display: block;
+    opacity: 0;
+}
+
+#upimage-container:hover{
+    background: #EAFDFF url(../img/add_img.png) no-repeat center;
+    -webkit-background-size: 11% auto; /* For WebKit*/
+    -moz-background-size: 11% auto;    /* Mozilla*/
+    -o-background-size: 11% auto;    /* Opera*/
+    background-size: 11% auto;
+}
+
+#new-idea-image-upload:hover{
+    cursor: pointer;
+}
+
+#uploaded-imgs{
+
 }

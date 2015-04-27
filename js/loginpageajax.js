@@ -18,7 +18,7 @@ $(document).ready(function() {
 
         if(!checkbox.is(":checked")) {
             errorMessage.text("Погодьтеся з правилами реєстрації");
-            errorMessage.css("display", "inline");
+            errorMessage.css("opacity", "1");
             checkbox.fadeOut(200);
             checkbox.fadeIn(200);
             $("#reg-rules").fadeOut(200);
@@ -26,33 +26,33 @@ $(document).ready(function() {
         }
         else{
             errorMessage.css("color", "red");
-            errorMessage.css("display", "none");
+            errorMessage.css("opacity", "0");
             if(mail.replace(/^\s+|\s+$/g, "") == "" ||
                 name.replace(/^\s+|\s+$/g, "") == "" ||
                 password.replace(/^\s+|\s+$/g, "") == "" ||
                 repeatPassword.replace(/^\s+|\s+$/g, "") == ""){
                 errorMessage.text("Заповніть усі поля з зірочкою *");
-                errorMessage.css("display", "inline");
+                errorMessage.css("opacity", "1");
             }
             else{
-                errorMessage.css("display", "none");
+                errorMessage.css("opacity", "0");
                 if (password.length < 6){
                     errorMessage.text("Пароль не менше 6 символів");
-                    errorMessage.css("display", "inline");
+                    errorMessage.css("opacity", "1");
                 }
                 else{
-                    errorMessage.css("display", "none");
+                    errorMessage.css("opacity", "0");
                     if (password != repeatPassword){
                         errorMessage.text("Паролі не співпадають");
-                        errorMessage.css("display", "inline");
+                        errorMessage.css("opacity", "1");
                     }
                     else{
-                        errorMessage.css("display", "none");
+                        errorMessage.css("opacity", "0");
                         var reg = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
                         if(!reg.test(mail))
                         {
                             errorMessage.text("Введіть поштову скриньку коректно");
-                            errorMessage.css("display", "inline");
+                            errorMessage.css("opacity", "1");
                         }
                         else {
                             var data = "email=" + mail + "&ban=0";
@@ -83,7 +83,7 @@ $(document).ready(function() {
                                        var isCreated = datas['is_created'];
                                        if(isCreated == "true"){
                                            errorMessage.text("Вітаємо з реєстрацією!");
-                                           errorMessage.css("display", "inline");
+                                           errorMessage.css("opacity", "1");
                                            errorMessage.css("color", "green");
                                            setTimeout(function(){
                                                var expires = new Date();
@@ -93,13 +93,13 @@ $(document).ready(function() {
                                        }
                                         else{
                                            errorMessage.text("Сталася помилка. Спробуйте ще раз");
-                                           errorMessage.css("display", "inline");
+                                           errorMessage.css("opacity", "1");
                                        }
                                     });
                                 }
                                 else{
                                     errorMessage.text("Такий користувач вже існує");
-                                    errorMessage.css("display", "inline");
+                                    errorMessage.css("opacity", "1");
                                 }
                             });
                         }
@@ -120,12 +120,12 @@ $(document).ready(function() {
         var errorMessage = $("#login-label-error");
 
         errorMessage.css("color", "red");
-        errorMessage.css("display", "none");
+        errorMessage.css("opacity", "0");
 
         if(mail.replace(/^\s+|\s+$/g, "") == "" ||
             password.replace(/^\s+|\s+$/g, "") == ""){
             errorMessage.text("Заповніть поля для входу");
-            errorMessage.css("display", "inline");
+            errorMessage.css("opacity", "1");
         }
         else{
             var data = "email=" + mail + "&password=" + password;
@@ -141,7 +141,7 @@ $(document).ready(function() {
             respost.done(function (datas) {
                 var isLoggedin = datas['is_logged_in'];
                 if (isLoggedin == "true"){
-                    errorMessage.css("display", "none");
+                    errorMessage.css("opacity", "0");
                     var expires = new Date();
                     expires.setTime(expires.getTime() + (7 * 24 * 60 * 60 * 1000));
                     document.cookie =  'USER_IN=' + mail + ';expires=' + expires.toUTCString();
@@ -150,7 +150,7 @@ $(document).ready(function() {
                 }
                 else{
                     errorMessage.text("Ім'я або пароль є неправильні");
-                    errorMessage.css("display", "inline");
+                    errorMessage.css("opacity", "1");
                 }
             });
         }
@@ -329,3 +329,15 @@ $(document).ready(function() {
         win.focus();
     });
 });
+
+
+function escapeSpecialSymbols(evt){
+    var theEvent = evt || window.event;
+    var key = theEvent.keyCode || theEvent.which;
+    key = String.fromCharCode( key );
+    var pattern = /[a-z]|[A-Z]|[0-9]|[А-Я]|[а-я]|[і]|[ї]|[І]|[Ї]|[Ґ]|\-| /;
+    if(!pattern.test(key)){
+        theEvent.returnValue = false;
+        if(theEvent.preventDefault) theEvent.preventDefault();
+    }
+}

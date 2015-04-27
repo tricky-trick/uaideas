@@ -165,7 +165,7 @@ $(document).ready(function() {
                 if (datas['count'] == 0) {
                     $("#load-another-content").attr("disabled", "true");
                     $("#no-ideas-text").remove();
-                    $("#ideas-content").append("<br><div id='no-ideas-text' style='width: 90%; margin-left: 5%; margin-top: 20px; text-align: center; font-family:  tahoma, arial, verdana, sans-serif, \"Lucida Sans\";'>Більше не знайдено жодної ідеї чи проблеми.<div>");
+                    $("#ideas-content").append("<br><div id='no-ideas-text' style='width: 90%; margin-left: 5%; margin-top: 20px; text-align: center; font-family:  tahoma, arial, verdana, sans-serif, \"Lucida Sans\";'>Більше об'єктів не знайдено.<div>");
                 }
                 else {
                     $("#load-another-content").removeAttr("disabled");
@@ -245,10 +245,25 @@ $(document).ready(function() {
             }
         }
         var st = $(this).scrollTop();
-        if (st > lastScrollTop){
-            $("#s-top-side-panel").css("top", "0px");
-        } else {
-            $("#s-top-side-panel").css("top", "50px");
+
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+            if (st > lastScrollTop) {
+                $("#s-top-side-panel").css("top", "-20px");
+
+            } else {
+                $("#s-top-side-panel").css("top", "50px");
+            }
+        }
+        else {
+
+            if (st > lastScrollTop) {
+                $("#s-top-side-panel").css("top", "20px");
+                addNewIdea.css("top", "45px");
+
+            } else {
+                $("#s-top-side-panel").css("top", "45px");
+                addNewIdea.css("top", "70px");
+            }
         }
         //lastScrollTop = st;
     });
@@ -327,9 +342,9 @@ $(document).ready(function() {
 
             getAuthor.done(function(datas){
                 var user = datas['0'];
-                ideasAuthor.text("Автор: " + user['name']);
-                ideasAuthor.attr("index", user['id']);
-                ideasAuthor.attr("mail", user['email']);
+                ideasAuthor.text("Автор: " + user[0]['name']);
+                ideasAuthor.attr("index", user[0]['id']);
+                ideasAuthor.attr("mail", user[0]['email']);
 
                 var likedIdeas = liked_ideas.split(',');
                 var createdIdeas = created_ideas.split(',');
@@ -340,7 +355,7 @@ $(document).ready(function() {
                 else{
                     likeIcon.css("opacity", "0.3");
                 }
-                if(user['id'] == user_id){
+                if(user[0]['id'] == user_id){
                     editIcon.css("display", "block");
                     removeIcon.css("display", "block");
                 }
@@ -356,7 +371,7 @@ $(document).ready(function() {
                     showMapIdea.css("display", "block");
                 }
 
-                var dataGetComments = "id=" + index + "&active=1"
+                var dataGetComments = "ideas_id=" + index + "&active=1"
 
                 var getComments = $.ajax({
                     type: "GET",
@@ -424,7 +439,7 @@ $(document).ready(function() {
     });
 
     function getLastComment(ideaIndex){
-        var dataGetComments = "id=" + ideaIndex + "&active=1" + "&last=1";
+        var dataGetComments = "ideas_id=" + ideaIndex + "&active=1" + "&last=1";
 
         var getComments = $.ajax({
             type: "GET",
@@ -557,7 +572,7 @@ $(document).ready(function() {
         if(commentsArea.val() != "Коментувати..." && commentsArea.val().trim() != "") {
             getUser("", mail);
             if (is_confirmed && !is_banned) {
-                var postCommentData = "user_id=" + user_id + ";" + loggedUserName + "&text=" + commentsArea.val().replace(/(?:\r\n|\r|\n)/g, '<br />') + "&id=" + index;
+                var postCommentData = "user_id=" + user_id + ";" + loggedUserName + "&text=" + commentsArea.val().replace(/(?:\r\n|\r|\n)/g, '<br />') + "&ideas_id=" + index;
 
                 var postNewComment = $.ajax({
                     type: "POST",
@@ -829,6 +844,7 @@ $(document).ready(function() {
         $("#ideas-subject-counter").text("");
         $("#ideas-body-counter").text("");
         $("#map").css("height", "0px");
+        $("#spinner-icon").css("display", "none");
     });
 
     function guid() {
@@ -895,7 +911,7 @@ $(document).ready(function() {
                                 dismissPopUp();
                             }
                             else {
-
+                                var newIdeaUploadFile = document.getElementById('new-idea-image-upload');
                                 var form = document.getElementById('uploadimage');
                                 var formData = new FormData(form);
                                 var files = "";
@@ -994,6 +1010,9 @@ $(document).ready(function() {
                                                         closeLayerWindow();
 
                                                     }, 1000);
+                                                    $("#ideas-subject-counter").text("");
+                                                    $("#ideas-body-counter").text("");
+                                                    $("#uploaded-imgs").text("Завантажити фото");
 
                                                 }
 
@@ -1307,8 +1326,38 @@ $(document).ready(function() {
                 }
             }
         }
+    });
 
+    $("#new-idea-image-upload").on('change',function() {
+        var arr = [];
+        var err;
+        if($(this).get(0).files.length > 10) {
+            showPopUp("Ви можете додати не більше 10 зображень", newIdeaAddButton);
+            dismissPopUp();
+        }
+        else {
+            for (var i = 0; i < $(this).get(0).files.length; ++i) {
+                var name = $(this).get(0).files.item(i).name;
+                var type = $(this).get(0).files.item(i).type;
+                var match = ["image/jpeg", "image/png", "image/jpg"];
 
+                if ((type == match[0]) || (type == match[1]) || (type == match[2])) {
+                    arr.push(name);
+                }
+                else {
+                    err = "error";
+                }
+
+            }
+
+            if(err == "error"){
+                showPopUp("Формат файлів може бути: png, jpeg, jpg", $("#uploaded-imgs"));
+                dismissPopUp();
+            }
+            else {
+                $("#uploaded-imgs").text(arr);
+            }
+        }
     });
 });
 

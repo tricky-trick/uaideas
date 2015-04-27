@@ -65,6 +65,8 @@ $(document).ready(function(){
         + "<tbody></tbody>");
 
         getUsers("", $("#admin-content tbody"));
+        $("#admin-content table thead").width(mainContent.width());
+        $("#admin-content thead th").width($("#admin-content tbody td").width());
     });
 
     $(document).on("click",".button-ban", function () {
@@ -195,6 +197,8 @@ $(document).ready(function(){
         + "<tbody></tbody>");
 
         getIdeas("all=all", $("#admin-content tbody"));
+        $("#admin-content table thead").width(mainContent.width());
+        $("#admin-content thead th").width($("#admin-content tbody td").width());
     });
 
     $(document).on("click",".button-delete", function () {
@@ -264,5 +268,134 @@ $(document).ready(function(){
         $("#admin-content tbody").empty();
         getIdeas("all=all&deleted=" + $(this).val(), $("#admin-content tbody"));
     });
+
+    /*
+    Get comments
+     */
+
+    function getComments(dataString, node){
+        var data = "";
+
+        if(dataString != ""){
+            data = dataString;
+        }
+
+        var getComments = $.ajax({
+            type: "GET",
+            url: "api/comments.php",
+            data: data,
+            dataType: 'json',
+            async: false,
+            status: 200,
+            statusText: "OK",
+            cache: false
+        });
+
+        getComments.done(function (datas) {
+            var comments = datas[0];
+            for (var i = 0; i < comments.length; i ++){
+                var buttonValue = "Деактивувати";
+                var isActive= comments[i]["is_deleted"];
+                if (isActive == "1"){
+                    buttonValue = "Активувати";
+                }
+
+                node.append( "<tr><td>" + comments[i]['id'] +
+                "</td><td>" + comments[i]['ideas_id'] +
+                "</td><td>" + comments[i]['author'] +
+                "</td><td>" + comments[i]['text'] +
+                "</td><td>  <input type='button' class='button-activate' value='" + buttonValue + "' index='" + comments[i]['id'] + "'/> </td></tr>");
+            }
+        });
+    }
+
+    menuItemComments.click(function(){
+        mainContent.empty();
+        mainContent.append("<table>"
+        + "<thead>"
+        + "<th>"
+        + "<input type='text' id='comments-id' placeholder='ID коментарія'/>"
+        + "</th>"
+        + "<th>"
+        + "<input type='text' id='comments-ideas-id' placeholder='ID ідеї'/>"
+        + "</th>"
+        + "<th>"
+        + "<input type='text' id='comments-author' placeholder='ID автора'/>"
+        + "</th>"
+        + "<th>"
+        + "<input type='text' id='comments-text' placeholder='Текст'/>"
+        + "</th>"
+        + "<th>Дія</th>"
+        + "</thead>"
+        + "<tbody></tbody>");
+
+        getComments("all=all", $("#admin-content tbody"));
+        $("#admin-content table thead").width(mainContent.width());
+        $("#admin-content thead th").width($("#admin-content tbody td").width());
+    });
+
+    $(document).on("keyup", "#comments-id", function(){
+        $("#admin-content tbody").empty();
+        getComments("all=all&id=" + $(this).val(), $("#admin-content tbody"));
+    });
+
+    $(document).on("keyup", "#comments-ideas-id", function(){
+        $("#admin-content tbody").empty();
+        getComments("all=all&ideas_id=" + $(this).val(), $("#admin-content tbody"));
+    });
+
+    $(document).on("keyup", "#comments-author", function(){
+        $("#admin-content tbody").empty();
+        getComments("all=all&author=" + $(this).val(), $("#admin-content tbody"));
+    });
+
+    $(document).on("keyup", "#comments-text", function(){
+        $("#admin-content tbody").empty();
+        getComments("all=all&keyword=" + $(this).val(), $("#admin-content tbody"));
+    });
+
+    $(document).on("click",".button-activate", function () {
+        var id = $(this).attr("index");
+        var val = $(this).attr("value");
+        var activate = "1";
+        var isUpdated = false;
+
+        if(val == "Деактивувати"){
+            activate = "0";
+        }
+        else{
+            activate = "1";
+        }
+
+        var putIdeas = $.ajax({
+            type: "PUT",
+            url: "api/comments.php",
+            data: "id=" + id + "&activate=" + activate,
+            dataType: 'json',
+            async: false,
+            status: 200,
+            statusText: "OK",
+            cache: false
+        });
+
+        putIdeas.done(function(datas){
+            var is_updated = datas['is_updated'];
+            if(is_updated == "true") {
+                isUpdated = true;
+            }
+        });
+
+        if (isUpdated == true){
+            if(val == "Деактивувати"){
+                val = "Активувати";
+            }
+            else{
+                val = "Деактивувати";
+            }
+
+            $(this).val(val);
+        }
+    });
+
 
 });

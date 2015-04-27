@@ -21,16 +21,3 @@ $(document).ready(function() {
         return false;
     });
 });
-
-function escapeSpecialSymbols(id, evt){
-    var theEvent = evt || window.event;
-    var key = theEvent.keyCode || theEvent.which;
-    key = String.fromCharCode( key );
-    var pattern = /[a-z]|[A-Z]|[0-9]|[А-Я]|[а-я]|[і]|[ї]|[І]|[Ї]|[Ґ]|\-| /;
-    var result = "";
-
-    if(!pattern.test(key)){
-        theEvent.returnValue = false;
-        if(theEvent.preventDefault) theEvent.preventDefault();
-    }
-}
