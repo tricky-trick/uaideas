@@ -8,7 +8,8 @@ if (!isset($_COOKIE['USER_IN'])) {
 <head lang="ua">
     <meta charset="UTF-8">
     <title>Пізнай Україну</title>
-    <meta name=viewport content="width=device-width, initial-scale=1">
+    <meta name=viewport content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=no">
+    <meta name="HandheldFriendly" content="true">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="keywords" content="Україна,замки,фортеці,подорожі,відпочинок,туризм,подорожувати,провести час,ресторани,кафе,актиний відпочинок">
     <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">

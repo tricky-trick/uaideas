@@ -249,9 +249,11 @@ $(document).ready(function() {
         if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
             if (st > lastScrollTop) {
                 $("#s-top-side-panel").css("top", "-20px");
+                //addNewIdea.css("bottom", "-100px");
 
             } else {
                 $("#s-top-side-panel").css("top", "50px");
+                //addNewIdea.css("bottom", "20px");
             }
         }
         else {

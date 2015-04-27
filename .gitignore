@@ -1,6 +1,3 @@
-
-api/config.php
-
 .idea/*
 
 ua_cities.sql
@@ -9,4 +6,6 @@ ua_cities.sql
 
 uploaded_images/*
 
-stage_conf/*
+stage_conf/config.php
+
+preprod_conf/config.php

@@ -1,3 +1,7 @@
+html {
+    -webkit-text-size-adjust: none
+}
+
 *:focus {
     outline: none;
 }
@@ -178,7 +182,7 @@ li.ui-menu-item {
 
 #list-ideas-content{
     width: 95%;
-    left: -5%;
+    left: -6%;
     margin-left: -10%;
     height: auto;
 }
@@ -520,8 +524,8 @@ textarea{
 
 #add-new-idea-button {
     position: fixed;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     background: rgb(0, 169, 213) url("../img/add-icon-new.png") no-repeat center center;
     -webkit-background-size: cover; /* For WebKit*/
     -moz-background-size: cover; /* Mozilla*/
