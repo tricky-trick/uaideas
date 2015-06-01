@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    var errorMessage = $("#reg-label-error");
 
     var expires = new Date();
     expires.setTime(expires.getTime() + (7 * 24 * 60 * 60 * 1000));
@@ -14,7 +15,6 @@ $(document).ready(function() {
         var password = $("#reg-form-password").val();
         var repeatPassword = $("#reg-form-repeat-password").val();
         var checkbox = $("#login-form-rules-checkbox");
-        var errorMessage = $("#reg-label-error");
 
         if(!checkbox.is(":checked")) {
             errorMessage.text("Погодьтеся з правилами реєстрації");
@@ -324,7 +324,46 @@ $(document).ready(function() {
 
     });
 
-    $("#about-us-link").click(function(){
+    $("#login-demo").click(function(){
+        $("#spinner-ideas-load").css("display", "inline");
+        var mail = "demoseeua";
+        var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        for( var i=0; i < 8; i++ )
+            mail += possible.charAt(Math.floor(Math.random() * possible.length));
+        var data = "email=" + mail + "&name=&password=pwd_" + mail;
+        var respost = $.ajax({
+            type: "POST",
+            url: "api/users.php",
+            data: data,
+            dataType: 'json',
+            status: 200,
+            statusText: "OK",
+            cache: false
+        });
+
+        respost.done(function (datas) {
+            var isCreated = datas['is_created'];
+            if(isCreated == "true"){
+                errorMessage.text("Вітаємо з реєстрацією!");
+                errorMessage.css("opacity", "1");
+                errorMessage.css("color", "green");
+                setTimeout(function(){
+                    var expires = new Date();
+                    expires.setTime(expires.getTime() + (7 * 24 * 60 * 60 * 1000));
+                    document.cookie =  'USER_IN=' + mail + ';expires=' + expires.toUTCString();
+
+                    expires.setTime(expires.getTime() + (60 * 60 * 1000));
+                    document.cookie =  'demo=' + mail + ';expires=' + expires.toUTCString();
+                    window.location = "main.php";}, 1000);
+            }
+            else{
+                errorMessage.text("Сталася помилка. Спробуйте ще раз");
+                errorMessage.css("opacity", "1");
+            }
+        });
+    });
+
+    $("#about-us").click(function(){
         var win = window.open("about.php", '_blank');
         win.focus();
     });

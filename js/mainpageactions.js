@@ -89,8 +89,14 @@ $(document).ready(function() {
     $("#top-panel-menu td img").click(function(){
         getUser("", mail);
         if(!is_confirmed){
-            showPopUp("Ви не активували свій аккаунт. Будь ласка, перейдіть на свою електронну скирньку та клікніть на відповідне посилання у листі про реєстрацію", $(this));
-            dismissPopUp();
+            if(readCookie("demo") != null){
+                showPopUp("Демонстраційна сесія. Увійдіть під своїм користувачем, щоб мати можливість додавати та редагувати інформацію.", $(this));
+                dismissPopUp();
+            }
+            else {
+                showPopUp("Ви не активували свій аккаунт. Будь ласка, перейдіть на свою електронну скирньку та клікніть на відповідне посилання у листі про реєстрацію", $(this));
+                dismissPopUp();
+            }
         }
         else if(is_banned){
             showPopUp("Даний користувач є заблокований через зволікання правилами ланого ресурсу", $(this));
@@ -106,6 +112,7 @@ $(document).ready(function() {
         var expires = new Date();
         expires.setTime(expires.getTime() - (7 * 24 * 60 * 60 * 1000));
         document.cookie =  'USER_IN=' + null + ';expires=' + expires.toUTCString();
+        document.cookie =  'demo=' + null + ';expires=' + expires.toUTCString();
 
         var expires = new Date();
         expires.setTime(expires.getTime() + (7 * 24 * 60 * 60 * 1000));
@@ -130,7 +137,6 @@ $(document).ready(function() {
             url: "api/city.php",
             data: dataGetCityId,
             dataType: 'json',
-            async: false,
             status: 200,
             statusText: "OK",
             cache: false
@@ -157,7 +163,6 @@ $(document).ready(function() {
                 data: dataGetIdeas,
                 dataType: 'json',
                 status: 200,
-                async: false,
                 statusText: "OK",
                 cache: false
             });
@@ -513,7 +518,7 @@ $(document).ready(function() {
         var srcImg = $(this).css("background-image");
         srcImg = srcImg.replace("url(", "").replace(")", "");
         $("#idea-big-photo-area").empty();
-        $("#idea-big-photo-area").append("<img src=" + srcImg + " style='width: 100%; height auto' />");
+        $("#idea-big-photo-area").append("<img src=" + decodeURIComponent(srcImg) + " style='width: 100%; height auto' />");
     });
 
     /*
@@ -598,8 +603,14 @@ $(document).ready(function() {
             }
             else {
                 if(!is_confirmed){
-                    showPopUp("Будь ласка, пітвердіть Ваш аккаунт", $(this));
-                    dismissPopUp();
+                    if(readCookie("demo") != null){
+                        showPopUp("Демонстраційна сесія. Увійдіть під своїм користувачем, щоб мати можливість додавати та редагувати інформацію.", $(this));
+                        dismissPopUp();
+                    }
+                    else {
+                        showPopUp("Будь ласка, пітвердіть Ваш аккаунт", $(this));
+                        dismissPopUp();
+                    }
                 }
                 else if(is_banned){
                     showPopUp("Користувач є заблований через порушення правил даного ресурсу.", $(this));
@@ -614,7 +625,7 @@ $(document).ready(function() {
         $("#popup").fadeIn(300);
         $("#popup").text(text);
         var pos = el.offset();
-        $('#popup').offset({ top: pos.top + el.height() + 5, left: pos.left });
+        $('#popup').offset({ top: pos.top + el.height() - 20, left: pos.left - 30 });
     }
 
     function dismissPopUp(){
@@ -633,49 +644,34 @@ $(document).ready(function() {
         getUser(user_id, "");
         var likedIdeas = liked_ideas.split(',');
         var likeIndex = likedIdeas.indexOf(String(index));
+        if(is_confirmed && !is_banned) {
+            // Reduce
+            if (likeIndex >= 0) {
+                likeCount--;
+                likeIcon.css("opacity", "0.3");
+                ideasLike.text("Підтримало " + likeCount + " людей");
+                $("li[index='" + index + "'] .info-ideas-item-like").html(likeCount);
+                likedIdeas.splice(likeIndex, 1);
 
-        // Reduce
-        if(likeIndex >= 0){
-            likeCount --;
-            likeIcon.css("opacity", "0.3");
-            ideasLike.text("Підтримало " + likeCount + " людей");
-            $("li[index='" + index + "'] .info-ideas-item-like").html(likeCount);
-            likedIdeas.splice(likeIndex, 1);
+                var putLikedIdeas = $.ajax({
+                    type: "PUT",
+                    url: "api/users.php",
+                    data: "id=" + user_id + "&liked_ideas=" + String(likedIdeas),
+                    dataType: 'json',
+                    async: false,
+                    status: 200,
+                    statusText: "OK",
+                    cache: false
+                });
 
-            var putLikedIdeas = $.ajax({
-                type: "PUT",
-                url: "api/users.php",
-                data: "id=" + user_id + "&liked_ideas=" + String(likedIdeas),
-                dataType: 'json',
-                async: false,
-                status: 200,
-                statusText: "OK",
-                cache: false
-            });
+                putLikedIdeas.done(function (datas) {
+                    var isUpdated = datas['is_updated'];
+                    if (isUpdated == "true") {
 
-            putLikedIdeas.done(function(datas) {
-                var isUpdated = datas['is_updated'];
-                if(isUpdated == "true"){
-
-                    var getRatingIdea = $.ajax({
-                        type: "GET",
-                        url: "api/ideas.php",
-                        data: "id=" + index,
-                        dataType: 'json',
-                        async: false,
-                        status: 200,
-                        statusText: "OK",
-                        cache: false
-                    });
-
-                    getRatingIdea.done(function(datas) {
-                        var rating = datas['0'][0]['rating'];
-                        var newRating = String(parseInt(rating) - 1);
-
-                        var putLikedIdeas = $.ajax({
-                            type: "PUT",
+                        var getRatingIdea = $.ajax({
+                            type: "GET",
                             url: "api/ideas.php",
-                            data: "id=" + index + "&rating_val=" + newRating,
+                            data: "id=" + index,
                             dataType: 'json',
                             async: false,
                             status: 200,
@@ -683,62 +679,62 @@ $(document).ready(function() {
                             cache: false
                         });
 
-                        putLikedIdeas.done(function(datas) {
-                            var isUpdated = datas['is_updated'];
-                            if (isUpdated == "true"){
-                                //likeIcon.css("opacity", "0.3");
-                                //ideasLike.text("Підтримало  " + newRating + " людей");
-                                //$("li[index='" + index + "'] .info-ideas-item-like").html(newRating);
-                            }
+                        getRatingIdea.done(function (datas) {
+                            var rating = datas['0'][0]['rating'];
+                            var newRating = String(parseInt(rating) - 1);
+
+                            var putLikedIdeas = $.ajax({
+                                type: "PUT",
+                                url: "api/ideas.php",
+                                data: "id=" + index + "&rating_val=" + newRating,
+                                dataType: 'json',
+                                async: false,
+                                status: 200,
+                                statusText: "OK",
+                                cache: false
+                            });
+
+                            putLikedIdeas.done(function (datas) {
+                                var isUpdated = datas['is_updated'];
+                                if (isUpdated == "true") {
+                                    //likeIcon.css("opacity", "0.3");
+                                    //ideasLike.text("Підтримало  " + newRating + " людей");
+                                    //$("li[index='" + index + "'] .info-ideas-item-like").html(newRating);
+                                }
+                            });
+
                         });
+                    }
 
-                    });
-                }
+                });
+            }
 
-            });
-        }
+            //Increase
+            else {
+                likeCount++;
+                likeIcon.css("opacity", "1");
+                ideasLike.text("Підтримало " + likeCount + " людей");
+                $("li[index='" + index + "'] .info-ideas-item-like").text(likeCount);
+                likedIdeas.push(index);
+                var newArrayLikedIdeas = likedIdeas.join();
+                var putLikedIdeas = $.ajax({
+                    type: "PUT",
+                    url: "api/users.php",
+                    data: "id=" + user_id + "&liked_ideas=" + newArrayLikedIdeas,
+                    dataType: 'json',
+                    status: 200,
+                    statusText: "OK",
+                    cache: false
+                });
 
-        //Increase
-        else{
-            likeCount ++;
-            likeIcon.css("opacity", "1");
-            ideasLike.text("Підтримало " + likeCount + " людей");
-            $("li[index='" + index + "'] .info-ideas-item-like").text(likeCount);
-            likedIdeas.push(index);
-            var newArrayLikedIdeas = likedIdeas.join();
-            var putLikedIdeas = $.ajax({
-                type: "PUT",
-                url: "api/users.php",
-                data: "id=" + user_id + "&liked_ideas=" + newArrayLikedIdeas,
-                dataType: 'json',
-                status: 200,
-                statusText: "OK",
-                cache: false
-            });
+                putLikedIdeas.done(function (datas) {
+                    var isUpdated = datas['is_updated'];
+                    if (isUpdated == "true") {
 
-            putLikedIdeas.done(function(datas) {
-                var isUpdated = datas['is_updated'];
-                if(isUpdated == "true"){
-
-                    var getRatingIdea = $.ajax({
-                        type: "GET",
-                        url: "api/ideas.php",
-                        data: "id=" + index,
-                        dataType: 'json',
-                        async: false,
-                        status: 200,
-                        statusText: "OK",
-                        cache: false
-                    });
-
-                    getRatingIdea.done(function(datas) {
-                        var rating = datas['0'][0]['rating'];
-                        var newRating = String(parseInt(rating) + 1);
-
-                        var putLikedIdeas = $.ajax({
-                            type: "PUT",
+                        var getRatingIdea = $.ajax({
+                            type: "GET",
                             url: "api/ideas.php",
-                            data: "id=" + index + "&rating_val=" + newRating,
+                            data: "id=" + index,
                             dataType: 'json',
                             async: false,
                             status: 200,
@@ -746,19 +742,35 @@ $(document).ready(function() {
                             cache: false
                         });
 
-                        putLikedIdeas.done(function(datas) {
-                            var isUpdated = datas['is_updated'];
-                            if (isUpdated == "true"){
-                                //likeIcon.css("opacity", "1");
-                                //ideasLike.text("Підтримало  " + newRating + " людей");
-                                //$("li[index='" + index + "'] .info-ideas-item-like").text(newRating);
-                            }
+                        getRatingIdea.done(function (datas) {
+                            var rating = datas['0'][0]['rating'];
+                            var newRating = String(parseInt(rating) + 1);
+
+                            var putLikedIdeas = $.ajax({
+                                type: "PUT",
+                                url: "api/ideas.php",
+                                data: "id=" + index + "&rating_val=" + newRating,
+                                dataType: 'json',
+                                async: false,
+                                status: 200,
+                                statusText: "OK",
+                                cache: false
+                            });
+
+                            putLikedIdeas.done(function (datas) {
+                                var isUpdated = datas['is_updated'];
+                                if (isUpdated == "true") {
+                                    //likeIcon.css("opacity", "1");
+                                    //ideasLike.text("Підтримало  " + newRating + " людей");
+                                    //$("li[index='" + index + "'] .info-ideas-item-like").text(newRating);
+                                }
+                            });
+
                         });
+                    }
 
-                    });
-                }
-
-            });
+                });
+            }
         }
     });
 
@@ -776,8 +788,14 @@ $(document).ready(function() {
         }
         else{
             if(!is_confirmed){
-                showPopUp("Будь ласка, пітвердіть Ваш аккаунт", $(this));
-                dismissPopUp();
+                if(readCookie("demo") != null){
+                    showPopUp("Демонстраційна сесія. Увійдіть під своїм користувачем, щоб мати можливість додавати та редагувати інформацію.", $(this));
+                    dismissPopUp();
+                }
+                else {
+                    showPopUp("Будь ласка, пітвердіть Ваш аккаунт", $(this));
+                    dismissPopUp();
+                }
             }
             else if(is_banned){
                 showPopUp("Користувач є заблований через порушення правил даного ресурсу.", $(this));
@@ -871,7 +889,7 @@ $(document).ready(function() {
                 dismissPopUp();
             }
             else{
-                if(newIdeaSubject.val().trim().length < 20 || newIdeaBody.val().trim().length < 50){
+                if(newIdeaSubject.val().trim().length < 5 || newIdeaBody.val().trim().length < 50){
                     showPopUp("Назва ідеї або опис є надто короткими", $(this));
                     dismissPopUp();
                 }
@@ -933,7 +951,6 @@ $(document).ready(function() {
                                     data: formData,
                                     dataType: 'json',
                                     contentType: false,
-                                    async: false,
                                     cache: false,
                                     processData: false
                                 });
@@ -980,7 +997,7 @@ $(document).ready(function() {
                                         });
                                     }
                                     else{
-                                        if(uploadedF == files) {
+                                        if(uploadedF.replace(/й|і/g, "и").replace(/̆/g, "") == files.replace(/й|і/g, "и").replace(/̆/g, "")) {
 
                                             getUser("", mail);
                                             var dataPostIdea = "region_id=" + regionId + "&city_id=" + cityId + "&coordinates=" + coord + "&user_id=" + user_id + "&category=" + categoryId +
@@ -1046,15 +1063,21 @@ $(document).ready(function() {
     var profilePopup = $("#my-profile");
 
     $("#profile-link").click(function(){
-        if(profilePopup.css("display") == "none") {
-            profilePopup.css("display", "block");
-            profilePopup.fadeIn(300);
-            var pos = $(this).offset();
-            profilePopup.offset({top: pos.top + $(this).height() + 10, left: pos.left});
-        }
+        if(readCookie("demo") == null) {
+            if (profilePopup.css("display") == "none") {
+                profilePopup.css("display", "block");
+                profilePopup.fadeIn(300);
+                var pos = $(this).offset();
+                profilePopup.offset({top: pos.top + $(this).height() + 10, left: pos.left});
+            }
 
+            else {
+                profilePopup.css("display", "none");
+            }
+        }
         else{
-            profilePopup.css("display", "none");
+            showPopUp("Демонстраційна сесія. Увійдіть під своїм користувачем, щоб мати можливість додавати та редагувати інформацію.", $(this));
+            dismissPopUp();
         }
     });
 

@@ -121,7 +121,7 @@
                     </tr>
                     <tr>
                     <td align="center">
-                        <input id="about-us-link" type="button" value="Про проект">
+                        <input id="login-demo" type="button" value="Демо вхід">
                     </td>
                     <td align="center">
                         <input type="submit" id="login-form-submit" value="Увійти">
@@ -129,7 +129,7 @@
                 </tr>
                 <tr>
                     <td align="center">
-                        <span id="login-social-label-error" class="login-label-error">Погодьтеся з правилами користування</span>
+                        <input id="about-us" type="button" value="Про проект">
                     </td>
                     <td align="center">
                         <input id="login-form-reg" type="button" value="Реєстрація">
@@ -137,7 +137,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td align="center"></td>
+                    <td align="center">
+                        <img id="spinner-ideas-load" src="img/spinner_big.gif" style="width: 10%; height: auto; display: none" />
+                    </td>
                     <td align="center">
                         <span id="login-label-error" class="login-label-error">Помилка входу. Спробуйте ще раз</span>
                     </td>

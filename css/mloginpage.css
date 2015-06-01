@@ -94,7 +94,8 @@ table td{
 #login-facebook,
 #login-google,
 #login-vkontakte,
-#about-us-link{
+#login-demo,
+#about-us{
     width: 90%;
     height:32px;
     font: 14px Verdana,Helvetica;
@@ -167,18 +168,12 @@ table td{
     align-self: center;
 }
 
-#login-facebook, #login-google, #login-vkontakte, #about-us-link{
+#login-facebook, #login-google, #login-vkontakte, #login-demo, #about-us {
     border: 0px solid #ffffff;
     color: #ffffff;
     padding: 2px;
     width: 90%;
     height:36px;
-    margin-left: 5%;
-}
-
-
-#login-facebook:hover, #login-google:hover, #login-vkontakte:hover, #about-us-link:hover{
-    cursor: pointer;
 }
 
 #login-facebook{
@@ -224,13 +219,32 @@ table td{
     opacity:0.9;
 }
 
-#about-us-link{
+#login-demo {
     background: rgb(0, 169, 213) url("../img/logo_see.png") no-repeat;
     -webkit-background-size: contain; /* For WebKit*/
     -moz-background-size: contain;    /* Mozilla*/
     -o-background-size: contain;      /* Opera*/
     background-size: contain;
+    color: white;
+}
+
+#login-demo:active{
+    background: rgb(0, 169, 243) url("../img/logo_see.png") no-repeat;
+    -webkit-background-size: contain; /* For WebKit*/
+    -moz-background-size: contain;    /* Mozilla*/
+    -o-background-size: contain;      /* Opera*/
+    background-size: contain;
     color: lightyellow;
+}
+
+#about-us{
+    background:  lightslategray;
+    color: white;
+}
+
+#about-us:active{
+    background:  lightsteelblue;
+    color: white;
 }
 
 #footer{
