@@ -60,7 +60,7 @@ if (!isset($_COOKIE['USER_IN'])) {
     <div id="main-content">
 
         <div id="top-side-panel">
-            <img id = "main-logo" src="img/logo_see.png">
+            <a href="index.php"><img id = "main-logo" src="img/logo_see.png"></a>
             <table id="top-panel-menu">
                 <tbody>
                 <tr>
@@ -71,7 +71,7 @@ if (!isset($_COOKIE['USER_IN'])) {
                         <span id="profile-link" class="top-panel-menu-items">Мій профіль</span>
                     </td>
                     <td>
-                        <a id="help-link" class="top-panel-menu-items" href="terms.php" target="_blank" style="text-decoration: none">Допомога</a>
+                        <a id="help-link" class="top-panel-menu-items" href="terms.php" target="_blank" style="text-decoration: none">Довідка</a>
                     </td>
                     <td>
                         <span id="logout-link" class="top-panel-menu-items">Вийти</span>

@@ -33,7 +33,7 @@ for($i=0; $i<count($_FILES['file']['name']); $i++) {
             //var_dump($newFilePath);
 
             //Upload the file into the temp dir
-            if (compress($tmpFilePath, $newFilePath, 50)) {
+            if (compress($tmpFilePath, $newFilePath, 75)) {
                 $uploaded_files .= $fileName . " ";
             }
         }

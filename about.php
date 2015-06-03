@@ -11,22 +11,22 @@
 </head>
 <body style="padding-left: 20px; padding-right: 20px; font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';">
     <div id="top-side-panel" style="padding: 10px">
-        <img src="img/logo_see.png" style="margin-left: 10%; width: auto; height: 100%; border-radius: 5px">
-        <h2 style="display:  inline-block; color: #FFFFFF; margin-left: 10%;">Про проект</h2>
+        <a href="index.php"><img src="img/logo_see.png" style="margin-left: 10%; width: auto; height: 100%; border-radius: 5px"></a>
+        <h2 style="display:  inline-block; color: #FFFFFF; margin-left: 10%; margin-top: 0%">Про проект</h2>
     </div>
     <br>
     <br>
     <br>
     <br>
-    <p style="text-align: justify; font-size: 16px; font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';">"Пізнай Україну" - перший український веб ресурс, котрий дозволяє з легкістю знайти чи додати цікаві місця для часопроведення в Україні.
-        Замки, музеї, місця для фотосесій або ж просто чудово краєвиди, місця для актиного відпочинку на велосипедах чи цілою сім'єю, затишні кафе чи ресторани
+    <p style="text-align: justify; font-size: 16px; font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans'; margin-left: 10%; margin-right: 10%">"Пізнай Україну" - перший український веб ресурс, котрий дозволяє з легкістю знайти чи додати цікаві місця для часопроведення в Україні.
+        Замки, музеї, місця для фотосесій або ж просто чудові краєвиди, місця для актиного відпочинку на велосипедах чи цілою сім'єю, затишні кафе чи ресторани
         - тепер все на одному ресурсі. Ви зможете побачити коментрарі та оцінки людей. Зможете самі додати свої враження.
         Головною метою даного ресурсу є показати не лише відомі цікаві місця в різних населених пунктах, але й ті місця, про які знають лише жителі цих міст.
         Для користування даним ресурсом потрібно пройти просту реєстрацію або ж зайти за допомогою існуючого аккаунта соціальної мережі.
     </p>
     <br>
     <br>
-    <div id="slider" style="width: 60%; margin-left: 20%;">
+    <div id="slider" style="width: 80%; margin-left: 10%;">
         <img src="img/img1.jpg" />
         <img src="img/img2.jpg" />
         <img src="img/img3.jpg" />

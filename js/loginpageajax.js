@@ -349,11 +349,11 @@ $(document).ready(function() {
                 errorMessage.css("color", "green");
                 setTimeout(function(){
                     var expires = new Date();
-                    expires.setTime(expires.getTime() + (7 * 24 * 60 * 60 * 1000));
-                    document.cookie =  'USER_IN=' + mail + ';expires=' + expires.toUTCString();
-
                     expires.setTime(expires.getTime() + (60 * 60 * 1000));
+
+                    document.cookie =  'USER_IN=' + mail + ';expires=' + expires.toUTCString();
                     document.cookie =  'demo=' + mail + ';expires=' + expires.toUTCString();
+
                     window.location = "main.php";}, 1000);
             }
             else{

@@ -625,7 +625,7 @@ $(document).ready(function() {
         $("#popup").fadeIn(300);
         $("#popup").text(text);
         var pos = el.offset();
-        $('#popup').offset({ top: pos.top + el.height() - 20, left: pos.left - 30 });
+        $('#popup').offset({ top: pos.top + el.height() - 25, left: pos.left - 25 });
     }
 
     function dismissPopUp(){
