@@ -124,3 +124,21 @@
     background-size: cover;
 }
 
+.image-ideas-item-13{
+    background: url(../img/icon/church.png) no-repeat center center;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;
+}
+
+
+.image-ideas-item-14{
+    background: url(../img/icon/sports.png) no-repeat center center;
+    -webkit-background-size: cover; /* For WebKit*/
+    -moz-background-size: cover;    /* Mozilla*/
+    -o-background-size: cover;      /* Opera*/
+    background-size: cover;
+}
+
+

@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <head lang="ua">
     <meta charset="UTF-8">
-    <title>Пізнай Україну</title>
+    <title>SeeUA</title>
     <meta name=viewport content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=no">
     <meta name="HandheldFriendly" content="true">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -48,7 +48,6 @@
         document.getElementsByTagName('head')[0].appendChild(mbackground_css);
         document.getElementsByTagName('head')[0].appendChild(mloginpage_js);
     </script>
-
     <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.3/jquery.mobile.min.css" />-->
     <!--<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />-->
 <!--    <script type="text/javascript" src="js/modernizr.custom.86080.js"></script>-->
@@ -56,6 +55,7 @@
     <script type="text/javascript" src="js/loginpageajax.js"></script>
     <script type="text/javascript" src="js/facebook.js"></script>
     <script type="text/javascript" src="js/googleplus.js"></script>
+    <script type="text/javascript" src="js/googleanalitycs.js"></script>
 <!--    <script type="text/javascript" src="//vk.com/js/api/openapi.js"></script>-->
 <!--    <script type="text/javascript">-->
 <!--        VK.init({-->
@@ -66,6 +66,7 @@
     <!--<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/jquery-ui.min.js"></script>-->
 </head>
 <body style="overflow-y: auto; overflow-x: hidden; font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';">
+    <div id="bg"></div>
     <div id="bg-0"></div>
     <div id="fb-root"></div>
     <div id="header">
@@ -153,6 +154,29 @@
                         <a id="reg-rules" class="login-label-input" style="text-decoration: underline; cursor: pointer;" href="terms.php" target="_blank">Згідний з правилами</a>
                     </td>
                 </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id="social-block">
+            <table>
+                <tbody>
+                    <tr>
+                        <td align="center">
+                            <a href="https://www.facebook.com/seeuacom" target="_blank"><img src="img/facebook.png" /></a>
+                        </td>
+                        <td align="center">
+                            <a href="https://vk.com/public95702966" target="_blank"><img src="img/vkontakte.png" /></a>
+                        </td>
+                        <td align="center">
+                            <a href="https://plus.google.com/b/111837835291007903014/dashboard/overview" target="_blank"><img src="img/gplus.png" /></a>
+                        </td>
+                        <td align="center">
+                            <a href="https://twitter.com/seeua_com" target="_blank"><img src="img/twitter.png" /></a>
+                        </td>
+                        <td align="center">
+                            <a href="https://www.linkedin.com/company/seeua" target="_blank"><img src="img/linkedin.png" /></a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

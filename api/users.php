@@ -33,13 +33,17 @@ if(isset($_COOKIE['USER_IN']) || isset($_COOKIE['USER_OFF'])) {
                                 <head>
                                     <meta charset=\"UTF-8\">
                                 </head>
-                                <img src=\"img/logo_see.png\" width=\"50\" height=\"50\" style=\"border-radius: 5px; margin-left: 25%\">
                                 <body style=\"background: #e7e9ec; font-family: tahoma, arial, verdana, sans-serif, 'Lucida Sans';\">
                                     <div style=\"background: white; width: 50%; height: auto; margin-left: 25%; -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
                                     -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
                                     box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);\">
                                         <table style=\"width:100%\">
                                             <tbody style=\"width:100%\">
+                                                 <tr>
+                                                    <td align=\"left\" width=\"100\">
+                                                        <img src=\"img/logo_see.png\" width=\"50\" height=\"50\" style=\"border-radius: 5px;\">
+                                                    </td>
+                                                </tr>
                                                 <tr>
                                                     <td align=\"center\" width=\"100\" height=\"10\" style=\"background: darkgray\">
                                                     </td>
@@ -192,13 +196,17 @@ if(isset($_COOKIE['USER_IN']) || isset($_COOKIE['USER_OFF'])) {
                             <head>
                                 <meta charset=\"UTF-8\">
                             </head>
-                            <img src=\"img/logo_see.png\" width=\"50\" height=\"50\" style=\"border-radius: 5px; margin-left: 25%\">
                             <body style=\"background: #e7e9ec; font-family: tahoma, arial, verdana, sans-serif, 'Lucida Sans';\">
                                 <div style=\"background: white; width: 50%; height: auto; margin-left: 25%; -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
                                 -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
                                 box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);\">
                                     <table style=\"width:100%\">
                                         <tbody style=\"width:100%\">
+                                            <tr>
+                                               <td align=\"left\" width=\"100\">
+                                                   <img src=\"img/logo_see.png\" width=\"50\" height=\"50\" style=\"border-radius: 5px;\">
+                                               </td>
+                                            </tr>
                                             <tr>
                                                 <td align=\"center\" width=\"100\" height=\"10\" style=\"background: darkgray\">
                                                 </td>

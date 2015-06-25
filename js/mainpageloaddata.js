@@ -99,7 +99,7 @@ function validateName(evt, id, regionIdSelector) {
     var key = theEvent.keyCode || theEvent.which;
     key = String.fromCharCode( key );
     var regex_error = /[A-Z]|[a-z]|\{|\}|\[|\]|\:|\;|\"|\'|\<|\,|\>|\.|\||\\/;
-    var regex = /[А-Я]|[а-я]|[і]|[ї]|[І]|[Ї]|[Ґ]|[\b]|\-/;
+    var regex = /[А-Я]|[а-я]|[і]|[ї]|[І]|[Ї]|[Ґ]|[Є]|[\b]|\-/;
     var result = '';
     if(regex_error.test(key)){
         var A = {};
@@ -121,7 +121,7 @@ function validateName(evt, id, regionIdSelector) {
         theEvent.returnValue = false;
         if(theEvent.preventDefault) theEvent.preventDefault();
     }
-    document.getElementById(id).value = result;
+    //document.getElementById(id).value = result;
 
     var regionId = $("#" + regionIdSelector).find(":selected").index();
     $("#" + id).autocomplete({source: 'auto.php?region_id=' + regionId, minLength: 2, open: function(){

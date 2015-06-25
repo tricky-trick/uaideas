@@ -60,12 +60,15 @@ if(isset($_COOKIE['USER_IN'])) {
             $sort_by = "rating";
         }
 
+        $cityJoin = "";
+        if($city != ""){
+            $cityJoin = "INNER JOIN city ON city.id= ideas.city and city.name='$city'";
+        }
+
         if ($id != "")
             $condition .= " and id=" . $id;
         if ($region != 0)
             $condition .= " and region=" . $region;
-        if ($city != "")
-            $condition .= " and city=" . $city;
         if ($author != "")
             $condition .= " and author=" . $author;
         if ($is_implemented != "")
@@ -84,10 +87,10 @@ if(isset($_COOKIE['USER_IN'])) {
             $sql = "SELECT * FROM ideas WHERE $is_deleted" . $condition . " ORDER BY " . $sort_by;
         }
         elseif($limit == ""){
-            $sql = "SELECT * FROM ideas WHERE $is_deleted" . $condition;
+            $sql = "SELECT * FROM ideas $cityJoin WHERE $is_deleted" . $condition;
         }
         else {
-            $sql = "SELECT * FROM ideas WHERE $is_deleted" . $condition . " ORDER BY " . $sort_by . " DESC LIMIT " . $limit;
+            $sql = "SELECT * FROM ideas $cityJoin WHERE $is_deleted" . $condition . " ORDER BY " . $sort_by . " DESC LIMIT " . $limit;
         }
 
         //echo $sql;
@@ -122,7 +125,7 @@ if(isset($_COOKIE['USER_IN'])) {
 
             $id = $row['id'];
             $region = $row['region'];
-            $city = $row['city'];
+            $city = $row['city.id'];
             $coord = $row['coord'];
             $category = $row['category'];
             $author = $row['author'];
@@ -173,6 +176,8 @@ if(isset($_COOKIE['USER_IN'])) {
         $description = addslashes($_PUT['description_text']);
         $category = $_PUT['category_id'];
         $is_deleted = $_PUT['delete'];
+        $files = $_PUT['files'];
+        $coord = $_PUT['coord'];
 
         foreach ($bad_words_array as &$word) {
             $description = preg_replace("/$word/", "*",  $description);
@@ -190,6 +195,10 @@ if(isset($_COOKIE['USER_IN'])) {
             $condition .= ", category=" . $category;
         if ($is_deleted != "")
             $condition .= ", is_deleted=" . $is_deleted;
+        if ($files != "")
+            $condition .= ", files='" . $files . "'";
+        if ($coord != "")
+            $condition .= ", coord='" . $coord . "'";
 
         $sql = "UPDATE ideas SET id=".$id . $condition . " WHERE id=" . $id;
 

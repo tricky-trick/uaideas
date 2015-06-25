@@ -27,6 +27,10 @@ body{
     background: #e7e9ec;
 }
 
+table{
+    border-spacing: 0px;
+}
+
 #main-logo{
     margin-left: 15%; width: auto; height: 100%;
     border-radius: 5px;
@@ -85,11 +89,10 @@ select:hover{
     position: absolute;
     z-index: 1;
     top: 60px;
-    width: 79.5%;
+    width: 70%;
     height: auto;
-    left: 11.3%;
+    left: 15%;
     color: black;
-    border-right: 2px;
     padding-bottom: 10%;
 }
 
@@ -99,7 +102,7 @@ select:hover{
     font-size: inherit;
     font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
     font-weight: bold;
-    padding: 5px;
+    padding: 5px 1px;
     cursor: pointer;
     line-height: normal;
 }
@@ -107,14 +110,14 @@ select:hover{
 
 .top-panel-menu-items:hover{
     background: #696969;
-    border-radius: 5px;
+    border-radius: 2px;
 }
 
 #top-panel-menu{
     height: 100%;
     width: 50%;
     float: right;
-    margin-right: 13.5%;
+    margin-right: 15%;
     font-size: 14px;
 }
 
@@ -122,7 +125,7 @@ select:hover{
     display: table-cell;
     vertical-align: middle;
     height: 100%;
-    text-align: center;
+    text-align: right;
 }
 
 #search-input{
@@ -137,14 +140,14 @@ select:hover{
 }
 
 #s-top-panel-menu{
-    width: 71.5%;
-    margin-left: 14%;
+    width: 70%;
+    margin-left: 15%;
     height: 100%;
 }
 
 
 #region-select, #category-select, #search-city, #sort-select, #search-submit {
-    width: 90%;
+    width: 100%;
     border: 0px solid white;
     -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
@@ -161,7 +164,8 @@ select:hover{
 }
 
 #search-city{
-    height: 17px;
+    height: 16px;
+    width: 99%;
 }
 
 #region-select, #category-select, #sort-select{
@@ -192,6 +196,7 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
 #list-ideas-content{
     left: 0;
     height: auto;
+    padding: 0px;
 }
 
 
@@ -199,12 +204,12 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     list-style-type: none;
     float: left;
     left: 0;
-    margin-left: 1%;
-    width: 44%;
+    margin-left: 0.2%;
+    width: 48.7%;
     height: 230px;
     max-height: 250px;
     margin-top: 1%;
-    padding: 5px;
+    padding: 0.5%;
     -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
@@ -293,13 +298,12 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     top: 0;
     left: 0;
     background: #000;
-    opacity: 0.7;
+    opacity: 0.85;
     height: 100%;
     width: 100%;
     display: none;
     position: fixed;
     z-index: 499;
-    overflow-y: scroll;
 }
 
 
@@ -319,7 +323,7 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     user-select: text;
     border-top: 30px solid #F3F3F3;
     border-bottom: 30px solid #F3F3F3;
-    border-radius: 10px;
+    border-radius: 1px;
 }
 
 .close-layer{
@@ -359,6 +363,7 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     -ms-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;
     border: none;
+    display: none;
 }
 
 #date-layer, .ideas-comments-date{
@@ -383,7 +388,7 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     display: block;
 }
 
-#edit-icon-layer, #remove-icon-layer{
+#edit-icon-layer, #remove-icon-layer, #done-icon-layer, #spinner-icon-layer{
     width: 20px;
     height: 20px;
     float: left;
@@ -391,7 +396,12 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     opacity: 0.3;
 }
 
-#like-icon-layer:hover, #edit-icon-layer:hover, #remove-icon-layer:hover{
+#done-icon-layer{
+    margin-left: 10px;
+    opacity: 0.5;
+}
+
+#like-icon-layer:hover, #edit-icon-layer:hover, #remove-icon-layer:hover, #done-icon-layer:hover{
     opacity: 1;
     cursor: pointer;
 }
@@ -424,13 +434,14 @@ li.ui-menu-item { font-size:20px; text-align: left;  z-index: 600;}
     height: auto;
     display: inline-block;
     width: 100%;
+    padding: 0px;
 }
 
 #ideas-comments-layer li{
     list-style-type: none;
     float:left; clear:left;
     left: 0;
-    margin-left: -6%;
+    margin-left: 0%;
     width: 100%;
     height: auto;
     margin-top: 30px;
@@ -629,6 +640,13 @@ textarea{
     height: 21px;
 }
 
+#map, #map-idea{
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+}
+
 #new-idea-show-map, #idea-show-map{
     width: 30%;
     height: auto;
@@ -641,7 +659,7 @@ textarea{
     text-align: center;
     padding-bottom: 10px;
     padding-top: 10px;
-    border-radius: 3px;
+    border-radius: 2px;
 }
 
 #new-idea-show-map:hover, #idea-show-map:hover{
@@ -708,6 +726,7 @@ textarea{
 #idea-big-photo-area{
     width: 100%;
     height: auto;
+    position: relative;
 }
 
 #idea-big-photo-area:hover{
@@ -733,21 +752,40 @@ textarea{
     color: red;
 }
 
-
 #social-block {
     position: fixed;
-    top: 200px;
-    width: auto;
+    top: 85px;
+    width: 60px;
     height: auto;
+    left: -40px;
     min-height: 50px;
     padding: 5px;
     background: white;
     border-radius: 1px;
     z-index: 6;
+    opacity: 1;
     -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    -webkit-transition: all 0.1s ease-out;
+    -moz-transition: all 0.1s ease-out;
+    -ms-transition: all 0.1s ease-out;
+    -o-transition: all 0.1s ease-out;
 }
+
+#social-block:hover{
+    left: 0;
+    -webkit-box-shadow: 0px 3px 4px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 3px 4px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 3px 4px 0px rgba(0,0,0,0.75);
+}
+
+#social-block>table{
+    width: 100%;
+    height: auto;
+
+}
+
 
 #weather-block{
     position: fixed;
@@ -799,7 +837,34 @@ textarea{
     -o-transition: all 0.1s ease-out;
 }
 
-#new-idea-image-upload{
+#upimage-container-edit{
+    background: url(../img/add_img_2.png) no-repeat center;
+    -webkit-background-size: 10% auto; /* For WebKit*/
+    -moz-background-size: 10% auto;    /* Mozilla*/
+    -o-background-size: 10% auto;    /* Opera*/
+    background-size: 10% auto;
+    padding-left: 5px;
+    width: 97%;
+    height: 80px;
+    font-family:  tahoma, arial, verdana, sans-serif, 'Lucida Sans';
+    padding-left:5px;
+    padding-right:5px;
+    font-weight: bold;
+    font-size: 12px;
+    margin-top:10px;
+    overflow: hidden;
+    color:  rgb(0, 169, 213);
+    border: 2px lightgray dashed;
+    border-radius: 3px;
+    text-align: center;
+    opacity: 1;
+    -webkit-transition: all 0.1s ease-out;
+    -moz-transition: all 0.1s ease-out;
+    -ms-transition: all 0.1s ease-out;
+    -o-transition: all 0.1s ease-out;
+}
+
+#new-idea-image-upload, #new-idea-image-upload-edit{
     margin-left: -5px;
     width: 100%;
     height: 100%;
@@ -816,10 +881,63 @@ textarea{
     background-size: 11% auto;
 }
 
-#new-idea-image-upload:hover{
+#upimage-container-edit:hover{
+    background: url(../img/add_img_2.png) no-repeat center;
+    -webkit-background-size: 11% auto; /* For WebKit*/
+    -moz-background-size: 11% auto;    /* Mozilla*/
+    -o-background-size: 11% auto;    /* Opera*/
+    background-size: 11% auto;
     cursor: pointer;
 }
 
-#uploaded-imgs{
+#new-idea-image-upload:hover, #new-idea-image-upload-edit:hover{
+    cursor: pointer;
+}
 
+#uploaded-imgs-edit:hover{
+    cursor: pointer;
+}
+
+.remove-photo{
+    margin-left: 15%;
+    margin-top: 15%;
+    width: 70%;
+    height: 70%;
+    opacity: 0.8;
+    display: none;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+}
+
+.remove-photo:hover{
+    opacity: 1;
+}
+
+#icon-close{
+    width: 48px;
+    height: 48px;
+    top:5px;
+    right: 5px;
+    position: absolute;
+    float: right;
+    display: block;
+    cursor: pointer;
+    opacity: 0.5;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -ms-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+}
+
+#icon-close:hover{
+    opacity: 1;
+}
+
+#ideas-description-layer div{
+    display: inline;
+    height: auto;
+    width: 98%;
+    text-align: justify;
 }

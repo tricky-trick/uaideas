@@ -7,7 +7,7 @@ if (!isset($_COOKIE['USER_IN'])) {
 <html>
 <head lang="ua">
     <meta charset="UTF-8">
-    <title>Пізнай Україну</title>
+    <title>SeeUA</title>
     <meta name=viewport content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=no">
     <meta name="HandheldFriendly" content="true">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -35,6 +35,7 @@ if (!isset($_COOKIE['USER_IN'])) {
     <script type="text/javascript" src="js/mainpageactions.js"></script>
     <script type="text/javascript" src="js/mainpageloaddata.js"></script>
     <script type="text/javascript" src="js/facebook.js"></script>
+    <script type="text/javascript" src="js/googleanalitycs.js"></script>
     <script type="application/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDMP96Hq8T2oMbVZV2PYOvPxE9FZEyyU7k"></script>
     <script type="text/javascript">
         var map;
@@ -48,6 +49,49 @@ if (!isset($_COOKIE['USER_IN'])) {
             };
             map = new google.maps.Map(document.getElementById(idOfMap),
                 mapOptions);
+
+        }
+
+        function initiate_geolocation() {
+            if (!navigator.geolocation.getCurrentPosition(handle_geolocation_query)){
+                initialize("48.804463, 31.776132", 6, "map-canvas");
+                setInterval(function(){$("#spinner-map-load").css("display", "none");}, 5000);
+            }
+
+        }
+
+        function handle_geolocation_query(position){
+            var lng = position.coords.longitude;
+            var lat = position.coords.latitude;
+
+            var mapOptions = {
+                center: new google.maps.LatLng(lat, lng),
+                zoom: 14,
+                scrollwheel: false
+            };
+            var myLatlng = new google.maps.LatLng(lat, lng);
+
+            marker = new google.maps.Marker({
+                position: myLatlng,
+                map: map,
+                animation: google.maps.Animation.DROP
+            });
+
+            map = new google.maps.Map(document.getElementById("map-canvas"),
+                mapOptions);
+
+            marker.setMap(map);
+            markersArray.push(marker);
+
+            var infowindow = new google.maps.InfoWindow({
+                content: "Ви тут"
+            });
+
+            google.maps.event.addListener(marker, 'click', function() {
+                infowindow.open(map,marker);
+            });
+
+            $("#spinner-map-load").css("display", "none");
         }
     </script>
     <script type="text/javascript" src="//vk.com/js/api/openapi.js?116"></script>
@@ -85,27 +129,24 @@ if (!isset($_COOKIE['USER_IN'])) {
             <table id="s-top-panel-menu">
                 <tbody>
                 <tr>
-                    <td width="22%">
+                    <td width="25%">
                         <select id="region-select">
                             <option>Оберіть область</option>
                         </select>
                     </td>
-                    <td width="22%">
+                    <td width="25%">
                         <input type="text" id="search-city" value="" autocomplete="on" onkeypress="validateName(event, 'search-city', 'region-select')" placeholder="Введіть назву міста">
                     </td>
-                    <td width="22%">
+                    <td width="25%">
                         <select id="category-select">
                             <option>Оберіть категорію</option>
                         </select>
                     </td>
-                    <td width="22%">
+                    <td width="25%">
                         <select id="sort-select">
                             <option index="0">Сортувати за датою</option>
                             <option index="1">Сортувати за рейтингом</option>
                         </select>
-                    </td>
-                    <td width="12%">
-                        <input type="submit" id="search-submit" value="Пошук">
                     </td>
                 </tr>
                 </tbody>
@@ -118,7 +159,8 @@ if (!isset($_COOKIE['USER_IN'])) {
             <input type="button" id="load-another-content" index="0" singleuser="false" value="Завантажити ще" style="display: none;">
         </div>
     </div>
-    <div id="layer-bg"></div>
+    <div id="layer-bg">
+    </div>
     <div id="layer-wrapper">
         <span class="close-layer">Закрити</span>
         <br>
@@ -131,14 +173,17 @@ if (!isset($_COOKIE['USER_IN'])) {
             <br>
             <div id="ideas-description-layer" contenteditable="false">
                 <textarea maxlength="5000" readonly></textarea>
+                <div></div>
             </div>
             <img id="spinner-idea-load" src="img/spinner_big.gif" style="width: 20%; height: auto; margin-left: 40%; display: none" />
             <div id="idea-photo-area">
             </div>
             <div id="idea-big-photo-area">
+                <img id="icon-close" style="display:none;" src="img/icon-close.png" />
             </div>
 
             <div id="idea-show-map" coord="">Показати на мапі</div>
+            <br>
             <div id="map-idea">
                 <div id="map-canvas-idea" style="width: 100%; height: 100%;">
                 </div>
@@ -154,6 +199,8 @@ if (!isset($_COOKIE['USER_IN'])) {
             <br>
             <br>
             <img src="img/icon-edit.png" id="edit-icon-layer"/>
+            <img src="img/done-icon.png" id="done-icon-layer"/>
+            <img src="img/spinner.gif" id="spinner-icon-layer"/>
             <br>
             <br>
             <img src="img/trash-ico.png" id="remove-icon-layer"/>
@@ -180,10 +227,10 @@ if (!isset($_COOKIE['USER_IN'])) {
         <div style="overflow-y: auto; overflow-x: hidden; height: 100%; width: 100%">
             <br>
             <br>
-            <div id="new-idea-subject-layer">Нова ідея</div>
+            <div id="new-idea-subject-layer">Новий об'єкт</div>
             <br>
             <br>
-            <div id="editable-subject-area"><input type="text" maxlength="100" value="Назва..." onkeyup="validateAmount('#editable-subject-area>input', 100, 20)"></div>
+            <div id="editable-subject-area"><input type="text" maxlength="100" value="Назва..." onkeyup="validateAmount('#editable-subject-area>input', 100, 5)"></div>
             <span id="ideas-subject-counter"></span>
             <br>
             <br>
@@ -213,7 +260,6 @@ if (!isset($_COOKIE['USER_IN'])) {
                 </tbody>
             </table>
             <form id="uploadimage" action="" method="post" enctype="multipart/form-data">
-<!--                <input type="file" name="file[]" id="new-idea-image-upload" multiple />-->
                 <div id="upimage-container">
                     <span id="uploaded-imgs">Завантажити фото</span><input type="file" name="file[]" id="new-idea-image-upload" multiple  />
                     <br>
@@ -222,12 +268,13 @@ if (!isset($_COOKIE['USER_IN'])) {
             <br>
             <div id="new-idea-show-map">Додати координати</div>
             <br>
-            <div id="map">
+            <div id="map" style="position:relative;">
+                <img id="spinner-map-load" src="img/spinner_big.gif" style="width: 20%; height: auto; left:40%; top:100px; display: none; position: absolute; z-index: 1000" />
                 <div id="map-canvas" style="width: 100%; height: 100%;">
                 </div>
             </div>
             <br>
-            <span id="add-new-idea">Додати ідею</span>
+            <span id="add-new-idea">Додати об'єкт</span>
             <img id="spinner-icon" src="img/spinner.gif" style="display: none;"/>
             <img id="done-icon" src="img/done-icon.png"/>
             <span id="cancel-new-idea">Скасувати</span>
@@ -274,7 +321,7 @@ if (!isset($_COOKIE['USER_IN'])) {
     <div id="add-new-idea-button"></div>
     <div id="popup"></div>
     <div id="my-profile">
-        <span id="my-ideas">Мої ідеї</span>
+        <span id="my-ideas">Додане мною</span>
         <br>
         <br>
         <span id="edit-profile">Редагувати профіль</span>
@@ -283,20 +330,38 @@ if (!isset($_COOKIE['USER_IN'])) {
         <p></p>
     </div>
     <div id="social-block">
-        <div class="fb-like" data-href="http://test31415.seeua.com/main.php" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>
-        <br>
-        <br>
-        <div id="vk_like"></div>
-        <script type="text/javascript">
-            VK.Widgets.Like("vk_like", {type: "vertical", height: 24});
-        </script>
-        <br>
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-        <g:plusone size="tall" annotation="bubble"></g:plusone>
-        <br>
-        <a href="https://twitter.com/share" class="twitter-share-button" data-via="DenysZaiats" data-count="vertical">Tweet</a>
-        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <table>
+            <tbody>
+            <tr>
+                <td>
+                    <div id="vk_like"></div>
+                    <script type="text/javascript">
+                        VK.Widgets.Like("vk_like", {type: "vertical", height: 24, width: 50});
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div class="fb-like" data-href="http://seeua.com/main.php" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <script src="https://apis.google.com/js/platform.js" async defer></script>
+                    <g:plusone size="tall" annotation="bubble"></g:plusone>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <a href="https://twitter.com/share" class="twitter-share-button" data-via="DenysZaiats" data-count="vertical" style="min-width: 80px !important; width: auto !important;">Tweet</a>
+                    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
     </div>
+
 <!--    <div id="weather-block">-->
 <!--        <a href="http://www.accuweather.com/uk/ua/kyiv/324505/weather-forecast/324505" class="aw-widget-legal">-->
 <!--            <!---->

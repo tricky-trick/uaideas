@@ -2,7 +2,7 @@
 <html>
     <head lang="ua">
         <meta charset="UTF-8">
-        <title>Пізнай Україну - адмінка</title>
+        <title>SeeUA - адмінка</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css">

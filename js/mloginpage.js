@@ -2,10 +2,10 @@ $(document).ready(function() {
     $("#login-form-reg").click(function () {
         var marginTop = $(document).scrollTop();
         $("#reg-form").css("opacity", "1");
-        $("#reg-form").css("-webkit-transform", "translate(0%," + "450px)");
-        $("#reg-form").css("-moz-transform", "translate(0%," + "450px)");
-        $("#reg-form").css("-ms-transform", "translate(0%," + "450px)");
-        $("#reg-form").css("-o-transform", "translate(0%," + "450px)");
+        $("#reg-form").css("-webkit-transform", "translate(0%," + "470px)");
+        $("#reg-form").css("-moz-transform", "translate(0%," + "470px)");
+        $("#reg-form").css("-ms-transform", "translate(0%," + "470px)");
+        $("#reg-form").css("-o-transform", "translate(0%," + "470px)");
         return false;
     });
 

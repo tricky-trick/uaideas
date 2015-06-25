@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function(){
 
     var expires = new Date();
     expires.setTime(expires.getTime() - (7 * 24 * 60 * 60 * 1000));
@@ -23,6 +23,7 @@ $(document).ready(function() {
     var is_banned;
     var liked_ideas;
     var created_ideas;
+    var isEditMode = false;
 
     function getUser(userId, userMail) {
         var dataGetUserStatus = "user_id=" + userId + "&email=" + userMail + "&ban=0";
@@ -64,10 +65,10 @@ $(document).ready(function() {
     getUser("", mail);
 
     if (!is_confirmed) {
-        $("#top-panel-menu td:nth-child(2)").append('<img src="img/alert.png" style="height: 7%; width: auto; display: inline-block; cursor: pointer"/>');
+        $("#top-panel-menu td:nth-child(2)").append('<img src="img/alert.png" style="height: 18px; width: auto; display: inline-block; cursor: pointer"/>');
     }
     else if(is_banned){
-        $("#top-panel-menu td:nth-child(2)").append('<img src="img/alert.png" style="height: 7%; width: auto; display: inline-block; cursor: pointer"/>');
+        $("#top-panel-menu td:nth-child(2)").append('<img src="img/alert.png" style="height: 18px; width: auto; display: inline-block; cursor: pointer"/>');
     }
 
     /*
@@ -83,6 +84,11 @@ $(document).ready(function() {
 
     $("#region-select").change(function(){
         var cityName = $("#search-city");
+        cityName.val("");
+    });
+
+    $("#new-idea-region-select").change(function(){
+        var cityName = $("#new-idea-search-city");
         cityName.val("");
     });
 
@@ -130,80 +136,60 @@ $(document).ready(function() {
         var categoryId = $("#category-select").find(":selected").index();
         var sortId = $("#sort-select").find(":selected").index();
 
-        var dataGetCityId = "region_id=" + regionId + "&city_name=" + cityName;
+        var dataGetIdeas = "";
+        if(dataString == undefined) {
+            dataGetIdeas = "region_id=" + regionId + "&city_id=" + cityName + "&user_id=" + userId + "&category_id=" + categoryId + "&sort_by="
+                + sortId + "&limit=" + limitIndex.attr("index") + "," + limitCount;
+        }
+        else{
+            dataGetIdeas = dataString;
+        }
+        limitIndex.attr("index", String(parseInt(limit) + parseInt(limitCount)));
 
-        var getCity = $.ajax({
+        var getIdeas = $.ajax({
             type: "GET",
-            url: "api/city.php",
-            data: dataGetCityId,
+            url: "api/ideas.php",
+            data: dataGetIdeas,
             dataType: 'json',
             status: 200,
             statusText: "OK",
             cache: false
         });
+        getIdeas.done(function (datas) {
+            if (datas['count'] == 0) {
+                $("#load-another-content").attr("disabled", "true");
+                $("#no-ideas-text").remove();
+                $("#ideas-content").append("<br><div id='no-ideas-text' style='width: 90%; margin-left: 5%; margin-top: 20px; text-align: center; font-family:  tahoma, arial, verdana, sans-serif, \"Lucida Sans\";'>Більше об'єктів не знайдено.<div>");
+            }
+            else {
+                $("#load-another-content").removeAttr("disabled");
+                var ideas = datas['0'];
+                for (var i = 0; i < ideas.length; i++) {
+                    content.append(
+                        "<li index=\"" + ideas[i]['id'] +"\">" +
+                            "<div class=\"left-side-block\">" +
+                            "<div class=\"image-ideas-item-" + ideas[i]['category'] + " image-ideas-item\">" +
+                            "</div>" +
+                            "<br>" +
+                            "<span class=\"info-ideas-item\">" +
+                                "<img src=\"img/like1.png\" class=\"like-icon\"> " +
+                                "<span class=\"info-ideas-item-like\">" + ideas[i]['rating'] + "</span>" +
+                                "<br><br><span style=\"color: darkgrey; font-size: 12px\">від " + ideas[i]['date'] + "</span>" +
+                            "</span>" +
+                            "<span class=\"id-ideas-item\"></span>" +
+                            "</div>" +
+                            "<div class=\"right-side-block\">" +
+                            "<span class=\"subject-ideas-item\"><br>" +
+                            ideas[i]['subject'] +
+                            "</span>" +
+                            "<br> <br>" +
+                            "<span class=\"description-ideas-item\">" +
+                            ideas[i]['description'].replace(/\(AND\)/g,"&").substring(0,100) +
+                            "...</span> </div> " +
+                        "</li>");
 
-        getCity.done(function (datas) {
-            var cityId = datas['city_id'];
-            if(cityId == null) {
-                cityId = "";
-            }
-            var dataGetIdeas = "";
-            if(dataString == undefined) {
-                dataGetIdeas = "region_id=" + regionId + "&city_id=" + cityId + "&user_id=" + userId + "&category_id=" + categoryId + "&sort_by="
-                    + sortId + "&limit=" + limitIndex.attr("index") + "," + limitCount;
-            }
-            else{
-                dataGetIdeas = dataString;
-            }
-            limitIndex.attr("index", String(parseInt(limit) + parseInt(limitCount)));
-
-            var getIdeas = $.ajax({
-                type: "GET",
-                url: "api/ideas.php",
-                data: dataGetIdeas,
-                dataType: 'json',
-                status: 200,
-                statusText: "OK",
-                cache: false
-            });
-            getIdeas.done(function (datas) {
-                if (datas['count'] == 0) {
-                    $("#load-another-content").attr("disabled", "true");
-                    $("#no-ideas-text").remove();
-                    $("#ideas-content").append("<br><div id='no-ideas-text' style='width: 90%; margin-left: 5%; margin-top: 20px; text-align: center; font-family:  tahoma, arial, verdana, sans-serif, \"Lucida Sans\";'>Більше об'єктів не знайдено.<div>");
                 }
-                else {
-                    $("#load-another-content").removeAttr("disabled");
-                    var ideas = datas['0'];
-                    for (var i = 0; i < ideas.length; i++) {
-                        content.append(
-                            "<li index=\"" + ideas[i]['id'] +"\">" +
-                                "<div class=\"left-side-block\">" +
-                                "<div class=\"image-ideas-item-" + ideas[i]['category'] + " image-ideas-item\">" +
-                                "</div>" +
-                                "<br>" +
-                                "<span class=\"info-ideas-item\">" +
-                                    "<img src=\"img/like1.png\" class=\"like-icon\"> " +
-                                    "<span class=\"info-ideas-item-like\">" + ideas[i]['rating'] + "</span>" +
-                                    "<br><br><span style=\"color: darkgrey; font-size: 12px\">від " + ideas[i]['date'] + "</span>" +
-                                "</span>" +
-                                "<span class=\"id-ideas-item\"></span>" +
-                                "</div>" +
-                                "<div class=\"right-side-block\">" +
-                                "<span class=\"subject-ideas-item\"><br>" +
-                                ideas[i]['subject'] +
-                                "</span>" +
-                                "<br> <br>" +
-                                "<span class=\"description-ideas-item\">" +
-                                ideas[i]['description'].replace(/\(AND\)/g,"&").substring(0,100) +
-                                "...</span> </div> " +
-                            "</li>");
-
-                    }
-                }
-
-            });
-
+            }
 
         });
         $("#spinner-ideas-load").css("display", "none");
@@ -215,12 +201,39 @@ $(document).ready(function() {
     Perform search
      */
 
-    $("#search-submit").click(function () {
+    $("#region-select").change(function () {
         content.empty();
         limitIndex.attr("singleuser", "false");
         limitIndex.attr("index", "0");
         searchIdeas(0, "");
     });
+    $(document).on("click",".ui-menu-item", function () {
+        content.empty();
+        limitIndex.attr("singleuser", "false");
+        limitIndex.attr("index", "0");
+        searchIdeas(0, "");
+    });
+    $("#search-city").focusout(function () {
+        if($(this).val() != "") {
+            content.empty();
+            limitIndex.attr("singleuser", "false");
+            limitIndex.attr("index", "0");
+            searchIdeas(0, "");
+        }
+    });
+    $("#category-select").change(function () {
+        content.empty();
+        limitIndex.attr("singleuser", "false");
+        limitIndex.attr("index", "0");
+        searchIdeas(0, "");
+    });
+    $("#sort-select").change(function () {
+        content.empty();
+        limitIndex.attr("singleuser", "false");
+        limitIndex.attr("index", "0");
+        searchIdeas(0, "");
+    });
+
 
 
     /*
@@ -271,8 +284,8 @@ $(document).ready(function() {
                 $("#s-top-side-panel").css("top", "45px");
                 addNewIdea.css("top", "70px");
             }
+            lastScrollTop = st;
         }
-        //lastScrollTop = st;
     });
 
 
@@ -287,12 +300,14 @@ $(document).ready(function() {
     var layerWrapperEditProfile = $("#layer-wrapper-edit-profile");
     var ideasSubject = $("#ideas-subject-layer");
     var ideasDescription = $("#ideas-description-layer>textarea");
+    var ideasDescriptionDiv = $("#ideas-description-layer div");
     var ideasDate = $("#date-layer");
     var ideasLike = $("#like-layer");
     var ideasAuthor = $("#author-layer");
     var ideasPhotos = $("#idea-photo-area");
     var likeIcon = $("#like-icon-layer");
     var editIcon = $("#edit-icon-layer");
+    var doneIcon = $("#done-icon-layer");
     var removeIcon = $("#remove-icon-layer");
     var commentsList = $("#ideas-comments-layer");
     var addNewIdea = $("#add-new-idea-button");
@@ -320,17 +335,35 @@ $(document).ready(function() {
             var idea = datas['0'][0];
             ideasSubject.text(idea['subject']);
             ideasDescription.val(idea['description'].replace(/\(AND\)/g,"&"));
+            ideasDescriptionDiv.html(idea['description'].replace(/\(AND\)/g,"&").replace(/\n/g,"<p>"));
             ideasDate.text("від " + idea['date']);
-            ideasLike.text("Підтримало " + idea['rating'] + " людей");
+            var likeText = "";
+            if(idea['raiting'] == "1"){
+                likeText = "Сподобалося " + idea['rating'] + " людині"
+            }
+            else{
+                likeText = "Сподобалося " + idea['rating'] + " людям"
+            }
+            ideasLike.text(likeText);
             var photos = idea['files'];
             ideasPhotos.empty();
-            if (photos.length > 0) {
+            if (photos.trim().length > 0) {
                 {
-                    for (var i = 0; i < photos.split(' ').length; i++) {
-                        ideasPhotos.append("<div style= \"background-image: url('uploaded_images/" + photos.split(' ')[i] + "')\"></div>");
+                    ideasPhotos.append("<div id=\"spinner-load\" style= \"background-image: url(img/spinner.gif)\">" +
+                        "<img class=\"remove-photo\" src=\"img/whitetrash-ico.png\">" +
+                        "</div>");
+                    for (var i = 0; i < photos.trim().split(' ').length; i++) {
+                        var p = photos.trim().split(' ')[i];
+                        if(p.trim() != "") {
+                            ideasPhotos.append("<div style= \"background-image: url('uploaded_images/" + p + "')\">" +
+                                "<img class=\"remove-photo\" src=\"img/whitetrash-ico.png\">" +
+                                "</div>");
+                        }
                     }
                 }
+                $("#spinner-load").remove();
             }
+            
             coordGet = idea['coord'];
 
 
@@ -340,7 +373,7 @@ $(document).ready(function() {
                 type: "GET",
                 url: "api/users.php",
                 data: dataGetAuthor,
-                async: false,
+                //async: false,
                 dataType: 'json',
                 status: 200,
                 statusText: "OK",
@@ -385,7 +418,7 @@ $(document).ready(function() {
                     url: "api/comments.php",
                     data: dataGetComments,
                     dataType: 'json',
-                    async: false,
+                    //async: false,
                     status: 200,
                     statusText: "OK",
                     cache: false
@@ -426,18 +459,37 @@ $(document).ready(function() {
         });
     }
 
+    function mapInit(){
+        initialize(coordGet, 15, 'map-canvas-idea');
+        var myLatlng = new google.maps.LatLng(parseFloat(coordGet.split(',')[0]), parseFloat(coordGet.split(',')[1]));
+        marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            animation: google.maps.Animation.DROP
+        });
+
+        marker.setMap(map);
+
+        var infoContent = "<div>" + coordGet + "</div>" +
+            "<br>" +
+            "<a href='https://www.google.com.ua/maps/place/" + coordGet + "' target='_blank'>Показати на великій мапі</a>"
+
+        var infowindow = new google.maps.InfoWindow({
+            content: infoContent
+        });
+
+        google.maps.event.addListener(marker, 'click', function() {
+            infowindow.open(map,marker);
+        });
+    }
+
     showMapIdea.click(function(){
         if(showMapIdea.text() == "Показати на мапі") {
             $("#map-idea").css("height", "400px");
             showMapIdea.text("Сховати мапу");
-            initialize(coordGet, 15, 'map-canvas-idea');
-            var myLatlng = new google.maps.LatLng(parseFloat(coordGet.split(',')[0]), parseFloat(coordGet.split(',')[1]));
-            marker = new google.maps.Marker({
-                position: myLatlng,
-                map: map,
-                animation: google.maps.Animation.DROP
-            });
-            marker.setMap(map);
+            mapInit();
+            setTimeout(function(){mapInit()}, 500);
+
         }
         else{
             $("#map-idea").css("height", "0px");
@@ -492,9 +544,9 @@ $(document).ready(function() {
     $(document).on("click","#list-ideas-content li", function () {
         index = $(this).attr('index');
         $("body").css("overflow-y", "hidden");
-        $("#spinner-idea-load").css("display", "block");
         layerBg.css("display", "block");
         layerWrapper.css("display", "block");
+        $("#spinner-idea-load").css("display", "block");
         profilePopup.css("display", "none");
 
         getIdea(index);
@@ -506,7 +558,9 @@ $(document).ready(function() {
         var val = ideasDescription.val().length / (ideasDescription.width()/10);
 
 
-        ideasDescription.attr('rows',val);
+        //ideasDescription.attr('rows',val);
+        ideasDescription.attr('rows',String(Math.round(val)-5));
+
 
         //var styleBigPhoto = $("#idea-big-photo-area").attr("style");
         //if(styleBigPhoto == undefined)
@@ -514,11 +568,14 @@ $(document).ready(function() {
 
     });
 
-    $(document).on("click","#idea-photo-area div", function () {
-        var srcImg = $(this).css("background-image");
-        srcImg = srcImg.replace("url(", "").replace(")", "");
-        $("#idea-big-photo-area").empty();
-        $("#idea-big-photo-area").append("<img src=" + decodeURIComponent(srcImg) + " style='width: 100%; height auto' />");
+    $(document).on("click","#idea-photo-area div", function (e) {
+        if( e.target == this ) {
+            var srcImg = $(this).css("background-image");
+            srcImg = srcImg.replace("url(", "").replace(")", "");
+            $("#big-img").remove();
+            $("#idea-big-photo-area").append("<img id=\"big-img\" src=" + decodeURIComponent(srcImg) + " style='width: 100%; height auto' ></img>");
+            $("#icon-close").css("display", "block");
+        }
     });
 
     /*
@@ -526,23 +583,31 @@ $(document).ready(function() {
      */
 
     function closeLayerWindow(){
-        layerBg.css("display", "none");
-        layerWrapper.css("display", "none");
-        layerWrapperNewIdea.css("display", "none");
-        layerWrapperEditProfile.css("display", "none");
-        $("#map").css("height", "0px");
-        $("#map-idea").css("height", "0px");
-        $("body").css("overflow-y", "auto");
-        $("#idea-big-photo-area").empty();
-        showMapIdea.text("Показати на мапі");
+        if (!isEditMode) {
+            layerBg.css("display", "none");
+            layerWrapper.css("display", "none");
+            layerWrapperNewIdea.css("display", "none");
+            layerWrapperEditProfile.css("display", "none");
+            $("#map").css("height", "0px");
+            $("#spinner-map-load").css("display", "none");
+            $("#map-idea").css("height", "0px");
+            $("body").css("overflow-y", "auto");
+            $("#big-img").remove();
+            showMapIdea.text("Показати на мапі");
+        }
+        else{
+            showPopUp("Будь ласка, збережіть Ваші зміни спершу.", doneIcon);
+            dismissPopUp();
+        }
     }
 
     $(".close-layer").click(function(){
         closeLayerWindow();
     });
 
-    layerBg.click(function(){
-        closeLayerWindow();
+    $("#icon-close").click(function(){
+        $("#big-img").remove();
+        $(this).css("display", "none");
     });
 
     /*
@@ -649,7 +714,14 @@ $(document).ready(function() {
             if (likeIndex >= 0) {
                 likeCount--;
                 likeIcon.css("opacity", "0.3");
-                ideasLike.text("Підтримало " + likeCount + " людей");
+                var likeText = "";
+                if(likeCount == 1){
+                    likeText = "Сподобалося " + likeCount + " людині"
+                }
+                else{
+                    likeText = "Сподобалося " + likeCount + " людям"
+                }
+                ideasLike.text(likeText);
                 $("li[index='" + index + "'] .info-ideas-item-like").html(likeCount);
                 likedIdeas.splice(likeIndex, 1);
 
@@ -713,7 +785,14 @@ $(document).ready(function() {
             else {
                 likeCount++;
                 likeIcon.css("opacity", "1");
-                ideasLike.text("Підтримало " + likeCount + " людей");
+                var likeText = "";
+                if(likeCount == 1){
+                    likeText = "Сподобалося " + likeCount + " людині"
+                }
+                else{
+                    likeText = "Сподобалося " + likeCount + " людям"
+                }
+                ideasLike.text(likeText);
                 $("li[index='" + index + "'] .info-ideas-item-like").text(likeCount);
                 likedIdeas.push(index);
                 var newArrayLikedIdeas = likedIdeas.join();
@@ -785,6 +864,7 @@ $(document).ready(function() {
             layerBg.css("display", "block");
             layerWrapperNewIdea.css("display", "block");
             $("body").css("overflow-y", "hidden");
+
         }
         else{
             if(!is_confirmed){
@@ -833,25 +913,41 @@ $(document).ready(function() {
         }
     });
 
-    newIdeaCoordinate.click(function(){
-        $("#map").css("height", "400px");
-        initialize("49.508577, 31.336679", 6, 'map-canvas');
-        function clearOverlays() {
-            for (var i = 0; i < markersArray.length; i++ ) {
-                markersArray[i].setMap(null);
-            }
+    function clearOverlays() {
+        for (var i = 0; i < markersArray.length; i++ ) {
+            markersArray[i].setMap(null);
         }
+    }
 
-        google.maps.event.addListener(map, 'click', function(event) {
+    newIdeaCoordinate.click(function(){
+        $("#spinner-map-load").css("display", "inline");
+        $("#map").css("height", "400px");
+        initiate_geolocation();
+            google.maps.event.addListener(map, 'click', function(event) {
+                clearOverlays();
+                marker = new google.maps.Marker({
+                    position: event.latLng,
+                    map: map,
+                    draggable:true,
+                    animation: google.maps.Animation.DROP});
+                markersArray.push(marker);
+                marker.setMap(map);
+                coord = String(event.latLng).replace("(","").replace(")","");
+            });
+    });
+
+    $("#map-canvas").click(function() {
+        google.maps.event.addListener(map, 'click', function (event) {
             clearOverlays();
             marker = new google.maps.Marker({
                 position: event.latLng,
                 map: map,
-                draggable:true,
-                animation: google.maps.Animation.DROP});
+                draggable: true,
+                animation: google.maps.Animation.DROP
+            });
             markersArray.push(marker);
             marker.setMap(map);
-            coord = String(event.latLng).replace("(","").replace(")","");
+            coord = String(event.latLng).replace("(", "").replace(")", "");
         });
     });
 
@@ -1060,6 +1156,10 @@ $(document).ready(function() {
         }
     });
 
+    $("#popup").click(function(){
+        $(this).css("display", "none");
+    });
+
     var profilePopup = $("#my-profile");
 
     $("#profile-link").click(function(){
@@ -1101,11 +1201,44 @@ $(document).ready(function() {
         },200);
     });
 
+    function mapInitEdit(){
+        initialize(coordGet, 15, 'map-canvas-idea');
+        google.maps.event.addListener(map, 'click', function(event) {
+            clearOverlays();
+            marker = new google.maps.Marker({
+                position: event.latLng,
+                map: map,
+                draggable:true,
+                animation: google.maps.Animation.DROP});
+            markersArray.push(marker);
+            marker.setMap(map);
+            coord = String(event.latLng).replace("(","").replace(")","");
+            coordGet = coord;
+        });
+    }
+
     editIcon.click(function(){
+        isEditMode = true;
+        ideasDescription.css("display", "inline");
+        ideasDescriptionDiv.css("display", "none");
         ideasDescription.removeAttr("readonly");
         ideasDescription.focus();
         ideasDescription.css("background-color","#FDFDFD");
         ideasDescription.css("border","1px solid lightgray");
+        $("#upimage-container-edit").css("display", "block");
+        $(".remove-photo").css("display", "block");
+        doneIcon.css("display", "inline");
+        $(this).css("opacity", "1");
+        $("#uploadimage-edit").remove();
+        coordGet =  coordGet != undefined && coordGet != null && coordGet != "" ? coordGet : "48.804463, 31.776132";
+        showMapIdea.css("display", "none");
+        $("#map-idea").css("height", "400px");
+        mapInitEdit();
+        setTimeout(function(){mapInitEdit()}, 500);
+        $("#idea-photo-area").append("<form id=\"uploadimage-edit\" action=\"\" method=\"post\" enctype=\"multipart/form-data\" style=\"display:inline-block; height: 90px\">" +
+                                     "<div id=\"upimage-container-edit\" style=\"display: inline-block;\">" +
+                                     "<span id=\"uploaded-imgs-edit\">Завантажити фото</span><br><img src=\"img/spinner.gif\" id=\"add-images-spinner\" style=\"display:none\"/><input type=\"file\" name=\"file[]\" id=\"new-idea-image-upload-edit\" multiple  />"+
+                                     "<br> </div> </form>");
     });
 
     function replaceStyleAttr (str) {
@@ -1122,87 +1255,6 @@ $(document).ready(function() {
         return str.replace(/<\/?(\w+)\s*[\w\W]*?>/g, '');
     }
 
-
-    ideasDescription.focusout(function(){
-        getUser("", mail);
-
-        var dataGetIdeasByAuthrId = "user_id=" + user_id;
-
-        var getIdeas = $.ajax({
-            type: "GET",
-            url: "api/ideas.php",
-            data: dataGetIdeasByAuthrId,
-            dataType: 'json',
-            async: false,
-            status: 200,
-            statusText: "OK",
-            cache: false
-        });
-
-        getIdeas.done(function (datas) {
-            var ideas = datas['0'];
-            var isCreated = false;
-            for (var i = 0; i < ideas.length; i++) {
-                if (ideas[i]['author'] == user_id) {
-                    isCreated = true;
-                }
-            }
-
-            if (isCreated == true) {
-                if(ideasDescription.attr("readonly") != "readonly"){
-                //TODO
-                var description = ideasDescription.val().replace(new RegExp("&","g"),"(AND)");
-
-                //.replace(new RegExp("&lt;", "g"),"<")
-                //.replace(new RegExp("&gt;", "g"),">")
-                //.replace(/(<[^>]*>)/g, "<br>")
-                //.replace(/&lt*;.*&gt*;/g, "");
-                //.replace(new RegExp("<br><br>", "g"),"<br>");
-
-                if (description.trim() == "") {
-                    showPopUp("Додайте опис", ideasDescription);
-                    dismissPopUp();
-                }
-                else {
-                    if (description.length < 50) {
-                        showPopUp("Опис повинен містити хоча б 50 символів", ideasDescription);
-                        dismissPopUp();
-                    }
-                    else {
-                        var putUpdatedIdeas = $.ajax({
-                            type: "PUT",
-                            url: "api/ideas.php",
-                            data: "id=" + index + "&description_text=" + description,
-                            dataType: 'json',
-                            async: false,
-                            status: 200,
-                            statusText: "OK",
-                            cache: false
-                        });
-
-                        putUpdatedIdeas.done(function (datas) {
-                            var isUpdated = datas['is_updated'];
-                            if (isUpdated == "true") {
-                                ideasDescription.css("background-color", "#C6FCD9");
-                                setTimeout(function () {
-                                    ideasDescription.css("background-color", "#FFFFFF");
-                                }, 1000);
-                                ideasDescription.attr("readonly", "readonly");
-                                ideasDescription.css("border","none");
-
-                                var text = description,
-                                    matches = text.match(/\n/g),
-                                    breaks = matches ? matches.length : 2;
-
-                                ideasDescription.attr('rows',breaks + 2);
-                            }
-                        });
-                    }
-                }
-            }
-        }
-        });
-    });
 
     removeIcon.click(function(){
         getUser("", mail);
@@ -1384,5 +1436,273 @@ $(document).ready(function() {
             }
         }
     });
-});
 
+    $(document).on('change', "#new-idea-image-upload-edit",function() {
+        $("#add-images-spinner").css("display", "inline");
+        var dataGetIdea = "id=" + index;
+
+        var getIdea = $.ajax({
+            type: "GET",
+            url: "api/ideas.php",
+            //async: false,
+            data: dataGetIdea,
+            dataType: 'json',
+            status: 200,
+            statusText: "OK",
+            cache: false
+        });
+
+        getIdea.done(function(datas) {
+            var idea = datas['0'][0];
+            var photo = idea['files'].trim();
+            var photoSize;
+
+            if(photo == ""){
+                photoSize = 0;
+            }
+            else{
+                photoSize = photo.split(' ').length;
+            }
+
+            var arr = [];
+            var err;
+            var parent = $("#new-idea-image-upload-edit");
+            if (parent.get(0).files.length + photoSize > 10 ) {
+                showPopUp("Ви можете додати не більше " + String(parseInt(10 - photoSize)) + " зображень", $("#new-idea-image-upload-edit"));
+                dismissPopUp();
+                parent.val("");
+            }
+            else {
+                for (var i = 0; i < parent.get(0).files.length; ++i) {
+                    var name = parent.get(0).files.item(i).name;
+                    var type = parent.get(0).files.item(i).type;
+                    var match = ["image/jpeg", "image/png", "image/jpg"];
+
+                    if ((type == match[0]) || (type == match[1]) || (type == match[2])) {
+                        arr.push(name);
+                    }
+                    else {
+                        err = "error";
+                    }
+
+                }
+
+                if (err == "error") {
+                    showPopUp("Формат файлів може бути: png, jpeg, jpg", $("#uploaded-imgs-edit"));
+                    dismissPopUp();
+                }
+                else {
+                    $("#uploaded-imgs-edit").text(arr);
+                    $("#add-images-spinner").css("display", "none");
+                }
+            }
+        });
+    });
+
+    $(document).on("click",".remove-photo", function () {
+        var parentDiv = $(this).parent();
+        var bg = parentDiv.css('background-image');
+        bg = bg.replace('url(','').replace(')','');
+        var photoName = bg.split('/')[5] != undefined ? bg.split('/')[5] : bg.split('/')[4];
+
+
+        photoName = decodeURIComponent(photoName);
+
+        //alert(photoName);
+
+        //getUser("", mail);
+        var dataGetIdea = "id=" + index;
+
+        var getIdea = $.ajax({
+            type: "GET",
+            url: "api/ideas.php",
+            async: false,
+            data: dataGetIdea,
+            dataType: 'json',
+            status: 200,
+            statusText: "OK",
+            cache: false
+        });
+
+        getIdea.done(function(datas) {
+            var idea = datas['0'][0];
+            var photo = idea['files'];
+
+            photo = photo.replace(photoName + " ", '').replace(" " + photoName, '').replace(photoName, '');
+
+            var dataUpdateIdea ="id=" + index + "&files= " + photo;
+
+            var updateIdea = $.ajax({
+                type: "PUT",
+                url: "api/ideas.php",
+                async: false,
+                data: dataUpdateIdea,
+                dataType: 'json',
+                status: 200,
+                statusText: "OK",
+                cache: false
+            });
+
+            updateIdea.done(function(datas) {
+                var isUpdated = datas['is_updated'];
+                if (isUpdated == "true") {
+                    parentDiv.remove();
+                    $("#idea-big-photo-area").empty();
+                }
+            });
+        });
+
+    });
+
+
+    doneIcon.click(function(){
+        if(ideasDescription.attr("readonly") != "readonly") {
+
+            var description = ideasDescription.val().replace(new RegExp("&", "g"), "(AND)");
+
+            //.replace(new RegExp("&lt;", "g"),"<")
+            //.replace(new RegExp("&gt;", "g"),">")
+            //.replace(/(<[^>]*>)/g, "<br>")
+            //.replace(/&lt*;.*&gt*;/g, "");
+            //.replace(new RegExp("<br><br>", "g"),"<br>");
+
+            if (description.trim() == "") {
+                showPopUp("Додайте опис", ideasDescription);
+                dismissPopUp();
+            }
+            else {
+                if (description.length < 50) {
+                    showPopUp("Опис повинен містити хоча б 50 символів", ideasDescription);
+                    dismissPopUp();
+                }
+                else {
+                    doneIcon.css("display", "none");
+                    $("#spinner-icon-layer").css("display", "inline");
+                    setTimeout(function () {
+                        $(".remove-photo").css("display", "none");
+                        editIcon.css("opacity", "0.3");
+                        $(this).css("display", "none");
+                        //updateDescription();
+
+                        var dataGetIdea = "id=" + index;
+
+                        var getIdea = $.ajax({
+                            type: "GET",
+                            url: "api/ideas.php",
+                            //async: false,
+                            data: dataGetIdea,
+                            dataType: 'json',
+                            status: 200,
+                            statusText: "OK",
+                            cache: false
+                        });
+
+                        getIdea.done(function (datas) {
+                            var idea = datas['0'][0];
+                            var photo = idea['files'];
+
+                            var newIdeaUploadFile = document.getElementById('new-idea-image-upload-edit');
+
+                            if (newIdeaUploadFile.files.length > 10) {
+                                showPopUp("Ви можете додати не більше 10 зображень", newIdeaUploadFile);
+                                dismissPopUp();
+                            }
+                            else {
+                                var matchError = ""
+                                var match = ["image/jpeg", "image/png", "image/jpg"];
+                                for (var i = 0; i < newIdeaUploadFile.files.length; i++) {
+                                    var imagefile = newIdeaUploadFile.files[i].type;
+                                    if ((imagefile != match[0]) && (imagefile != match[1]) && (imagefile != match[2])) {
+                                        matchError += "e";
+                                    }
+                                }
+
+                                if (matchError.length > 0) {
+                                    showPopUp("Формат файлів може бути: png, jpeg, jpg", newIdeaAddButton);
+                                    dismissPopUp();
+                                }
+                                else {
+                                    var newIdeaUploadFile = document.getElementById('new-idea-image-upload-edit');
+                                    var form = document.getElementById('uploadimage-edit');
+                                    var formData = new FormData(form);
+                                    var files = "";
+                                    var uiid = guid();
+
+                                    for (var j = 0; j < newIdeaUploadFile.files.length; j++) {
+                                        var name = uiid + "_" + newIdeaUploadFile.files.item(j).name.replace(/ /g, "_");
+                                        files += name + " ";
+                                    }
+
+                                    formData.append("uiid", uiid);
+
+                                    var uploadImages = $.ajax({
+                                        url: "upload_images.php",
+                                        type: "POST",
+                                        data: formData,
+                                        dataType: 'json',
+                                        //async:false,
+                                        contentType: false,
+                                        cache: false,
+                                        processData: false
+                                    });
+
+                                    uploadImages.done(function (datas) {
+                                        var uploadedF = datas['uploaded_files'];
+
+                                        uploadedF = uploadedF != null ? uploadedF : "";
+
+                                        var dataUpdateIdea = uploadedF == "" ? "id=" + index + "&coord=" + coord + "&description_text=" + description + "&files=" : "id=" + index + "&description_text=" + description + "&files= " + uploadedF.trim().replace(/ +/g, " ") + " " + photo.trim().replace(/ +/g, " ");
+
+                                        if (uploadedF.replace(/й|і/g, "и").replace(/̆/g, "") == files.replace(/й|і/g, "и").replace(/̆/g, "")) {
+
+                                            var updateIdea = $.ajax({
+                                                type: "PUT",
+                                                url: "api/ideas.php",
+                                                //async: false,
+                                                data: dataUpdateIdea,
+                                                dataType: 'json',
+                                                status: 200,
+                                                statusText: "OK",
+                                                cache: false
+                                            });
+
+                                            updateIdea.done(function (datas) {
+                                                var isUpdated = datas['is_updated'];
+                                                if (isUpdated == "true") {
+                                                    if (uploadedF != "") {
+                                                        for (var j = 0; j < uploadedF.trim().split(' ').length; j++) {
+                                                            ideasPhotos.append("<div style= \"background-image: url('uploaded_images/" + uploadedF.trim().split(' ')[j] + "')\">" +
+                                                                "<img class=\"remove-photo\" src=\"img/whitetrash-ico.png\">" +
+                                                                "</div>");
+                                                        }
+                                                    }
+                                                    ideasDescription.css("display", "none");
+                                                    ideasDescriptionDiv.css("display", "inline");
+                                                    ideasDescriptionDiv.html(ideasDescription.val().replace(/\n/g,"<p>"));
+                                                    ideasDescriptionDiv.css("background-color", "#C6FCD9");
+                                                    setTimeout(function () {
+                                                        ideasDescriptionDiv.css("background-color", "#FFFFFF");
+                                                    }, 1000);
+                                                    ideasDescription.attr("readonly", "readonly");
+                                                    ideasDescription.css("border","none");
+                                                    $("#map-idea").css("height", "0px");
+                                                    showMapIdea.text("Показати на мапі");
+                                                    showMapIdea.css("display", "block");
+
+                                                    $("#spinner-icon-layer").css("display", "none");
+                                                    $("#uploadimage-edit").remove();
+                                                    isEditMode = false;
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }, 50);
+                }
+            }
+        }
+    });
+
+});

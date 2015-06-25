@@ -6,7 +6,7 @@
     position: absolute;
     height: 360px;
     z-index: 1;
-    background: #ffffff;
+    background:rgba(255,255,255,0.6);
     border-radius: 1px;
     -webkit-transition: all 0.5s ease-out;
     -moz-transition: all 0.5s ease-out;
@@ -14,24 +14,21 @@
     -o-transition: all 0.5s ease-out;
     -webkit-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     -moz-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    -o-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
+    -ms-box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
     box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.75);
-}
-
-#login-form:hover{
-    opacity: 1;
 }
 
 #login-form{
     width: 50%;
     top: 100px;
-    left: 20%;
-    opacity: 0.9;
+    left: 25%;
 }
 
 #reg-form{
     width: 20%;
     top: 100px;
-    left: 50%;
+    left: 55%;
     opacity: 0;
 }
 
@@ -252,7 +249,7 @@ table td{
 }
 
 #footer{
-    color: #333;
+    color: white;
     width:10%;
     text-align: center;
     margin-left: 45%;
@@ -260,6 +257,48 @@ table td{
     top:95%;
     position: absolute;
 }
+
+#social-block{
+    background:rgba(255,255,255,0.1);
+    position: absolute;
+    top: 480px;
+    left: 25%;
+    height: 70px;
+    width: 50%;
+    z-index: 1;
+    border-radius: 1px;
+}
+
+#social-block table{
+    width: 80%;
+    margin-left: 10%;
+    height: 100%;
+}
+
+#social-block table td{
+    width: 20%;
+}
+
+#social-block table td img{
+    height: 65px;
+    border-radius: 50px;
+    opacity: 0.5;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -ms-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+}
+
+#social-block table td img:hover{
+    opacity: 0.9;
+    cursor: pointer;
+    -webkit-transform: translate(0,-3px); /* Safari */
+    -moz-transform: translate(0,-3px); /* Safari */
+    -ms-transform: translate(0,-3px); /* IE 9 */
+    -o-transform: translate(0,-3px); /* Safari */
+    transform: translate(0,-3px);
+}
+
 
 
 
